@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.plu.cs.farkle</groupId>
+  <artifactId>farkle-client</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+    <dependencies>
+  	 	<dependency>
+  		<groupId>org.jboss.resteasy</groupId>
+  		<artifactId>resteasy-client</artifactId>
+  		<version>${resteasy-version}</version>
+  	</dependency>
+  	  	  	<dependency>
+  		<groupId>org.jboss.resteasy</groupId>
+  		<artifactId>resteasy-jackson-provider</artifactId>
+  		<version>${resteasy-version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.11</version>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
+  
+  <properties>
+  	<exec.mainClass>edu.plu.cs.hello.HelloClient</exec.mainClass>
+  	<resteasy-version>3.0.13.Final</resteasy-version>
+  </properties>
+</project>
