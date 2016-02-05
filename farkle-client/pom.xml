@@ -24,7 +24,7 @@
   </dependencies>
   
   <properties>
-  	<exec.mainClass>edu.plu.cs.hello.HelloClient</exec.mainClass>
+  	<exec.mainClass>edu.plu.cs.farkle.client.PingPongClient</exec.mainClass>
   	<resteasy-version>3.0.13.Final</resteasy-version>
   </properties>
 </project>
