@@ -9,6 +9,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 
+import edu.plu.cs.farkle.server.resource.UserRegistration;
+
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticatorFilter implements ContainerRequestFilter {
@@ -20,6 +22,7 @@ public class AuthenticatorFilter implements ContainerRequestFilter {
 	 * nothing.
 	 */
 	public void filter(ContainerRequestContext request) throws IOException {
+		
 		
 		// Get the authorization header (if it exists)
 		String authorization = request.getHeaderString(HttpHeaders.AUTHORIZATION);
@@ -37,10 +40,13 @@ public class AuthenticatorFilter implements ContainerRequestFilter {
 		// Currently, this just checks to see if the header is the word "secret".  
 		// TODO: Update this to handle a username/password on initial authorization, and
 		//     session keys for session management.
-		if( authorization.equals("secret") )
+		if( UserRegistration.Users.contains(authorization))
 		{
 			// TODO: Create a "real" UserPrincipal
-			UserPrincipal user = new UserPrincipal("dummy-user");
+			UserPrincipal user = new UserPrincipal(authorization);
+			/*
+			 * Create session management with keys
+			 */
 			request.setSecurityContext(new FarkleSecurityContext(user, secure));
 		}		
 	}

@@ -2,9 +2,13 @@ package edu.plu.cs.farkle.client;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -39,7 +43,7 @@ public class PingPongClient {
 
 			// Attempt a second request with the Authorization header
 			builder = target.request();
-			builder = builder.header(HttpHeaders.AUTHORIZATION, "secret");
+			builder = builder.header(HttpHeaders.AUTHORIZATION, "test");
 			response = builder.get(String.class);
 
 			// We expect the response to be JSON, so use the ObjectMapper to
@@ -50,12 +54,31 @@ public class PingPongClient {
 			System.out.println("\nResponse with Authorization header: ");
 			printResponse(node);
 			
+			Form form = new Form();
+	        form.param("name", "test");
+	        Entity<Form> entity1 = Entity.form(form);
+			Response response1 = client.target("http://localhost:8080/farkle/login")
+		            
+		            
+		            
+		            .request(MediaType.APPLICATION_JSON)
+		            
+		            .post(entity1);
+		            
+			 String value = response1.readEntity(String.class);
+		        System.out.println(value);
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// Make sure that we always close the client.
 			client.close();
 		}
+	
+	 
+		
 	}
 	
 	public static void printResponse( JsonNode node )

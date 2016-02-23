@@ -29,9 +29,11 @@ public class PingPongResource {
 	public String getPing( @Context SecurityContext ctx ) {
 		
 		// If the principal is null, then authentication failed.
-		String authString = "yes";
+		String authString;
 		if( ctx.getUserPrincipal() == null ) {
 			authString = "no";
+		} else {
+			 authString = ctx.getUserPrincipal().getName();
 		}
 		
 		String json = String.format("{ \"response\" : \"pong\", \"authenticated\" : \"%s\" }", authString );
