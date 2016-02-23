@@ -35,15 +35,19 @@ public class Client {
 		    		
 		    	}
 		    	if(stdIn.ready()) {
-		    		userInput = stdIn.readLine();
+		    		userInput = scan.nextLine();
 		    			out.println(userInput);
 		        
 		    	}
 		    	
 		    }
+		    
+		    
 		
 		} finally {
+			
 			sock.close();
+			scan.close();
 		}
 	}
 }
