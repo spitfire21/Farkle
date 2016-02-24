@@ -9,8 +9,35 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
+	 int GAME_SIZE = 3;
 	 Player currentPlayer;
 	 int numOfOnlinePlayers;
+	 String status;
+	 List<Player> players;
+	 int name;
+	 
+	 public Game(int name){
+		 status = "WAITING";
+		 this.name = name;
+		 players = new ArrayList<Player>();
+	 }
+	 public void addPlayer(Player p){
+		 players.add(p);
+		 if(players.size() > GAME_SIZE){
+			 p.output.println("GAME IS FULL");
+			 
+		 }
+		 if(players.size() == GAME_SIZE){
+			 status = "FULL";
+			 currentPlayer = players.get(0);
+			 start();
+		 }
+	 }
+	 private void start(){
+		 for (int i = 0; i < players.size(); i++){
+			 players.get(i).start();
+		 }
+	 }
 	 public boolean checkFarkle(List<Integer> dice){
 		 if(dice.contains(1)){
 			 return false;
@@ -161,24 +188,26 @@ public class Game {
         PrintWriter output;
         List<Integer> dice;
         List<Integer> storedDice;
-		public Player(Socket socket, int number) {
-			numOfOnlinePlayers++;
+		public Player(Socket socket) {
+			playerNumber = numOfOnlinePlayers++;
+			
 			this.socket = socket;
 			opponents = new ArrayList<Player>();
 			dice = new ArrayList<Integer>();
 			storedDice = new ArrayList<Integer>();
-			playerNumber = number;
 			stored = true;
+			
 			try {
                 input = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
                 output = new PrintWriter(socket.getOutputStream(), true);
-                output.println("WELCOME PLAYER NUMBER " + number);
+                output.println("WELCOME PLAYER NUMBER " + playerNumber);
                 output.println("MESSAGE Waiting for opponent to connect");
             } catch (IOException e) {
                 System.out.println("Player died: " + e);
             }
-			}
+			
+		}
 		public void addOpponent(Player opponent){
 			opponents.add(opponent);
 			}
@@ -186,7 +215,17 @@ public class Game {
 			return playerNumber;
 			}
 		 public void run() {
+			
 			 output.println("MESSAGE All players connected");
+			 for(int i = 0; i < players.size(); i++){
+	            	for (int y = 0; y < players.size(); y++ ){
+	            		if(players.get(i).getPlayerNumber() != y){
+	            			
+	            			players.get(i).addOpponent(players.get(y));
+	            		}
+	            	}
+				}
+			 status = "DONE";
 			 if(getPlayerNumber()==0)
 				 output.println("It is your turn to roll");
 			 try {
