@@ -7,6 +7,8 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import edu.plu.cs.farkle.server.auth.AuthenticatorFilter;
+import edu.plu.cs.farkle.server.resource.GameServer;
+import edu.plu.cs.farkle.server.resource.GameServlet;
 import edu.plu.cs.farkle.server.resource.PingPongResource;
 import edu.plu.cs.farkle.server.resource.UserRegistration;
 
@@ -31,6 +33,7 @@ public class FarkleServerApplication extends Application {
 		singletons.add( new PingPongResource() );  // Example resource, to be removed later
 		singletons.add(new UserRegistration());
 		singletons.add( new AuthenticatorFilter() );  // Authentication filter
+		singletons.add(new GameServlet());
 	}
 	
 	/**
