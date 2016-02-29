@@ -33,6 +33,7 @@
 	  		<scope>test</scope>
 	  	</dependency>
 	  	<dependency>
+
 	<groupId>org.eclipse.jetty.websocket</groupId>
 	<artifactId>websocket-server</artifactId>
 	<version>9.2.11.v20150529</version>
@@ -43,9 +44,13 @@
 <artifactId>javax-websocket-server-impl</artifactId>
  <version>9.2.11.v20150529</version>
 </dependency>
-	  	
-	  
-  	</dependencies>
+<dependency>
+	  		<groupId>org.mongodb</groupId>
+	  		<artifactId>mongodb-driver</artifactId>
+	  		<version>3.2.2</version>
+	  	</dependency>
+    </dependencies>
+
 
 	<build>
 		<plugins>
