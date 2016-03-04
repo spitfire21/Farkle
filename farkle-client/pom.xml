@@ -49,7 +49,7 @@
   </dependencies>
   
   <properties>
-  	<exec.mainClass>edu.plu.cs.farkle.client.PingPongClient</exec.mainClass>
+  	<exec.mainClass>edu.plu.cs.farkle.client.GameClient</exec.mainClass>
   	<resteasy-version>3.0.13.Final</resteasy-version>
   	<jetty.version>9.2.11.v20150529</jetty.version>
   </properties>

@@ -21,7 +21,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
  */
 @WebSocket
 	public class GameClient {
-	 	private static Session session;
+	 	private Session session;
 	    private static CountDownLatch latch;
 	 
 	    private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -63,12 +63,12 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 				Scanner scan = new Scanner(System.in);
 				String input;
 				while((input = scan.nextLine())!=null){
-					session.getRemote().sendString(input);
+					socket.session.getRemote().sendString(input);
 					
 				}
 			
 
-	        
+	        scan.close();
 	    }
 	
 		
