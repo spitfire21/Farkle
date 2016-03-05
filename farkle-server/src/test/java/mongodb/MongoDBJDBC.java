@@ -3,6 +3,7 @@
 package mongodb;
 
 import com.mongodb.MongoClient;
+
 import com.mongodb.client.MongoDatabase;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
@@ -16,7 +17,6 @@ import java.util.Locale;
 import static java.util.Arrays.asList;
 
 
-
 public class MongoDBJDBC {
 
 	public static void main(String[] args) {
@@ -28,12 +28,15 @@ public class MongoDBJDBC {
 			
          MongoDatabase db = mongoClient.getDatabase("farkle");
          
+         MongoUser mu = new MongoUser();
          
-        db.getCollection("users").insertOne(
+      System.out.println( mu.createUser(db, "mickey", "pw"));
+         
+       /* db.getCollection("users").insertOne(
         		new Document()
         			.append("username","user1")
         			.append("password", "pw1")
-        );
+        ); */
         
         db.getCollection("users").insertOne(
         		new Document()

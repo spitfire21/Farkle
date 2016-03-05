@@ -1,0 +1,41 @@
+Resources: https://www.mongodb.com/blog/post/thinking-documents-part-1
+http://mongodb.github.io/mongo-java-driver/2.13/getting-started/quick-tour/#getting-started-with-java-driver
+
+https://docs.mongodb.org/manual/mongo/
+
+Types: https://docs.mongodb.org/manual/reference/bson-types/
+
+Document Draft: Farkle-App A schema for the mongodb. Mongo doesn't technically have schemas but I figured it would be good to make a guideline
+FarkleGame
+	{
+		LeaderBoard: 
+			[ {
+					username: String, 
+					number of wins: int,
+					rules of game 
+				} ]
+		
+		
+	}
+	
+User:
+	{
+		username: string,
+		password: string,
+		highscores:
+			[{ 
+				score: int
+			}]
+		settings: 
+			[ { 
+					setting_name: String,
+					on: int*
+				} ],
+		logged-in: bool	
+	}
+	
+	
+	
+*I figured making an int instead of a bool so we can handle ai difficulty. 
+0 is off, 1 is on, 2-n is AI difficulty
+	
