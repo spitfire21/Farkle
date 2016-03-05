@@ -1,5 +1,8 @@
 package edu.plu.cs.farkle.server.core;
 
+import io.jsonwebtoken.impl.crypto.MacProvider;
+
+import java.security.Key;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +21,7 @@ import edu.plu.cs.farkle.server.resource.UserRegistration;
  */
 @ApplicationPath("/farkle")
 public class FarkleServerApplication extends Application {
-	
+	static Key key;
 	/**
 	 * This is the set of resources and filters that this application
 	 * uses.  When we need to create a new resource, a single instance
@@ -34,6 +37,7 @@ public class FarkleServerApplication extends Application {
 		singletons.add(new UserRegistration());
 		singletons.add( new AuthenticatorFilter() );  // Authentication filter
 		singletons.add(new GameServlet());
+		key = MacProvider.generateKey();
 	}
 	
 	/**
@@ -42,5 +46,9 @@ public class FarkleServerApplication extends Application {
 	@Override
 	public Set<Object> getSingletons() {
 		return singletons;
+	}
+	public static Key getKey(){
+		return key;
+		
 	}
 }

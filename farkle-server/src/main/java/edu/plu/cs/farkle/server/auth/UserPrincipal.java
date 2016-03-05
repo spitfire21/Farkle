@@ -9,6 +9,8 @@ import java.security.Principal;
  */
 public class UserPrincipal implements Principal {
 	
+	private int id;
+	
 	/**
 	 * The user login name.
 	 */

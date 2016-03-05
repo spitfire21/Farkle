@@ -64,7 +64,7 @@ public class FarkleSecurityContext implements SecurityContext {
 	 * @return whether or not the user has the given role
 	 */
 	public boolean isUserInRole(String role) {
-		// TODO: Implement roles.
+		
 		return true;
 	}
 }
