@@ -28,9 +28,9 @@ public class MongoDBJDBC {
 			
          MongoDatabase db = mongoClient.getDatabase("farkle");
          
-         MongoUser mu = new MongoUser();
+         MongoUser mu = new MongoUser(db);
          
-      System.out.println( mu.createUser(db, "mickey", "pw"));
+      System.out.println( mu.createUser("user1", "pw"));
          
        /* db.getCollection("users").insertOne(
         		new Document()
@@ -38,11 +38,7 @@ public class MongoDBJDBC {
         			.append("password", "pw1")
         ); */
         
-        db.getCollection("users").insertOne(
-        		new Document()
-        			.append("username","user2")
-        			.append("password", "pw2")
-        ); 
+        
 			
          
       }catch(Exception e){

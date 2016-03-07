@@ -27,16 +27,19 @@ public class MongoQuery {
 		
         MongoDatabase db = mongoClient.getDatabase("farkle");
         
-        MongoUser mu = new MongoUser();
+        MongoUser mu = new MongoUser(db);
+        
+        System.out.println(mu.findUser("user2").toString());
 
-        FindIterable<Document> doc = mu.findUser(db, "user1");
+        
+		//FindIterable<Document> iter = db.getCollection("users").find(eq("username", "no"));	
 
-        doc.forEach(new Block<Document>() {
+        /**iter.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
                 System.out.println(document);
             }
-        });		
+        });	**/
 		
 		
 	}

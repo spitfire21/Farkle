@@ -9,12 +9,14 @@ import org.bson.Document;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static java.util.Arrays.asList;
 
 import org.bson.Document;
 import com.mongodb.Block;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 
 import static com.mongodb.client.model.Filters.*;
@@ -27,8 +29,12 @@ A mongo class for user data entry and queries
 **/
 
 public class MongoUser {
-
-	//TODO figure out best way to parse in MongoDatabase object
+	
+	private MongoDatabase db;
+	
+	public MongoUser(MongoDatabase database) {
+		db = database;
+	}
 	
 	/**
 	 * adds a new user to the database (collection user)
@@ -36,12 +42,13 @@ public class MongoUser {
 	 * @param pw
 	 * returns -1 if username is in use, 0 if successful
 	 */
-	public int createUser(MongoDatabase db, String un, String pw) {
-		//TODO check if user exists
+	public int createUser(String un, String pw) {
+		if(findUser(un).size()!=0 )
+			return -1;
 		
 		db.getCollection("users").insertOne(
         		new Document()
-        			.append("username",un)
+        			.append("_id",un)
         			.append("password",pw)
         );
 		return 0;
@@ -50,15 +57,35 @@ public class MongoUser {
 	 * queries database to find user
 	 * @param db
 	 * @param un
-	 * return password
+	 * return document if user exists, NULL if not
+	 * DO we want to assume there will only be one user?
 	 */
-	public FindIterable<Document> findUser(MongoDatabase db, String userName) {
-		String collection = "users";
-		String field = "username";
-		FindIterable<Document> doc = db.getCollection(collection).find(eq(field, userName)).limit(1);	
+	public ArrayList<Document> findUser(String userName) {
+		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
+				new Document("$match", new Document("_id",userName))));
+		
+		ArrayList<Document> users = new ArrayList<Document>();
+		
+		iter.forEach(new Block<Document>() {
+		    @Override
+		    public void apply(final Document document) {
+		      users.add(document);
+		    }
+		});
+		
+		return users;
+		
+	}	
+	
+	public String getPw(String userName) {
+		
+		ArrayList users = findUser(userName);
 		
 		
-		return doc;
+		
+		return null;
+		
+		
 	}
 	
 	/**
@@ -68,7 +95,7 @@ public class MongoUser {
 	 * @param pw
 	 * @return 0 if user is authenticated, -1 if not
 	 */
-	public int authPassword(MongoDatabase db, String un, String pw) {
+	public int authPassword(String un, String pw) {
 		
 		return 0;
 	}
