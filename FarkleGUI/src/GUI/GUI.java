@@ -48,15 +48,16 @@ public class GUI extends JFrame {
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.DARK_GRAY);
+		desktopPane.setBackground(Color.GREEN);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JLabel lblFarkle = new JLabel("FARKLE");
-		lblFarkle.setFont(new Font("Lucida Grande", Font.PLAIN, 46));
-		lblFarkle.setBounds(23, -25, 166, 161);
+		lblFarkle.setFont(new Font("Comic Sans MS", Font.PLAIN, 46));
+		lblFarkle.setBounds(23, -25, 186, 161);
 		desktopPane.add(lblFarkle);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage test = new LoginPage();
@@ -69,6 +70,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -80,6 +82,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnCreateAccount);
 		
 		JButton btnExitGame = new JButton("Exit Game");
+		btnExitGame.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

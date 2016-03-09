@@ -46,7 +46,7 @@ public class GameMainMenu extends JFrame {
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.GRAY);
+		desktopPane.setBackground(Color.GREEN);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JList list = new JList();
@@ -58,6 +58,13 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(lblLeaderboard);
 		
 		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				GamePage newGamePage = new GamePage();
+				newGamePage.setVisible(true);
+			}
+		});
 		btnNewGame.setBounds(27, 38, 117, 29);
 		desktopPane.add(btnNewGame);
 		
