@@ -32,7 +32,7 @@ public class LoginPage extends JFrame {
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.GRAY);
+		desktopPane.setBackground(Color.GREEN);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
