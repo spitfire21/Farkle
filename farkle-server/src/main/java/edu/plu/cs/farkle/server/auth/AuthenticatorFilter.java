@@ -16,9 +16,8 @@ import javax.ws.rs.ext.Provider;
 
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 
-
-@Provider
 @Secured
+@Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticatorFilter implements ContainerRequestFilter {
 
@@ -30,7 +29,7 @@ public class AuthenticatorFilter implements ContainerRequestFilter {
 	 */
 	public void filter(ContainerRequestContext request) throws IOException {
 		
-		
+		System.out.println("asd");
 		// Get the authorization header (if it exists)
 		String authorization = request.getHeaderString(HttpHeaders.AUTHORIZATION);
 		

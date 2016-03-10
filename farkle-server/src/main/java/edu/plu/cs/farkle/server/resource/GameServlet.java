@@ -5,7 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
-@WebServlet(urlPatterns="/game")
+import edu.plu.cs.farkle.server.auth.Secured;
+@Secured
+@WebServlet(urlPatterns="/farkle/game")
 
 	
 	public class GameServlet extends WebSocketServlet{
