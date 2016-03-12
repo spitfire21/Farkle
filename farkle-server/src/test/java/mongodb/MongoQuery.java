@@ -31,6 +31,8 @@ public class MongoQuery {
         
         System.out.println(mu.findUser("user2").toString());
 
+        System.out.println(mu.getVictors().toString());
+
         
 		//FindIterable<Document> iter = db.getCollection("users").find(eq("username", "no"));	
 

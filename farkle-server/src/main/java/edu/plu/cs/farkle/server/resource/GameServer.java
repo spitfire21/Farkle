@@ -10,6 +10,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
+import edu.plu.cs.farkle.server.auth.Secured;
 import edu.plu.cs.farkle.server.resource.Game.Player;
 
 @WebSocket
@@ -23,6 +24,7 @@ public class GameServer {
 	    static int gameCount = 0;
 	    Game game;
 	    // annotation for websockets
+	    
 	    @OnWebSocketConnect
 	    public void onConnect(Session session) throws IOException {
 	    	// player that will be added to game
