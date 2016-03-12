@@ -8,6 +8,7 @@ import org.bson.Document;
 
 import com.mongodb.Block;
 import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 
@@ -27,6 +28,14 @@ public class FarkleDB {
 		db = database;
 	}
 	
+	public FarkleDB(){
+		
+	}
+	
+	public void setDB(MongoDatabase database){
+		db = database;
+	}
+	
 	
 	/**
 	 * adds a new user to the database (collection user)
@@ -42,6 +51,7 @@ public class FarkleDB {
         		new Document()
         			.append("_id",un)
         			.append("password",pw)
+        			.append("victories", 0)
         );
 		return 0;
 	}
@@ -52,10 +62,11 @@ public class FarkleDB {
 	 * @param un
 	 * returns document of user found (might switch to json)
 	 */
-	public ArrayList<Document> findUser(String userName) {
+	public Document findUser(String userName) {
 		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
 				new Document("$match", new Document("_id",userName))));
 		
+		//TODO get rid of this arraylist
 		ArrayList<Document> users = new ArrayList<Document>();
 		
 		iter.forEach(new Block<Document>() {
@@ -65,7 +76,7 @@ public class FarkleDB {
 		    }
 		});
 		
-		return users;
+		return users.get(0);
 		
 	}	
 	
@@ -74,11 +85,10 @@ public class FarkleDB {
 	 * @return a json containing top victors and their win count
 	 */
 	public ArrayList<Document> getVictors() {
-		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
-		        new Document("$group", new Document("_id", "$victories"))));
-
+		FindIterable<Document> iter = db.getCollection("users").find()
+		        .sort(new Document("victories", -1).append("victories", -1));
+		
 		ArrayList<Document> victors = new ArrayList<Document>();
-
 		
 		iter.forEach(new Block<Document>() {
 		    @Override
@@ -87,15 +97,20 @@ public class FarkleDB {
 		    }
 		});
 		
+		
+		
 		return victors;
 	}
 	/**
 	 * updates username's document to add to their number of victories
 	 * @param userName the user to add the victory to
-	 * @return 0 if success
 	 */
-	public int addVictory(String userName) {
-		return 0;
+	public void addVictory(String userName) {
+		
+		
+		int victories = Integer.parseInt(findUser(userName).get("victories").toString());
+		db.getCollection("users").updateOne(new Document("_id", userName),
+		        new Document("$set", new Document("victories", victories+1)));
 	}
 	
 	

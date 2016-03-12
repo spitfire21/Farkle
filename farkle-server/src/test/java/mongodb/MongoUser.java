@@ -2,6 +2,7 @@ package mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import org.bson.Document;
@@ -78,8 +79,24 @@ public class MongoUser {
 	}	
 	
 	public ArrayList<Document> getVictors() {
-		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
-		        new Document("$group", new Document("_id", "$victories"))));
+		FindIterable<Document> iter = db.getCollection("users").find()
+		        .sort(new Document("victories", -1).append("victories", -1));
+		
+		ArrayList<Document> victors = new ArrayList<Document>();
+		
+		iter.forEach(new Block<Document>() {
+		    @Override
+		    public void apply(final Document document) {
+		      victors.add(document);
+		    }
+		});
+		
+		
+		
+		return victors;
+		
+		/*AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
+		        new Document("$group", new Document("victories", "$victories"))));
 
 		ArrayList<Document> victors = new ArrayList<Document>();
 
@@ -89,9 +106,7 @@ public class MongoUser {
 		    public void apply(final Document document) {
 		      victors.add(document);
 		    }
-		});
-		
-		return victors;
+		});*/
 	}
 	
 	

@@ -29,6 +29,8 @@ public class MongoQuery {
         
         MongoUser mu = new MongoUser(db);
         
+        System.out.println(mu.findUser("user2").toString());
+
         System.out.println(mu.getVictors().toString());
 
         

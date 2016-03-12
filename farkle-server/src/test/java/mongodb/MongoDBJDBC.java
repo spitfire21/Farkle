@@ -30,7 +30,7 @@ public class MongoDBJDBC {
          
          MongoUser mu = new MongoUser(db);
          
-      System.out.println( mu.createUser("user1", "pw"));
+      System.out.println( mu.createUser("user2", "pw"));
          
        /* db.getCollection("users").insertOne(
         		new Document()
