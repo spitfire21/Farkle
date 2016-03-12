@@ -12,6 +12,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class Rules extends JFrame {
 
@@ -38,22 +39,23 @@ public class Rules extends JFrame {
 	 */
 	public Rules() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.GRAY);
+		desktopPane.setBackground(new Color(128, 0, 0));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JTextPane txtpnHere = new JTextPane();
 		txtpnHere.setText("Here are all the rules, blah blah");
-		txtpnHere.setBounds(21, 6, 401, 178);
+		txtpnHere.setBounds(92, 6, 650, 316);
 		desktopPane.add(txtpnHere);
 		
 		JButton btnNewButton = new JButton("Back");
+		btnNewButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -61,7 +63,7 @@ public class Rules extends JFrame {
 				gameMenu.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(173, 211, 117, 29);
+		btnNewButton.setBounds(337, 356, 160, 71);
 		desktopPane.add(btnNewButton);
 	}
 }

@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class UserCreationPage extends JFrame {
 
@@ -27,38 +29,47 @@ public class UserCreationPage extends JFrame {
 	 */
 	public UserCreationPage() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.GRAY);
+		desktopPane.setBackground(new Color(128, 0, 0));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
-		textField.setBounds(155, 65, 130, 26);
+		textField.setBounds(352, 74, 130, 26);
 		desktopPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCreateANew = new JLabel("Create a new Account");
-		lblCreateANew.setBounds(151, 16, 138, 16);
+		lblCreateANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreateANew.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		lblCreateANew.setBounds(297, 16, 241, 46);
 		desktopPane.add(lblCreateANew);
 		
-		JLabel lblCreateUsername = new JLabel("Create Username");
-		lblCreateUsername.setBounds(24, 70, 119, 16);
+		JLabel lblCreateUsername = new JLabel("Create Username:");
+		lblCreateUsername.setForeground(new Color(255, 255, 255));
+		lblCreateUsername.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblCreateUsername.setBounds(168, 70, 144, 16);
 		desktopPane.add(lblCreateUsername);
 		
-		JLabel lblNewLabel = new JLabel("Create Password");
-		lblNewLabel.setBounds(24, 119, 104, 16);
+		JLabel lblNewLabel = new JLabel("Create Password:");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblNewLabel.setBounds(168, 141, 144, 16);
 		desktopPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Verify Password");
-		lblNewLabel_1.setBounds(24, 170, 104, 16);
+		JLabel lblNewLabel_1 = new JLabel("Verify Password:");
+		lblNewLabel_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setBounds(168, 205, 144, 16);
 		desktopPane.add(lblNewLabel_1);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -66,10 +77,11 @@ public class UserCreationPage extends JFrame {
 				guiNew.setVisible(true);
 			}
 		});
-		btnBack.setBounds(66, 215, 117, 29);
+		btnBack.setBounds(132, 297, 180, 76);
 		desktopPane.add(btnBack);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -78,15 +90,15 @@ public class UserCreationPage extends JFrame {
 				gameMenu.setVisible(true);
 			}
 		});
-		btnCreateAccount.setBounds(235, 215, 138, 29);
+		btnCreateAccount.setBounds(538, 297, 180, 76);
 		desktopPane.add(btnCreateAccount);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(155, 114, 130, 26);
+		passwordField.setBounds(352, 136, 130, 26);
 		desktopPane.add(passwordField);
 		
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(155, 165, 130, 26);
+		passwordField_1.setBounds(352, 200, 130, 26);
 		desktopPane.add(passwordField_1);
 	}
 }

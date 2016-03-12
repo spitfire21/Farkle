@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.*;
+import javax.swing.SwingConstants;
 
 public class GUI extends JFrame {
 
@@ -41,23 +42,25 @@ public class GUI extends JFrame {
 	 */
 	public GUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.GREEN);
+		desktopPane.setBackground(new Color(128, 0, 0));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JLabel lblFarkle = new JLabel("FARKLE");
-		lblFarkle.setFont(new Font("Comic Sans MS", Font.PLAIN, 46));
-		lblFarkle.setBounds(23, -25, 186, 161);
+		lblFarkle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFarkle.setForeground(new Color(255, 255, 255));
+		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 68));
+		lblFarkle.setBounds(35, -28, 267, 161);
 		desktopPane.add(lblFarkle);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+		btnLogin.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage test = new LoginPage();
@@ -66,11 +69,11 @@ public class GUI extends JFrame {
 				
 			}
 		});
-		btnLogin.setBounds(34, 107, 117, 29);
+		btnLogin.setBounds(80, 105, 180, 83);
 		desktopPane.add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -78,23 +81,30 @@ public class GUI extends JFrame {
 				userPage.setVisible(true);
 			}
 		});
-		btnCreateAccount.setBounds(34, 149, 140, 29);
+		btnCreateAccount.setBounds(77, 215, 183, 83);
 		desktopPane.add(btnCreateAccount);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+		btnExitGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnExitGame.setBounds(34, 187, 117, 29);
+		btnExitGame.setBounds(77, 325, 183, 83);
 		desktopPane.add(btnExitGame);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		Image img = new ImageIcon(this.getClass().getResource("/image.jpg")).getImage();
+		JLabel lblNewLabel = new JLabel("");
+		Image img = new ImageIcon(this.getClass().getResource("/image.gif")).getImage();
 		lblNewLabel.setIcon(new ImageIcon(img));
-		lblNewLabel.setBounds(221, 60, 190, 156);
+		lblNewLabel.setBounds(410, 58, 339, 350);
 		desktopPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 2: Team Yellow");
+		lblNewLabel_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 15));
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(305, 420, 224, 16);
+		desktopPane.add(lblNewLabel_1);
 	}
 }
