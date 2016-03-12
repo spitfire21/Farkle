@@ -36,6 +36,7 @@ public class GameServer {
 	    	 // add player to game and associate with map
     		 game.addPlayer(p);
     		 map.put(session, p);
+    		 System.out.println(session.getUpgradeRequest().getUserPrincipal());
     		 System.out.println("Client Connected");
 	        logger.info("Connected ... " + session.getLocalAddress());
 	    }

@@ -1,28 +1,26 @@
 package mongodb;
 
+<<<<<<< Updated upstream
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import org.bson.Document;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
-
+=======
 import static java.util.Arrays.asList;
+>>>>>>> Stashed changes
+
+import java.util.ArrayList;
 
 import org.bson.Document;
-import com.mongodb.Block;
-import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.FindIterable;
 
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Sorts.ascending;
-import static java.util.Arrays.asList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Block;
+import com.mongodb.DBCollection;
+import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 
 /**
@@ -65,7 +63,7 @@ public class MongoUser {
 		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
 				new Document("$match", new Document("_id",userName))));
 		
-		ArrayList<Document> users = new ArrayList<Document>();
+		final ArrayList<Document> users = new ArrayList<Document>();
 		
 		iter.forEach(new Block<Document>() {
 		    @Override
@@ -112,11 +110,14 @@ public class MongoUser {
 	
 	public String getPw(String userName) {
 		
-		ArrayList users = findUser(userName);
+		ArrayList<Document> users = findUser(userName);
+		
+		BasicDBObject searchQuery = new BasicDBObject();
+		
+		searchQuery.put("_id", userName);	
 		
 		
-		
-		return null;
+		return searchQuery.get("password").toString();
 		
 		
 	}
@@ -130,7 +131,19 @@ public class MongoUser {
 	 */
 	public int authPassword(String un, String pw) {
 		
-		return 0;
+		
+		DBCollection coll = (DBCollection) db.getCollection("users");
+		
+		BasicDBObject searchQuery = new BasicDBObject();
+		
+		searchQuery.put("name", un);	
+
+		
+		searchQuery.put("password", pw);
+		if(coll.findOne(searchQuery)!=null)
+			return 0;
+		else
+			return -1;
 	}
 	
 	
