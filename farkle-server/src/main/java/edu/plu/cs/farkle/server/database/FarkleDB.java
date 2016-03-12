@@ -1,40 +1,32 @@
-package mongodb;
-
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-import org.bson.Document;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
+package edu.plu.cs.farkle.server.database;
 
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
+
 import org.bson.Document;
+
 import com.mongodb.Block;
 import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.FindIterable;
-
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Sorts.ascending;
-import static java.util.Arrays.asList;
-
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 
 /**
-A mongo class for user data entry and queries
-**/
+ * This is the class including methods related to working with the database
+ */
 
-public class MongoUser {
+public class FarkleDB {
 	
 	private MongoDatabase db;
 	
-	public MongoUser(MongoDatabase database) {
+	/**
+	 * sets the MongoDatabase to db;
+	 * @param database
+	 */
+	public FarkleDB(MongoDatabase database) {
 		db = database;
 	}
+	
 	
 	/**
 	 * adds a new user to the database (collection user)
@@ -53,12 +45,12 @@ public class MongoUser {
         );
 		return 0;
 	}
+	
 	/**
 	 * queries database to find user
 	 * @param db
 	 * @param un
-	 * return document if user exists, NULL if not
-	 * DO we want to assume there will only be one user?
+	 * returns document of user found (might switch to json)
 	 */
 	public ArrayList<Document> findUser(String userName) {
 		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
@@ -77,6 +69,10 @@ public class MongoUser {
 		
 	}	
 	
+	/**
+	 * 
+	 * @return a json containing top victors and their win count
+	 */
 	public ArrayList<Document> getVictors() {
 		AggregateIterable<Document> iter = db.getCollection("users").aggregate(asList(
 		        new Document("$group", new Document("_id", "$victories"))));
@@ -93,28 +89,12 @@ public class MongoUser {
 		
 		return victors;
 	}
-	
-	
-	public String getPw(String userName) {
-		
-		ArrayList users = findUser(userName);
-		
-		
-		
-		return null;
-		
-		
-	}
-	
 	/**
-	 * 
-	 * @param db
-	 * @param un
-	 * @param pw
-	 * @return 0 if user is authenticated, -1 if not
+	 * updates username's document to add to their number of victories
+	 * @param userName the user to add the victory to
+	 * @return 0 if success
 	 */
-	public int authPassword(String un, String pw) {
-		
+	public int addVictory(String userName) {
 		return 0;
 	}
 	
@@ -122,7 +102,6 @@ public class MongoUser {
 	/**
 	 * sets user Settings
 	 * @param SettingInput array with user input for each setting
-	 * TODO array vs hashmap
 	 */
 	public void setSettings(int[] SettingInput) {
 		
@@ -131,11 +110,12 @@ public class MongoUser {
 	/**
 	 * gets the user's default settings
 	 * @param username
-	 * return an array (hashmap?) holding the users settings
+	 * returns an array holding the users settings
 	 */
-	public int[] getSettings(String username) {
-		int[] settingArray = new int[10];
+	public JSON getSettings(String username) {
 		
-		return settingArray;
+		return null;
 	}
+	
+	
 }
