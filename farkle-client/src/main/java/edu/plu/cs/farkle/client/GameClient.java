@@ -2,9 +2,12 @@ package edu.plu.cs.farkle.client;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
+
+import javax.websocket.ClientEndpointConfig;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -48,16 +51,25 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	
 	    public static void main(String[] args) throws Exception {
 	        latch = new CountDownLatch(1);
-	 
-	        String dest = "ws://localhost:8080/game";
+	        
+	        
+	        
+	       
+	        
+	        String dest = "ws://localhost:8080/farkle/game";
 			WebSocketClient client = new WebSocketClient();
 			GameClient socket = new GameClient();
 				
 				
 				client.start();
+				
 				URI echoUri = new URI(dest);
+				
+				
 				ClientUpgradeRequest request = new ClientUpgradeRequest();
+				request.setHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEdWtlIn0.rVLXyYffmp6Z-JjAOBJ9nsZKYM2DF9P7LGaXp76dyY_7DAJxvDB_XFJw9ZtUd85xVW3KiCQTTEsy6cjAXnou-Q");
 				client.connect(socket, echoUri, request);
+			
 				Thread.sleep(100);
 				//socket.sendMessage("ROLL");
 				Scanner scan = new Scanner(System.in);

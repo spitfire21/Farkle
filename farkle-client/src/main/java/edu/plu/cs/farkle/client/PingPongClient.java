@@ -54,19 +54,30 @@ public class PingPongClient {
 			System.out.println("\nResponse with Authorization header: ");
 			printResponse(node);
 			
-			Form form = new Form();
-	        form.param("name", "test");
-	        Entity<Form> entity1 = Entity.form(form);
-			Response response1 = client.target("http://localhost:8080/farkle/login")
+	      
+	        
+			Response response1 = client.target("http://localhost:8080/farkle/registration")
 		            
 		            
 		            
 		            .request(MediaType.APPLICATION_JSON)
 		            
-		            .post(entity1);
+		            .post(Entity.entity(new UserCredentials("Duke", "TEST"),  MediaType.APPLICATION_JSON));
 		            
 			 String value = response1.readEntity(String.class);
 		        System.out.println(value);
+		        
+		        Response response2 = client.target("http://localhost:8080/farkle/login")
+			            
+			            
+			            
+			            .request(MediaType.APPLICATION_JSON)
+			            
+			            .post(Entity.entity(new UserCredentials("Duke", "TEST"),  MediaType.APPLICATION_JSON));
+			            
+				 String value1 = response2.readEntity(String.class);
+			        System.out.println(value1);
+				
 			
 			
 			

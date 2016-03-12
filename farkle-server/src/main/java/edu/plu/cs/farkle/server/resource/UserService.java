@@ -13,8 +13,10 @@ import javax.ws.rs.core.Response;
 
 import edu.plu.cs.farkle.server.auth.UserCredentials;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
+import edu.plu.cs.farkle.server.database.MongoServerTest;
 
-@Path("/user-service")
+
+@Path("/login")
 
 public class UserService {
 	
@@ -23,9 +25,10 @@ public class UserService {
     @Produces("application/json")
     @Consumes("application/json")
     public Response authenticateUser(UserCredentials credentials) {
-
+    	
         String username = credentials.getUsername();
         String password = credentials.getPassword();
+        
 
 	        try {
 
@@ -44,12 +47,15 @@ public class UserService {
 	    }
 
 	    private void authenticate(String username, String password) throws Exception {
-	        // Authenticate against a database, LDAP, file or whatever
-	        // Throw an Exception if the credentials are invalid
+	    	MongoServerTest db = FarkleServerApplication.getDatabase();
+	    	
+	    	if(!db.checkUser(username, password)){
+	    		throw new Exception();
+	    	}
 	    }
 
 	    private String issueToken(String username) {
-			
+	    	
 	       Key key = FarkleServerApplication.getKey();
 	       String token = Jwts.builder().setSubject(username).signWith(SignatureAlgorithm.HS512, key).compact();
 	    	return token;
