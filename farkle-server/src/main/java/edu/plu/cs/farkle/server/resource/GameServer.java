@@ -32,11 +32,11 @@ public class GameServer {
 	    	 // check if games are full
 	    	 game = findGame();
 	    	 // create new player for game using session
-	    	 p = game.new Player(session);
+	    	 p = game.new Player(session, session.getUpgradeRequest().getUserPrincipal().getName());
 	    	 // add player to game and associate with map
     		 game.addPlayer(p);
     		 map.put(session, p);
-    		 System.out.println(session.getUpgradeRequest().getUserPrincipal());
+    		 
     		 System.out.println("Client Connected");
 	        logger.info("Connected ... " + session.getLocalAddress());
 	    }

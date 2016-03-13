@@ -46,7 +46,7 @@ public class FarkleDB {
 	 * returns -1 if username is in use, 0 if successful
 	 */
 	public int createUser(String un, String pw) {
-		if(findUser(un).size()!=0 )
+		if(findUser(un) != null)
 			return -1;
 		
 		db.getCollection("users").insertOne(
@@ -77,9 +77,11 @@ public class FarkleDB {
 		      users.add(document);
 		    }
 		});
-		
+		if(users.isEmpty()){
+			return null;
+		}else{
 		return users.get(0);
-		
+		}
 	}	
 	
 	/**

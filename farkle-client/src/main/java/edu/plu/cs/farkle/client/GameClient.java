@@ -67,7 +67,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 				
 				
 				ClientUpgradeRequest request = new ClientUpgradeRequest();
-				request.setHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEdWtlIn0.rVLXyYffmp6Z-JjAOBJ9nsZKYM2DF9P7LGaXp76dyY_7DAJxvDB_XFJw9ZtUd85xVW3KiCQTTEsy6cjAXnou-Q");
+				request.setHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb3JkYW4ifQ.FSOPdRQYZLITzIL2fs2A1i5IA0Q5FKTcncCTazv-9pnHKY9mfNXo8g777e_zI0dAdRY0dTfNNDDqRzpJWUDN5A");
 				client.connect(socket, echoUri, request);
 			
 				Thread.sleep(100);

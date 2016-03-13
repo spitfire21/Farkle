@@ -62,7 +62,7 @@ public class PingPongClient {
 		            
 		            .request(MediaType.APPLICATION_JSON)
 		            
-		            .post(Entity.entity(new UserCredentials("Duke", "TEST"),  MediaType.APPLICATION_JSON));
+		            .post(Entity.entity(new UserCredentials("Jordan", "TED"),  MediaType.APPLICATION_JSON));
 		            
 			 String value = response1.readEntity(String.class);
 		        System.out.println(value);
@@ -73,7 +73,7 @@ public class PingPongClient {
 			            
 			            .request(MediaType.APPLICATION_JSON)
 			            
-			            .post(Entity.entity(new UserCredentials("Duke", "TEST"),  MediaType.APPLICATION_JSON));
+			            .post(Entity.entity(new UserCredentials("Jordan", "TED"),  MediaType.APPLICATION_JSON));
 			            
 				 String value1 = response2.readEntity(String.class);
 			        System.out.println(value1);

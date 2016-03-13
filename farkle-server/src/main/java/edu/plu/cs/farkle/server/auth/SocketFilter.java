@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.HttpHeaders;
 
+import edu.plu.cs.farkle.server.auth.UserPrincipalRequestWrapper;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 @WebFilter("/farkle/game")
 public class SocketFilter implements Filter{
@@ -95,14 +96,14 @@ public class SocketFilter implements Filter{
         } catch (Exception e) {
            
         }
-		if(userValidated!=null){
-			
-			
-			UserPrincipal user = new UserPrincipal(userValidated);
+		if(!userValidated.equals("")){
 			
 			
 			
-			arg2.doFilter(arg0, arg1);
+			
+			
+			
+			arg2.doFilter(new UserPrincipalRequestWrapper(userValidated, null, request), arg1);
 		}
 	}
 	public void init(FilterConfig arg0) throws ServletException {

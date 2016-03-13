@@ -8,7 +8,8 @@ import javax.ws.rs.Produces;
 
 import edu.plu.cs.farkle.server.auth.UserCredentials;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
-import edu.plu.cs.farkle.server.core.MongoServerTest;
+import edu.plu.cs.farkle.server.database.MongoServerTest;
+
 @Path("/registration")
 public class UserRegistration {
 	

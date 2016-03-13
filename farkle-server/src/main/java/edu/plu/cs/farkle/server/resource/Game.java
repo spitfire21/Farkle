@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
-
+import static java.util.concurrent.TimeUnit.*;
 public class Game {
 	// set size of game
 	private int GAME_SIZE = 3;
@@ -21,6 +24,11 @@ public class Game {
 	private List<Player> players;
 	// id of the game
 	private int id;
+	
+	
+	 private final ScheduledExecutorService scheduler =
+		       Executors.newScheduledThreadPool(1);
+	
 	/**
 	 * Constructor for the game, sets default settings (TODO expand settings)
 	 * @param id
@@ -66,7 +74,9 @@ public class Game {
 		currentPlayer = players.get(0);
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).start();
+			
 		}
+		checkPlayers();
 	}
 	/**
 	 * get ID
@@ -271,6 +281,36 @@ public class Game {
 		return score;
 
 	}
+	
+	 public void checkPlayers() {
+	        final Runnable check = new Runnable() {
+	                public void run() { 
+	                	
+	                	for (int i = 0; i < players.size(); i++) {
+	                		Player temp = players.get(i);
+	            			if(!temp.checkAlive()){
+	            				if(currentPlayer.equals(temp))
+	            					endTurn(temp);
+	            				
+	            			}
+	            			players.remove(i);
+	            			
+	            		}
+	                	for (int i = 0; i < players.size(); i++) {
+	                
+	                		players.get(i).setPlayerNumber(i);
+	            			
+	            		}
+	                	
+	                	
+	                }
+	            };
+	        final ScheduledFuture<?> checkHandle =
+	            scheduler.scheduleAtFixedRate(check, 10, 10, SECONDS);
+	        scheduler.schedule(new Runnable() {
+	                public void run() { checkHandle.cancel(true); }
+	            }, 60 * 60, SECONDS);
+	    }
 
 	/**
 	 * Player class currently nested in game will be broken up
@@ -281,31 +321,37 @@ public class Game {
 	class Player {
 		// opponent list
 		private List<Player> opponents;
+		private String id;
 		private int playerNumber, score, storedScore;
 		private boolean stored;
 		// endpoint for sending message to client
 		private RemoteEndpoint output;
+		private Session session;
 		// dice and stored dice arrays
 		private List<Integer> dice;
 		private List<Integer> storedDice;
+		
 		/**
 		 * Default constructor for player
 		 * @param session
 		 */
-		public Player(Session session) {
+		public Player(Session session, String id) {
 			// increment numOfOnline players
 			playerNumber = getNumberOfPlayers();
+			this.id = id;
 			// set endpoint
 			output = session.getRemote();
+			this.session = session;
 			opponents = new ArrayList<Player>();
 			dice = new ArrayList<Integer>();
 			storedDice = new ArrayList<Integer>();
 			// set player so that they can roll when it is their turn
 			stored = true;
-
+			
 			
 				// send start up message
-				sendMessage("WELCOME PLAYER NUMBER " + playerNumber);
+				sendMessage("WELCOME " + id);
+				sendMessage("YOU ARE PLAYER #" + playerNumber);
 				sendMessage("MESSAGE Waiting for opponent to connect");
 			
 
@@ -323,6 +369,13 @@ public class Game {
 		 */
 		private int getPlayerNumber() {
 			return playerNumber;
+		}
+		/**
+		 * set player number
+		 * @return playerNumber
+		 */
+		private void setPlayerNumber(int playerNumber) {
+			this.playerNumber = playerNumber;
 		}
 		/**
 		 * Start game for player
@@ -354,7 +407,7 @@ public class Game {
 			if (command.startsWith("ROLL") && canRoll(this)) {
 				stored = false;
 				// fill array with numbers
-				//TODO use DICE class
+				//TODO use DICE class 
 				for (int i = storedDice.size(); i < 6; i++) {
 					int roll = ThreadLocalRandom.current().nextInt(1, 7);
 					dice.add(roll);
@@ -429,6 +482,14 @@ public class Game {
 			}
 
 		}
+		private boolean checkAlive(){
+			if(session.isOpen())
+			return true;
+			else return false;
+			
+		}
+		
+		
 		/**
 		 * Send string to client TODO JSON
 		 * @param message
