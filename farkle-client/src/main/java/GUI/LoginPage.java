@@ -36,7 +36,7 @@ public class LoginPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginPage(final ArrayList callBack) {
+	public LoginPage(final ArrayList callBack, GUI gui) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
@@ -80,8 +80,7 @@ public class LoginPage extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GUI test2 = new GUI();
-				test2.setVisible(true);
+				gui.setVisible(true);
 				
 			}
 		});
@@ -92,17 +91,18 @@ public class LoginPage extends JFrame {
 		btnLogin2.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnLogin2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+			
 				String token = "";
 				for (Iterator it = callBack.iterator(); it.hasNext();)
 					token = ((CallBack)(it.next())).login(textField.getText(),passwordField.getText());
 				if(token.length() < 8){
 					// FAILED
 				}
-				
-				
+				else{
+					setVisible(false);
 				GameMainMenu gameMenu = new GameMainMenu();
 				gameMenu.setVisible(true);
+				}
 			}
 		});
 		btnLogin2.setBounds(595, 316, 165, 80);

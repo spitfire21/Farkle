@@ -32,7 +32,7 @@ public class UserCreationPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserCreationPage(final ArrayList callBack) {
+	public UserCreationPage(final ArrayList callBack, GUI gui) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -85,8 +85,8 @@ public class UserCreationPage extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GUI guiNew = new GUI();
-				guiNew.setVisible(true);
+				
+				gui.setVisible(true);
 			}
 		});
 		btnBack.setBounds(132, 297, 180, 76);
@@ -96,15 +96,19 @@ public class UserCreationPage extends JFrame {
 		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				String registered;
+				
+				String registered = "";
 				for (Iterator it = callBack.iterator(); it.hasNext();)
 					registered = ((CallBack)(it.next())).createAccount(textField.getText(),passwordField.getText());
 				
-				
-				
+				if (registered == "" || registered == null){
+				// failed
+				}
+				else {
+					setVisible(false);
 				GameMainMenu gameMenu = new GameMainMenu();
 				gameMenu.setVisible(true);
+				}
 			}
 		});
 		btnCreateAccount.setBounds(538, 297, 180, 76);

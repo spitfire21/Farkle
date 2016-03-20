@@ -27,6 +27,7 @@ public class GUI extends JFrame {
 	private JPanel contentPane;
 	private static ClientBase client;
 	private ArrayList clientObjs = new ArrayList(); 
+	private static GUI frame;
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +36,7 @@ public class GUI extends JFrame {
 			public void run() {
 				try {
 					
-					GUI frame = new GUI();
+					frame = new GUI();
 					client = new ClientBase(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -71,7 +72,7 @@ public class GUI extends JFrame {
 		btnLogin.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPage test = new LoginPage(clientObjs);
+				LoginPage test = new LoginPage(clientObjs, frame);
 				test.setVisible(true);
 				setVisible(false);
 				
@@ -85,7 +86,7 @@ public class GUI extends JFrame {
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				UserCreationPage userPage = new UserCreationPage(clientObjs);
+				UserCreationPage userPage = new UserCreationPage(clientObjs, frame);
 				userPage.setVisible(true);
 			}
 		});
