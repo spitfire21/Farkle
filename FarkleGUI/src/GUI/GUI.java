@@ -100,7 +100,7 @@ public class GUI extends JFrame {
 		lblNewLabel.setBounds(410, 58, 339, 350);
 		desktopPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 2: Team Yellow");
+		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 3: Team Yellow");
 		lblNewLabel_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 15));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);

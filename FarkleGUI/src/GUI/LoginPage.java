@@ -46,6 +46,13 @@ public class LoginPage extends JFrame {
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String userUserNameInput = textField.getText();
+				System.out.println(userUserNameInput);
+				//...
+			}
+		});
 		textField.setBounds(362, 147, 130, 26);
 		desktopPane.add(textField);
 		textField.setColumns(10);
@@ -77,9 +84,9 @@ public class LoginPage extends JFrame {
 		btnBack.setBounds(84, 316, 165, 80);
 		desktopPane.add(btnBack);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
-		btnLogin.addActionListener(new ActionListener() {
+		JButton btnLogin2 = new JButton("Login");
+		btnLogin2.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnLogin2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				//assuming login is valid
@@ -87,8 +94,8 @@ public class LoginPage extends JFrame {
 				gameMenu.setVisible(true);
 			}
 		});
-		btnLogin.setBounds(595, 316, 165, 80);
-		desktopPane.add(btnLogin);
+		btnLogin2.setBounds(595, 316, 165, 80);
+		desktopPane.add(btnLogin2);
 		
 		JLabel lblFarkle = new JLabel("FARKLE:\nLogin");
 		lblFarkle.setForeground(new Color(255, 255, 255));
@@ -98,6 +105,14 @@ public class LoginPage extends JFrame {
 		desktopPane.add(lblFarkle);
 		
 		passwordField = new JPasswordField();
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String password = passwordField.getText();
+				System.out.println(password);
+				//...
+			}
+		});
 		passwordField.setBounds(362, 246, 130, 26);
 		desktopPane.add(passwordField);
 	}

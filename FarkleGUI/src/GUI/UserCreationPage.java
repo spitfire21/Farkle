@@ -40,6 +40,13 @@ public class UserCreationPage extends JFrame {
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String userName = textField.getText();
+				System.out.println(userName);
+				//...
+			}
+		});
 		textField.setBounds(352, 74, 130, 26);
 		desktopPane.add(textField);
 		textField.setColumns(10);
@@ -94,10 +101,24 @@ public class UserCreationPage extends JFrame {
 		desktopPane.add(btnCreateAccount);
 		
 		passwordField = new JPasswordField();
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String userPassWordBox1 = passwordField.getText();
+				System.out.println(userPassWordBox1);
+				//...
+			}
+		});
 		passwordField.setBounds(352, 136, 130, 26);
 		desktopPane.add(passwordField);
 		
 		passwordField_1 = new JPasswordField();
+		passwordField_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String userPassWordBox2 = passwordField.getText();
+				System.out.println(userPassWordBox2);
+				//...
+			}
+		});
 		passwordField_1.setBounds(352, 200, 130, 26);
 		desktopPane.add(passwordField_1);
 	}
