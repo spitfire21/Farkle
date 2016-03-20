@@ -46,9 +46,12 @@ public class FarkleDB {
 	 * returns -1 if username is in use, 0 if successful
 	 */
 	public int createUser(String un, String pw) {
-		if(findUser(un) != null)
+		if(findUser(un) != null){
+			System.out.println("USER EXISTS");
 			return -1;
-		
+			
+		}
+		//TODO hash and encrypt passwords
 		db.getCollection("users").insertOne(
         		new Document()
         			.append("_id",un)
@@ -129,7 +132,7 @@ public class FarkleDB {
 		MongoCollection<Document> coll = db.getCollection("users");
 		
 		BasicDBObject searchQuery = new BasicDBObject();
-		
+		//TODO encrypt password to check with db
 		searchQuery.put("_id", un);	
 		searchQuery.put("password", pw);
 		

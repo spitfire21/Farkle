@@ -11,7 +11,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import GUI.GUI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,49 +24,41 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientBase 
+public class ClientBase implements CallBack 
 {
-	public static void main(String args[])
-	{
-		Client client = ClientBuilder.newClient();
-		
-		try
-		{
-			WebTarget endTarget = client.target("http://localhost:8901/farkle/FarkleGameServer"); // will need to be updated
-				
-			Invocation.Builder builder = endTarget.request();
-			String response = builder.get(String.class);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode node = mapper.readTree(response);
-			
-			builder = endTarget.request();
-			builder = builder.header(HttpHeaders.AUTHORIZATION, "test");
-			response = builder.get(String.class);
-			
-			mapper = new ObjectMapper();
-			node = mapper.readTree(response);
-			
-			Form form = new Form();
-	        form.param("name", "test");
-	        Entity<Form> entity1 = Entity.form(form);
-			Response response1 = client.target("http://localhost:8080/farkle/login")
-		            
-		            
-		            
-		            .request(MediaType.APPLICATION_JSON)
-		            
-		            .post(entity1);
-		            
-			 String value = response1.readEntity(String.class);
-		        System.out.println(value);
-			
-		} catch (Exception e) {
+	
+	private String token;
+	private ClientService login;
+	private GUI gui;
+	private String name;
+	//TODO setup other user preferences that we need to get from DB
+	public ClientBase(GUI frame){
+		this.gui = frame;
+		gui.registerCallback(this);
+		login = new ClientService();
+	}
+	public String createAccount(String username, String password){
+		try {
+			//TODO parse JSON
+			login.Register(username, password);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			// Make sure that we always close the client.
-			client.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return "yes";
+	}
+	public String login(String username, String password){
+		name = username;
+		return login.Login(username, password);
+	}
+	public void methodToCallBack() {
+		// TODO Auto-generated method stub
 		
 	}
+
+	
 }
+

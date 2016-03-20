@@ -21,10 +21,16 @@ public class UserRegistration {
 		String username = credentials.getUsername();
 	    String password = credentials.getPassword();
 		MongoServerTest db = FarkleServerApplication.getDatabase();
+		String json;
+		if(db.createUser(username, password)){
+			System.out.println("USER CREATED");
+			 json = String.format("{ \"response\" : \"User Registered\", \"Registered\" : \"%s\" }", username );
+		} else {
+			System.out.println("USER NOT CREATED");
+			 json = String.format("{ \"response\" : \"User Already Exists\", \"User\" : \"%s\" }", username );
+		}
 		
-		db.createUser(username, password);
 		
-		String json = String.format("{ \"response\" : \"User Registered\", \"Registered\" : \"%s\" }", username );
 		return json;
 	}
 

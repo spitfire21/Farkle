@@ -25,8 +25,8 @@ public class ClientService {
 	}
 	public String Register(String username, String password) throws JsonProcessingException, IOException{
 		WebTarget target = client.target("http://localhost:8080/farkle/registration");
-		Invocation.Builder builder = target.request();
-		String json = builder.get(String.class);
+		//Invocation.Builder builder = target.request();
+
 		
 		Response response = target
 	            
@@ -36,7 +36,7 @@ public class ClientService {
 	           
 	            .post(Entity.entity(new UserCredentials(username, password),  MediaType.APPLICATION_JSON));
 		
-		
+		//String json = builder.get(String.class);
 	            
 		 String value = response.readEntity(String.class);
 		 ObjectMapper mapper = new ObjectMapper();

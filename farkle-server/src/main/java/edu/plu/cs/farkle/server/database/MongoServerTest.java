@@ -17,8 +17,11 @@ public class MongoServerTest {
       
       
 }
-	public void createUser(String uname, String pw){
-	mu.createUser(uname, pw);
+	public boolean createUser(String uname, String pw){
+		if(mu.createUser(uname, pw)==0){
+		return true;
+		}
+		return false;
 	}
 	public boolean checkUser(String uname, String pw){
 		if(mu.authPassword(uname, pw)== 0){

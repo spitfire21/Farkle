@@ -1,5 +1,7 @@
 package edu.plu.cs.farkle.server.resource;
 
+
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -50,6 +52,7 @@ public class UserService {
 	    	MongoServerTest db = FarkleServerApplication.getDatabase();
 	    	
 	    	if(!db.checkUser(username, password)){
+	    		System.out.println("FAILED LOGIN");
 	    		throw new Exception();
 	    	}
 	    }
