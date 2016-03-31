@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 
 import edu.plu.cs.farkle.client.CallBack;
 import edu.plu.cs.farkle.client.GameClient;
-import edu.plu.cs.farkle.client.GameClientNetwork;
 
 public class GameMainMenu extends JFrame {
 
@@ -75,9 +74,15 @@ public class GameMainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				String token = "";
-				for (Iterator it = callBack.iterator(); it.hasNext();)
-					token = ((CallBack)(it.next())).getToken();
-				GameClientNetwork client = new GameClientNetwork(token);
+				String name = "";
+				CallBack call;
+				for (Iterator it = callBack.iterator(); it.hasNext();){
+					call = (CallBack) it.next();
+					token = call.getToken();
+					name = call.getName();
+				}
+				
+				//GameClient client = new GameClient(token, name);
 				GamePage newGamePage = new GamePage(frame);
 				newGamePage.setVisible(true);
 			}

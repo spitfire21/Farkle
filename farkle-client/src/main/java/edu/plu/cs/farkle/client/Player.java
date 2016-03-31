@@ -1,14 +1,23 @@
 package edu.plu.cs.farkle.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Player {
 
 	private ArrayList<Integer> die;
 	private int storedScore;
-	private String command;
-	
 	private int totalScore;
+	private String name;
+	private String status;
+	private Map<String, Player> opponents;
+	
+	public Player(){
+		
+		setOpponents(new HashMap<String, Player>());
+	}
 	
 	
 	/**
@@ -16,22 +25,20 @@ public class Player {
 	 * @param command
 	 * @return
 	 */
-	public void parseCommand(String json) {		
-		
-		
+	public void parseCommand(ServerCommand command) {	
+		setStatus(command.getCommand());
+		//setName(command.getName());
+		setDie(command.getDice().getDice());
+		setTotalScore(command.getScore());
+		setStoredScore(command.getStoredScore());
 	}
 	
 	/**
 	 * sets the Dice to values given from GameClient
 	 * @param givenDice
 	 */
-	public void setDie(String json){
-		die = new ArrayList<Integer>();
-		
-		for(int i=0;i<6;i++){
-			//if dice-i.toInteger != 0
-				//die.add(dice-i.toInteger)
-		}	
+	public void setDie(List<Integer> die){
+		this.die = (ArrayList<Integer>) die;
 	}
 	
 	/**
@@ -46,8 +53,8 @@ public class Player {
 	 * sets the stored (temp) score from the banked dice in the match
 	 * @param givenDice
 	 */
-	public void setStoredScore(ArrayList<Integer> givenDice) {
-		storedScore = getScore(givenDice);
+	public void setStoredScore(int score) {
+		storedScore = score;
 	}
 	
 	/**
@@ -62,19 +69,45 @@ public class Player {
 	 * @param storedScore 
 	 * @param rolledDice
 	 */
-	public void setTotalScore(int storedScore, ArrayList<Integer> givenDie) {
-		totalScore = storedScore + getScore(givenDie);
+	public void setTotalScore(int score) {
+		totalScore += score;
 	}
 	
 	
-	/**
-	 * calculates a score from the given dice
-	 * @param givenDice
-	 */
-	public int getScore(ArrayList<Integer> givenDice){ 
-		//TODO dice calculations
-		
-		return 0;
+
+
+	public int getTotalScore() {
+		return totalScore;
+	}
+
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public void addOpponent(String name, Player player){
+		opponents.put(name, player);
+	}
+
+	public Map<String, Player> getOpponents() {
+		return opponents;
+	}
+
+
+	public void setOpponents(Map<String, Player> opponents) {
+		this.opponents = opponents;
 	}
 		
 }

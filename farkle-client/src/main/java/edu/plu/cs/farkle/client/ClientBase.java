@@ -42,6 +42,11 @@ public class ClientBase implements CallBack
 		
 		return token;
 	}
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 
 	
 }

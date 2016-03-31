@@ -16,7 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class ClientService {
 	private Client client;
-	private GameClientNetwork gameClient;
+	private GameClient gameClient;
 	private Response response;
 	private String token;
 	public ClientService(){
@@ -57,11 +57,6 @@ public class ClientService {
 		return value;
 		
 	}
-	public void connectToGame(){
-		gameClient = new GameClientNetwork(token);
-	}
-	public void sendMessage(String str){
-		gameClient.sendMessage(str);
-	}
+	
 
 }
