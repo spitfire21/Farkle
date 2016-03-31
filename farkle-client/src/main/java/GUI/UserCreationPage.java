@@ -98,15 +98,18 @@ public class UserCreationPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String registered = "";
-				for (Iterator it = callBack.iterator(); it.hasNext();)
-					registered = ((CallBack)(it.next())).createAccount(textField.getText(),passwordField.getText());
+				for (Iterator it = callBack.iterator(); it.hasNext();){
+					CallBack callback = (CallBack)it.next();
+					registered = callback.createAccount(textField.getText(),passwordField.getText());
+					callback.createAccount(textField.getText(), passwordField.getText());
+				}
 				
 				if (registered == "" || registered == null){
 				// failed
 				}
 				else {
 					setVisible(false);
-				GameMainMenu gameMenu = new GameMainMenu();
+				GameMainMenu gameMenu = new GameMainMenu(callBack);
 				gameMenu.setVisible(true);
 				}
 			}

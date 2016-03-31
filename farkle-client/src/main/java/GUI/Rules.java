@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Frame;
 
 public class Rules extends JFrame {
 
@@ -25,7 +26,7 @@ public class Rules extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Rules frame = new Rules();
+					Rules frame = new Rules(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +38,7 @@ public class Rules extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Rules() {
+	public Rules(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -59,8 +60,8 @@ public class Rules extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GameMainMenu gameMenu = new GameMainMenu();
-				gameMenu.setVisible(true);
+		
+				frame.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(337, 356, 160, 71);

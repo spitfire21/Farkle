@@ -1,25 +1,31 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JDesktopPane;
 import java.awt.Color;
-import javax.swing.JList;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import edu.plu.cs.farkle.client.CallBack;
+import edu.plu.cs.farkle.client.GameClient;
+import edu.plu.cs.farkle.client.GameClientNetwork;
 
 public class GameMainMenu extends JFrame {
 
 	private JPanel contentPane;
-
+	GameMainMenu frame;
 	/**
 	 * Launch the application.
 	 */
@@ -27,7 +33,7 @@ public class GameMainMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameMainMenu frame = new GameMainMenu();
+					GameMainMenu frame = new GameMainMenu(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +45,8 @@ public class GameMainMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GameMainMenu() {
+	public GameMainMenu(final ArrayList callBack) {
+		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -67,7 +74,11 @@ public class GameMainMenu extends JFrame {
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GamePage newGamePage = new GamePage();
+				String token = "";
+				for (Iterator it = callBack.iterator(); it.hasNext();)
+					token = ((CallBack)(it.next())).getToken();
+				GameClientNetwork client = new GameClientNetwork(token);
+				GamePage newGamePage = new GamePage(frame);
 				newGamePage.setVisible(true);
 			}
 		});
@@ -79,7 +90,7 @@ public class GameMainMenu extends JFrame {
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Settings set = new Settings();
+				Settings set = new Settings(frame);
 				set.setVisible(true);
 			}
 		});
@@ -91,7 +102,7 @@ public class GameMainMenu extends JFrame {
 		btnRules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Rules rule = new Rules();
+				Rules rule = new Rules(frame);
 				rule.setVisible(true);
 			}
 		});

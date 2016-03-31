@@ -9,12 +9,21 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mongodb.util.JSON;
+
+
+
 import static java.util.concurrent.TimeUnit.*;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 3;
+	private int GAME_SIZE = 1;
 	// current player rolling
 	private Player currentPlayer;
 	
@@ -47,7 +56,7 @@ public class Game {
 		
 		// check if game is over full
 		if (players.size() > GAME_SIZE) {
-			p.sendMessage("GAME IS FULL");
+			p.sendMessage("Error", "GAME IS FULL");
 			return;
 			// if game can hold people, then add player
 		} else if (players.size() < GAME_SIZE){
@@ -174,7 +183,7 @@ public class Game {
 		// remove storedDice
 		player.storedDice.removeAll(player.storedDice);
 		// send message to player
-		player.sendMessage("WAIT YOUR TURN");
+		player.sendMessage("Status Waiting", "WAIT YOUR TURN");
 		// set player as stored
 		player.stored = true;
 		// if last player in list then rotate to first
@@ -185,7 +194,7 @@ public class Game {
 			currentPlayer = player.opponents.get(player.getPlayerNumber());
 		}
 		// send message to player
-		currentPlayer.sendMessage("It is now your turn, please roll");
+		currentPlayer.sendMessage("Status Rolling", "It is now your turn, please roll");
 
 	}
 
@@ -196,11 +205,17 @@ public class Game {
 	 * @return
 	 */
 	private int checkScore(List<Integer> storedDice) {
+		//TODO scoring fails when you score 4 1s
 		int score = 0;
 		int count = 0;
+		
 		while (storedDice.contains(1)) {
 			storedDice.remove(Integer.valueOf(1));
 			count++;
+		}
+		if(count > 3){
+			score += 1000;
+			count -= 3;
 		}
 		if (count == 3) {
 			score += 1000;
@@ -219,6 +234,10 @@ public class Game {
 			storedDice.remove(Integer.valueOf(2));
 			count++;
 		}
+		if(count > 3){
+			score += 200;
+			count -= 3;
+		}
 		if (count == 3) {
 			score += 200;
 
@@ -230,6 +249,10 @@ public class Game {
 		while (storedDice.contains(3)) {
 			storedDice.remove(Integer.valueOf(3));
 			count++;
+		}
+		if(count > 3){
+			score += 300;
+			count -= 3;
 		}
 		if (count == 3) {
 			score += 300;
@@ -243,6 +266,10 @@ public class Game {
 			storedDice.remove(Integer.valueOf(4));
 			count++;
 		}
+		if(count > 3){
+			score += 400;
+			count -= 3;
+		}
 		if (count == 3) {
 			score += 400;
 
@@ -254,6 +281,10 @@ public class Game {
 		while (storedDice.contains(5)) {
 			storedDice.remove(Integer.valueOf(5));
 			count++;
+		}
+		if(count > 3){
+			score += 500;
+			count -= 3;
 		}
 		if (count == 3) {
 			score += 500;
@@ -269,6 +300,10 @@ public class Game {
 		while (storedDice.contains(6)) {
 			storedDice.remove(Integer.valueOf(6));
 			count++;
+		}
+		if(count > 3){
+			score += 600;
+			count -= 3;
 		}
 		if (count == 3) {
 			score += 600;
@@ -350,9 +385,9 @@ public class Game {
 			
 			
 				// send start up message
-				sendMessage("WELCOME " + id);
-				sendMessage("YOU ARE PLAYER #" + playerNumber);
-				sendMessage("MESSAGE Waiting for opponent to connect");
+				sendMessage("Status Waiting","WELCOME " + id);
+				sendMessage("Status Waiting","YOU ARE PLAYER #" + playerNumber);
+				sendMessage("Status waiting","MESSAGE Waiting for opponent to connect");
 			
 
 		}
@@ -382,7 +417,7 @@ public class Game {
 		 */
 		private void start() {
 			//send start message
-			sendMessage("MESSAGE All players connected");
+			sendMessage("Status Waiting","MESSAGE All players connected");
 			for (int i = 0; i < players.size(); i++) {
 				for (int y = 0; y < players.size(); y++) {
 					if (players.get(i).getPlayerNumber() != y) {
@@ -394,13 +429,26 @@ public class Game {
 			 
 			// player is first player to join, they roll first
 			if (getPlayerNumber() == 0)
-				sendMessage("It is your turn to roll");
+				sendMessage("Status Rolling","It is your turn to roll");
+		}
+		
+		public void test(String command){
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				ServerCommand cmd = mapper.readValue(command, ServerCommand.class);
+				checkCommand(cmd);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		/**
 		 * Check command client sent to server
 		 * @param command
 		 */
-		public void checkCommand(String command){
+		public void checkCommand(ServerCommand cmd){
+			String command = cmd.getCommand();
 
 			System.out.println(command);
 			// if command is ROLL and can roll generate numbers
@@ -408,35 +456,45 @@ public class Game {
 				stored = false;
 				// fill array with numbers
 				//TODO use DICE class 
+				
 				for (int i = storedDice.size(); i < 6; i++) {
 					int roll = ThreadLocalRandom.current().nextInt(1, 7);
 					dice.add(roll);
-					sendMessage(Integer.toString(roll));
+					
+					//sendMessage(Integer.toString(roll));
 				}
+				
+				
+				sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 				// check for farkle
 				if (checkFarkle(dice)) {
-					sendMessage("FARKLE :(");
+					sendMessage("Farkle", "Wait you Turn");
 					endTurn(this);
 				}
 			}
 			// if command is STORE
-			STORE: if (command.startsWith("STORE ")) {
+			STORE: if (command.startsWith("STORE")) {
 				int numOfDice = 0;
+				ArrayList<Integer> sentDice = (ArrayList<Integer>) cmd.getDice().getDice();
 				// check if dice is not 0
 				if (dice.size() > 0) {
-					// split command
-					String[] splits = command.split("[ ]");
+					
+					
 					// if nothing was selected to score produce error
-					  if (splits.length == 1) {
-						sendMessage("You must store something");
+					  if (sentDice.size() == 0) {
+						sendMessage("Error","You must store something");
 					} else {
 						// go through split and check for valid numbers
-						for (int i = 1; i < splits.length; i++) {
-							if (dice.contains(Integer.valueOf(splits[i]))) {
-								storedDice.add(Integer.valueOf(splits[i]));
-							} else {
+						for (int i = 0; i < sentDice.size(); i++) {
+							if (dice.contains(Integer.valueOf(sentDice.get(i)))) {
+								storedDice.add(Integer.valueOf(sentDice.get(i)));
+								
+							} else if (Integer.valueOf(sentDice.get(i))==0){
+								
+							}
+									else {
 								// invalid 
-								sendMessage("INVALID STORE WRITE NUMBERS AGAIN");
+								sendMessage("Error","INVALID STORE WRITE NUMBERS AGAIN");
 								// remove added dice
 								for(int x = 0; x < i; x++){
 									storedDice.remove(storedDice.size()-1);
@@ -449,7 +507,7 @@ public class Game {
 						}
 						// check if store hand has non scoring die
 						if (checkStoreHand(storedDice)) {
-							sendMessage("You can't store non-scoring die");
+							sendMessage("Error","You can't store non-scoring die");
 							for(int x = 0; x < numOfDice; x++){
 								// remove dice
 								storedDice.remove(storedDice.size()-1);
@@ -462,7 +520,7 @@ public class Game {
 						// calculate score
 						storedScore += checkScore(storedDice);
 						// tell player what score they could get
-						sendMessage("Your current stored score is: " + storedScore);
+						sendJSON("STORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 						// reset roll
 						stored = true;
 						// reset roll if player gets 6 stored dice
@@ -477,7 +535,7 @@ public class Game {
 			if (command.startsWith("SCORE")) {
 				score += checkScore(dice);
 				score += storedScore;
-				sendMessage("YOUR CURRENT SCORE: " + score);
+				sendJSON("SCORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 				endTurn(this);
 			}
 
@@ -490,20 +548,42 @@ public class Game {
 		}
 		
 		
+		
+		
 		/**
 		 * Send string to client TODO JSON
 		 * @param message
 		 */
-		private void sendMessage(String message){
-			
-		try {
-			output.sendString(message);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		private void sendMessage(String command, String message){
+			sendJSON(command, this.id, message, new Dice(this.dice), this.score, this.storedScore);
+		
 		}
-
+		
+		public void sendJSON(String command, String name, String message, Dice dice,
+	 			int score, int storedScore){
+	 		ServerCommand cmd = new ServerCommand(command, name, message, dice, score, storedScore);
+	 		ObjectMapper mapper = new ObjectMapper();
+			
+	 		
+				try {
+					output.sendString(mapper.writeValueAsString(cmd));
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
-	
 }
+	 		
+	 		
+	 	
+
+	
+	
+

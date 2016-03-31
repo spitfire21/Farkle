@@ -31,7 +31,7 @@ public class Settings extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Settings frame = new Settings();
+					Settings frame = new Settings(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class Settings extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Settings() {
+	public Settings(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -93,8 +93,8 @@ public class Settings extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GameMainMenu newMenu = new GameMainMenu();
-				newMenu.setVisible(true);
+			
+				frame.setVisible(true);
 			}
 		});
 		btnBack.setBounds(85, 338, 156, 68);
@@ -104,8 +104,8 @@ public class Settings extends JFrame {
 		btnSavequit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GameMainMenu newMenu = new GameMainMenu();
-				newMenu.setVisible(true);
+			
+				frame.setVisible(true);
 			}
 		});
 		btnSavequit.setBounds(574, 338, 156, 68);

@@ -50,7 +50,7 @@ public class GameServer {
 	    			player = map.get(session);
 	    			if (player!= null)
 	    				// check command
-	    				player.checkCommand(message);
+	    				player.test(message);
 	    		
 	    	
 	    	

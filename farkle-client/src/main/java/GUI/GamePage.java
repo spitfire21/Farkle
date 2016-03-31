@@ -35,7 +35,7 @@ public class GamePage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GamePage frame = new GamePage();
+					GamePage frame = new GamePage(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class GamePage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GamePage() {
+	public GamePage(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -135,8 +135,8 @@ public class GamePage extends JFrame {
 		btnHomePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				GameMainMenu home = new GameMainMenu();
-				home.setVisible(true);
+				
+				frame.setVisible(true);
 			}
 		});
 		//Set bounds for home page button

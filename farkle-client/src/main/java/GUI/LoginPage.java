@@ -100,7 +100,7 @@ public class LoginPage extends JFrame {
 				}
 				else{
 					setVisible(false);
-				GameMainMenu gameMenu = new GameMainMenu();
+				GameMainMenu gameMenu = new GameMainMenu(callBack);
 				gameMenu.setVisible(true);
 				}
 			}
