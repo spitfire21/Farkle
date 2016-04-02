@@ -3,6 +3,7 @@ package edu.plu.cs.farkle.client;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import GUI.GUI;
 
@@ -20,9 +21,12 @@ public class ClientBase implements CallBack
 		login = new ClientService();
 	}
 	public String createAccount(String username, String password){
+		String status = "";
 		try {
 			//TODO parse JSON
-			login.Register(username, password);
+			
+			
+		status = login.Register(username, password);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,7 +34,7 @@ public class ClientBase implements CallBack
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "yes";
+		return status;
 	}
 	public String login(String username, String password){
 		name = username;

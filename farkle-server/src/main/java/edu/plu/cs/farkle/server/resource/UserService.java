@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import edu.plu.cs.farkle.server.auth.UserCredentials;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
-import edu.plu.cs.farkle.server.database.MongoServerTest;
+import edu.plu.cs.farkle.server.database.MongoConnection;
 
 
 @Path("/login")
@@ -49,7 +49,7 @@ public class UserService {
 	    }
 
 	    private void authenticate(String username, String password) throws Exception {
-	    	MongoServerTest db = FarkleServerApplication.getDatabase();
+	    	MongoConnection db = FarkleServerApplication.getDatabase();
 	    	
 	    	if(!db.checkUser(username, password)){
 	    		System.out.println("FAILED LOGIN");

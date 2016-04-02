@@ -13,7 +13,7 @@ import javax.ws.rs.core.Application;
 import edu.plu.cs.farkle.server.auth.AuthenticatorFilter;
 import edu.plu.cs.farkle.server.auth.SocketFilter;
 import edu.plu.cs.farkle.server.database.FarkleDB;
-import edu.plu.cs.farkle.server.database.MongoServerTest;
+import edu.plu.cs.farkle.server.database.MongoConnection;
 import edu.plu.cs.farkle.server.resource.GameServlet;
 import edu.plu.cs.farkle.server.resource.PingPongResource;
 import edu.plu.cs.farkle.server.resource.UserRegistration;
@@ -26,14 +26,14 @@ import edu.plu.cs.farkle.server.resource.UserService;
 @ApplicationPath("/farkle")
 public class FarkleServerApplication extends Application {
 	static Key key;
-	static MongoServerTest db;
+	static MongoConnection db;
 	/**
 	 * This is the set of resources and filters that this application
 	 * uses.  When we need to create a new resource, a single instance
 	 * should be added to this set to enable it.
 	 */
 	private Set<Object> singletons = new HashSet<Object>();
-	public static MongoServerTest getDatabase (){
+	public static MongoConnection getDatabase (){
 		return db;
 	}
 	/**
@@ -47,7 +47,7 @@ public class FarkleServerApplication extends Application {
 		singletons.add(new SocketFilter());
 		singletons.add(new FarkleDB());
 		singletons.add(new UserService());
-		singletons.add(db = new MongoServerTest());
+		singletons.add(db = new MongoConnection());
 
 		key = MacProvider.generateKey();
 	}

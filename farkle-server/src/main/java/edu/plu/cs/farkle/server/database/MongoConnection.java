@@ -4,11 +4,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
 
-public class MongoServerTest {
+public class MongoConnection {
 	FarkleDB mu;
 	MongoDatabase db;
 	MongoClient mongoClient;
-	public MongoServerTest(){
+	public MongoConnection(){
 	 mongoClient = new MongoClient( "localhost" , 27017 );
 		
        db = mongoClient.getDatabase("farkle");

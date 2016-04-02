@@ -101,10 +101,11 @@ public class UserCreationPage extends JFrame {
 				for (Iterator it = callBack.iterator(); it.hasNext();){
 					CallBack callback = (CallBack)it.next();
 					registered = callback.createAccount(textField.getText(),passwordField.getText());
-					callback.createAccount(textField.getText(), passwordField.getText());
+					callback.login(textField.getText(), passwordField.getText());
+					
 				}
 				
-				if (registered == "" || registered == null){
+				if (registered.equals("User Already Exists") || registered == null){
 				// failed
 				}
 				else {

@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 import edu.plu.cs.farkle.server.auth.UserCredentials;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
-import edu.plu.cs.farkle.server.database.MongoServerTest;
+import edu.plu.cs.farkle.server.database.MongoConnection;
 
 @Path("/registration")
 public class UserRegistration {
@@ -20,7 +20,7 @@ public class UserRegistration {
 	public String createUser(UserCredentials credentials) {
 		String username = credentials.getUsername();
 	    String password = credentials.getPassword();
-		MongoServerTest db = FarkleServerApplication.getDatabase();
+		MongoConnection db = FarkleServerApplication.getDatabase();
 		String json;
 		if(db.createUser(username, password)){
 			System.out.println("USER CREATED");

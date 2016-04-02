@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bson.Document;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
@@ -52,11 +53,13 @@ public class FarkleDB {
 			return -1;
 			
 		}
+		BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+		String encryptedPassword = passwordEncryptor.encryptPassword(pw);
 		//TODO hash and encrypt passwords
 		db.getCollection("users").insertOne(
         		new Document()
         			.append("_id",un)
-        			.append("password",pw)
+        			.append("password",encryptedPassword)
         			.append("victories", 0)
         );
 		return 0;
@@ -127,19 +130,14 @@ public class FarkleDB {
 	 * @return 0 if user is authenticated, -1 if not
 	 */
 	public int authPassword(String un, String pw) {
+		BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 		
 		
-		MongoCollection<Document> coll = db.getCollection("users");
 		
-		BasicDBObject searchQuery = new BasicDBObject();
-		//TODO encrypt password to check with db
-		searchQuery.put("_id", un);	
-		searchQuery.put("password", pw);
-		
-		if(coll.find(searchQuery).iterator().hasNext())
+		if (passwordEncryptor.checkPassword(pw, findUser(un).get("password").toString()))
 			return 0;
-		else
-			return -1;
+		
+		return -1;
 	}
 	
 	/**
