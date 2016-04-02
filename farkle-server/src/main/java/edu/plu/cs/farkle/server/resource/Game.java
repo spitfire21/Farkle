@@ -387,8 +387,11 @@ public class Game {
 				// send start up message
 				sendMessage("Status Waiting","WELCOME " + id);
 				sendMessage("Status Waiting","YOU ARE PLAYER #" + playerNumber);
-				sendMessage("Status waiting","MESSAGE Waiting for opponent to connect");
-			
+				sendMessage("Status Waiting","MESSAGE Waiting for opponent to connect");
+				
+				for(int i = 0; i < players.size()-1; i++){
+					players.get(i).sendMessage("Status Waiting", id + " connected to the game");
+				}
 
 		}
 		/**
