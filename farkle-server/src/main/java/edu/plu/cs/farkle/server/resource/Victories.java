@@ -9,7 +9,7 @@ public class Victories implements Serializable{
 	
 	private String victors;
 	
-	Victories(String v){
+	public Victories(String v){
 		victors = v;
 	}
 	
