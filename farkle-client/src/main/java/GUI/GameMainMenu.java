@@ -7,8 +7,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -57,8 +59,16 @@ public class GameMainMenu extends JFrame {
 		desktopPane.setBackground(new Color(139, 0, 0));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
-		JList list = new JList();
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		listModel.addElement("hello world");
+		
+		
+		JList<String> list = new JList<String>(listModel);
 		list.setBounds(486, 93, 269, 325);
+		
+		
+		
 		desktopPane.add(list);
 		
 		JLabel lblLeaderboard = new JLabel("Leaderboard");
@@ -67,6 +77,9 @@ public class GameMainMenu extends JFrame {
 		lblLeaderboard.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 34));
 		lblLeaderboard.setBounds(528, 15, 184, 66);
 		desktopPane.add(lblLeaderboard);
+		
+		
+		
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));

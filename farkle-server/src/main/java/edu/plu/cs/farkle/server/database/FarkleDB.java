@@ -3,6 +3,7 @@ package edu.plu.cs.farkle.server.database;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bson.Document;
 
@@ -91,20 +92,19 @@ public class FarkleDB {
 	 * 
 	 * @return a json containing top victors and their win count
 	 */
-	public ArrayList<Document> getVictors() {
+	public ArrayList<String> getVictors() {
 		FindIterable<Document> iter = db.getCollection("users").find()
-		        .sort(new Document("victories", -1).append("victories", -1));
+		        .sort(new Document("victories", -1));
 		
-		final ArrayList<Document> victors = new ArrayList<Document>();
-		
+		final ArrayList<String> victors = new ArrayList<String>();
+
 		iter.forEach(new Block<Document>() {
 		    @Override
 		    public void apply(final Document document) {
-		      victors.add(document);
+		      victors.add(document.get("_id") + ": " + document.get("victories"));
 		    }
 		});
-		
-		
+				
 		
 		return victors;
 	}
