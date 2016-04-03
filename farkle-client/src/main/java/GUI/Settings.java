@@ -43,7 +43,7 @@ public class Settings extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Settings(final GameMainMenu frame) {
+	public Settings(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -59,8 +59,9 @@ public class Settings extends JFrame {
 		btnBack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GameMainMenu patchFix = new GameMainMenu(null);
+				patchFix.setVisible(true);
 				setVisible(false);
-				frame.setVisible(true);
 			}
 		});
 		btnBack.setBounds(339, 338, 156, 68);

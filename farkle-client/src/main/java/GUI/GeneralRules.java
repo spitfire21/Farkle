@@ -26,7 +26,7 @@ public class GeneralRules extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GeneralRules frame = new GeneralRules();
+					GeneralRules frame = new GeneralRules(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,8 +37,9 @@ public class GeneralRules extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param frame 
 	 */
-	public GeneralRules() {
+	public GeneralRules(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

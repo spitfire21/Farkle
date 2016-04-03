@@ -26,7 +26,7 @@ public class ScoringVariations extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ScoringVariations frame = new ScoringVariations();
+					ScoringVariations frame = new ScoringVariations(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class ScoringVariations extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ScoringVariations() {
+	public ScoringVariations(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -53,8 +53,8 @@ public class ScoringVariations extends JFrame {
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rules rule = new Rules(null);
-				rule.setVisible(true);
+				Rules rules = new Rules(null);
+				rules.setVisible(true);
 				setVisible(false);
 			}
 		});

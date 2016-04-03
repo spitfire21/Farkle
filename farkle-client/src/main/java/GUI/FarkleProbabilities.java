@@ -26,7 +26,7 @@ public class FarkleProbabilities extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FarkleProbabilities frame = new FarkleProbabilities();
+					FarkleProbabilities frame = new FarkleProbabilities(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,8 +37,9 @@ public class FarkleProbabilities extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param frame 
 	 */
-	public FarkleProbabilities() {
+	public FarkleProbabilities(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

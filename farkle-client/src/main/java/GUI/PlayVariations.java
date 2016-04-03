@@ -26,7 +26,7 @@ public class PlayVariations extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayVariations frame = new PlayVariations();
+					PlayVariations frame = new PlayVariations(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class PlayVariations extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PlayVariations() {
+	public PlayVariations(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

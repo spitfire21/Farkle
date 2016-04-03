@@ -26,7 +26,7 @@ public class StandardScoring extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StandardScoring frame = new StandardScoring();
+					StandardScoring frame = new StandardScoring(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,8 +37,9 @@ public class StandardScoring extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param frame 
 	 */
-	public StandardScoring() {
+	public StandardScoring(GameMainMenu frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
