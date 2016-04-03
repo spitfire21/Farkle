@@ -15,6 +15,7 @@ import edu.plu.cs.farkle.server.auth.SocketFilter;
 import edu.plu.cs.farkle.server.database.FarkleDB;
 import edu.plu.cs.farkle.server.database.MongoConnection;
 import edu.plu.cs.farkle.server.resource.GameServlet;
+import edu.plu.cs.farkle.server.resource.MainPage;
 import edu.plu.cs.farkle.server.resource.PingPongResource;
 import edu.plu.cs.farkle.server.resource.UserRegistration;
 import edu.plu.cs.farkle.server.resource.UserService;
@@ -48,6 +49,7 @@ public class FarkleServerApplication extends Application {
 		singletons.add(new FarkleDB());
 		singletons.add(new UserService());
 		singletons.add(db = new MongoConnection());
+		singletons.add(new MainPage());
 
 		key = MacProvider.generateKey();
 	}

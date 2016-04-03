@@ -2,10 +2,15 @@
 
 package edu.plu.cs.farkle.server.resource;
 
+import java.io.IOException;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 import edu.plu.cs.farkle.server.database.MongoConnection;
@@ -24,14 +29,16 @@ public class MainPage {
 	
 		
 		}
-	@GET
+	@GET 
 	@Produces("application/json")
-	public Response getVictories(){
-		String vList = db.getVictors();
-		 
-		
-		
-		return Response.ok(db.sendJSON(vList)).build();
+	public Response getVictories() throws JsonGenerationException, JsonMappingException, IOException{
+		//String vList = db.getVictors();
+		String vList =
+			    "{ \"user1\" : \"0\", \"mickey\" : \"0\", }";
+
+
+		 		
+		return Response.ok(vList).build();
 	}
 
 	}

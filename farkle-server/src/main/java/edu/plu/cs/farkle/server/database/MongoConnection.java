@@ -18,7 +18,7 @@ public class MongoConnection {
 	FarkleDB mu;
 	MongoDatabase db;
 	MongoClient mongoClient;
-	private ArrayList<String> dbVictors;
+	private String[] dbVictors;
 	public MongoConnection(){
 	 mongoClient = new MongoClient( "localhost" , 27017 );
 		
@@ -44,32 +44,21 @@ public class MongoConnection {
 	}
 	public String getVictors(){
 		String victorsList = "";
-		 
-		 for(int i=0;i<dbVictors.size();i++){
-			 victorsList += dbVictors.get(i) + "/n";
+		dbVictors = mu.getVictors();
+		 for(int i=0;i<dbVictors.length;i++){
+			 victorsList += dbVictors[i] + ", ";
 		 }
 		 
 		 return victorsList;
 	}
 	
-	public String sendJSON(String list) {
+	public String sendJSON(String list) throws JsonGenerationException, JsonMappingException, IOException {
 		Victories vic = new Victories(list);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		try {
-			return mapper.writeValueAsString(vic);
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 		
+			return mapper.writeValueAsString(vic);
+
 		
 	}
 	

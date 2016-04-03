@@ -95,11 +95,12 @@ public class FarkleDB {
 	 * 
 	 * @return a json containing top victors and their win count
 	 */
-	public ArrayList<String> getVictors() {
+	public String[] getVictors() {
 		FindIterable<Document> iter = db.getCollection("users").find()
 		        .sort(new Document("victories", -1));
 		
 		final ArrayList<String> victors = new ArrayList<String>();
+		String[] vList = new String[10];
 
 		iter.forEach(new Block<Document>() {
 		    @Override
@@ -108,8 +109,15 @@ public class FarkleDB {
 		    }
 		});
 				
-		
-		return victors;
+		for(int i=0;i<10;i++){
+			if(victors.size()<=i)
+				vList[i]="null: null";
+			else 
+				vList[i]=victors.get(i);
+			
+		}
+		System.out.println(vList.toString());
+		return vList;
 	}
 	/**
 	 * updates username's document to add to their number of victories
