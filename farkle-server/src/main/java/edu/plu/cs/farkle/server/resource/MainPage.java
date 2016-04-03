@@ -32,13 +32,13 @@ public class MainPage {
 	@GET 
 	@Produces("application/json")
 	public Response getVictories() throws JsonGenerationException, JsonMappingException, IOException{
-		//String vList = db.getVictors();
-		String vList =
-			    "{ \"user1\" : \"0\", \"mickey\" : \"0\", }";
+		Victories vList = db.getVictors();
+		//String vList =
+			//    "{ \"user1\" : \"0\", \"mickey\" : \"0\", }";
 
 
 		 		
-		return Response.ok(vList).build();
+		return Response.ok(db.sendJSON(vList)).build();
 	}
 
 	}

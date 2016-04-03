@@ -1,12 +1,11 @@
 package edu.plu.cs.farkle.server.database;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -18,7 +17,7 @@ public class MongoConnection {
 	FarkleDB mu;
 	MongoDatabase db;
 	MongoClient mongoClient;
-	private String[] dbVictors;
+	private List<String> dbVictors;
 	public MongoConnection(){
 	 mongoClient = new MongoClient( "localhost" , 27017 );
 		
@@ -42,18 +41,16 @@ public class MongoConnection {
 			return false;
 		}
 	}
-	public String getVictors(){
-		String victorsList = "";
+	public Victories getVictors(){
+		
 		dbVictors = mu.getVictors();
-		 for(int i=0;i<dbVictors.length;i++){
-			 victorsList += dbVictors[i] + ", ";
-		 }
+		Victories vic = new Victories(dbVictors);
 		 
-		 return victorsList;
+		 return vic;
 	}
 	
-	public String sendJSON(String list) throws JsonGenerationException, JsonMappingException, IOException {
-		Victories vic = new Victories(list);
+	public String sendJSON(Victories vic) throws JsonGenerationException, JsonMappingException, IOException {
+		
 		ObjectMapper mapper = new ObjectMapper();
 		
 		

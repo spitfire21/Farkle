@@ -3,16 +3,14 @@ package edu.plu.cs.farkle.server.database;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import org.bson.Document;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 
@@ -95,12 +93,13 @@ public class FarkleDB {
 	 * 
 	 * @return a json containing top victors and their win count
 	 */
-	public String[] getVictors() {
+	public List<String> getVictors() {
+		List<String> victories = new ArrayList<String>();
 		FindIterable<Document> iter = db.getCollection("users").find()
 		        .sort(new Document("victories", -1));
 		
 		final ArrayList<String> victors = new ArrayList<String>();
-		String[] vList = new String[10];
+	
 
 		iter.forEach(new Block<Document>() {
 		    @Override
@@ -111,13 +110,13 @@ public class FarkleDB {
 				
 		for(int i=0;i<10;i++){
 			if(victors.size()<=i)
-				vList[i]="null: null";
+				victories.add("null: null");
 			else 
-				vList[i]=victors.get(i);
+				victories.add(victors.get(i));
 			
 		}
-		System.out.println(vList.toString());
-		return vList;
+		System.out.println(victories.toString());
+		return victories;
 	}
 	/**
 	 * updates username's document to add to their number of victories
