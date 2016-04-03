@@ -20,22 +20,6 @@ public class ScoringVariations extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ScoringVariations frame = new ScoringVariations(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public ScoringVariations(GameMainMenu frame) {
@@ -53,7 +37,7 @@ public class ScoringVariations extends JFrame {
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rules rules = new Rules(null);
+				Rules rules = new Rules(frame);
 				rules.setVisible(true);
 				setVisible(false);
 			}

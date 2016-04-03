@@ -28,21 +28,6 @@ public class GamePage extends JFrame {
 	//private static final boolean True = false;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GamePage frame = new GamePage(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -135,7 +120,6 @@ public class GamePage extends JFrame {
 		btnHomePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				
 				frame.setVisible(true);
 			}
 		});

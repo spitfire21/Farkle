@@ -23,26 +23,11 @@ public class AdjustGameplay extends JFrame {
 	private JTextField txtAdjustScoreThreshold;
 	private JTextField txtAdjustMaxScore;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdjustGameplay frame = new AdjustGameplay();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AdjustGameplay() {
+	public AdjustGameplay(GameMainMenu frame, ScoringVariations var, PlayVariations play) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -57,9 +42,9 @@ public class AdjustGameplay extends JFrame {
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Settings set = new Settings(null);
-				set.setVisible(true);
 				setVisible(false);
+				Settings test = new Settings(frame, var, play);
+				test.setVisible(true);
 			}
 		});
 		button.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));

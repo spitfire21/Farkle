@@ -19,21 +19,6 @@ public class GeneralRules extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GeneralRules frame = new GeneralRules(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -54,9 +39,9 @@ public class GeneralRules extends JFrame {
 		JButton btnNewButton = new JButton("Back");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rules rules = new Rules(null);
-				rules.setVisible(true);
+				Rules rules = new Rules(frame);
 				setVisible(false);
+				rules.setVisible(true);
 			}
 		});
 		btnNewButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));

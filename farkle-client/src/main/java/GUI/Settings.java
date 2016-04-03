@@ -25,25 +25,9 @@ public class Settings extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Settings frame = new Settings(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public Settings(GameMainMenu frame) {
+	public Settings(GameMainMenu frame, ScoringVariations var, PlayVariations play) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -59,9 +43,8 @@ public class Settings extends JFrame {
 		btnBack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameMainMenu patchFix = new GameMainMenu(null);
-				patchFix.setVisible(true);
 				setVisible(false);
+				frame.setVisible(true);
 			}
 		});
 		btnBack.setBounds(339, 338, 156, 68);
@@ -70,7 +53,7 @@ public class Settings extends JFrame {
 		JButton btnAdjustScoringVariations = new JButton("Adjust Scoring");
 		btnAdjustScoringVariations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdjustScoring adjust = new AdjustScoring();
+				AdjustScoring adjust = new AdjustScoring(frame, var, play);
 				adjust.setVisible(true);
 				setVisible(false);
 			}
@@ -82,7 +65,7 @@ public class Settings extends JFrame {
 		JButton btnAdjustGameplay = new JButton("Adjust Gameplay");
 		btnAdjustGameplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdjustGameplay adjustG = new AdjustGameplay();
+				AdjustGameplay adjustG = new AdjustGameplay(frame, var, play);
 				adjustG.setVisible(true);
 				setVisible(false);
 			}

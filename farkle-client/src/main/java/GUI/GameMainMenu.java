@@ -27,21 +27,9 @@ public class GameMainMenu extends JFrame {
 
 	private JPanel contentPane;
 	GameMainMenu frame;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameMainMenu frame = new GameMainMenu(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	ScoringVariations scoVar;
+	PlayVariations playVar;
+
 
 	/**
 	 * Create the frame.
@@ -98,6 +86,7 @@ public class GameMainMenu extends JFrame {
 				//GameClient client = new GameClient(token, name);
 				GamePage newGamePage = new GamePage(frame);
 				newGamePage.setVisible(true);
+				setVisible(false);
 			}
 		});
 		btnNewGame.setBounds(70, 38, 207, 86);
@@ -108,7 +97,7 @@ public class GameMainMenu extends JFrame {
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Settings set = new Settings(frame);
+				Settings set = new Settings(frame, scoVar, playVar);
 				set.setVisible(true);
 			}
 		});

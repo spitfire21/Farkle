@@ -18,23 +18,6 @@ import java.awt.event.ActionEvent;
 public class FarkleProbabilities extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FarkleProbabilities frame = new FarkleProbabilities(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 * @param frame 
@@ -54,9 +37,9 @@ public class FarkleProbabilities extends JFrame {
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rules rules = new Rules(null);
-				rules.setVisible(true);
+				Rules rules = new Rules(frame);
 				setVisible(false);
+				rules.setVisible(true);
 			}
 		});
 		button.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));

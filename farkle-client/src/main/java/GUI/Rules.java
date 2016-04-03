@@ -20,22 +20,6 @@ public class Rules extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Rules frame = new Rules(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public Rules(GameMainMenu frame) {
@@ -54,9 +38,8 @@ public class Rules extends JFrame {
 		btnNewButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameMainMenu test = new GameMainMenu(null);
-				test.setVisible(true);
 				setVisible(false);
+				frame.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(337, 356, 160, 71);
