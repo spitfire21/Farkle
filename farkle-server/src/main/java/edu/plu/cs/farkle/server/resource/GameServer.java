@@ -60,7 +60,9 @@ public class GameServer {
 	 
 	    @OnWebSocketClose
 	    public void onClose(Session session, int status, String reason) {
+	    	
 	        logger.info(String.format("Session %s closed because of %s", reason));
+	        session.close();
 	    }
 	    
 	    

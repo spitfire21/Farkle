@@ -18,7 +18,7 @@ import org.eclipse.jetty.websocket.api.Session;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.util.JSON;
 
-
+import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 
 import static java.util.concurrent.TimeUnit.*;
 public class Game {
@@ -26,7 +26,7 @@ public class Game {
 	private int GAME_SIZE = 1;
 	// current player rolling
 	private Player currentPlayer;
-	
+	private int winningScore = 10;
 	// status of game
 	private String status;
 	// list of players
@@ -176,6 +176,9 @@ public class Game {
 	}
 // end players turn
 	private void endTurn(Player player){
+		if(player.score < winningScore){
+			
+		
 		// set storedScore as 0
 		player.storedScore = 0;
 		// remove dice
@@ -195,7 +198,13 @@ public class Game {
 		}
 		// send message to player
 		currentPlayer.sendMessage("Status Rolling", "It is now your turn, please roll");
-
+		}
+		else {
+			player.stored = true;
+			currentPlayer = null;
+			FarkleServerApplication.getDatabase().updateVictories(player.id);
+			
+		}
 	}
 
 	/**

@@ -58,6 +58,10 @@ public class MongoConnection {
 
 		
 	}
+	public void updateVictories(String player) {
+		mu.addVictory(player);
+		
+	}
 	
      
 }
