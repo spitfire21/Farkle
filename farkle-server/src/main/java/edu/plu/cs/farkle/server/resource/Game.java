@@ -466,7 +466,9 @@ public class Game {
 					
 					//sendMessage(Integer.toString(roll));
 				}
-				
+				while(dice.size()<6){
+					dice.add(0);
+				}
 				
 				sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 				// check for farkle
@@ -491,6 +493,7 @@ public class Game {
 						for (int i = 0; i < sentDice.size(); i++) {
 							if (dice.contains(Integer.valueOf(sentDice.get(i)))) {
 								storedDice.add(Integer.valueOf(sentDice.get(i)));
+								dice.remove(Integer.valueOf(sentDice.get(i)));
 								
 							} else if (Integer.valueOf(sentDice.get(i))==0){
 								
@@ -529,6 +532,7 @@ public class Game {
 						// reset roll if player gets 6 stored dice
 						if (storedDice.size() == 6) {
 							storedDice.removeAll(storedDice);
+							dice.removeAll(dice);
 						}
 					}
 				}

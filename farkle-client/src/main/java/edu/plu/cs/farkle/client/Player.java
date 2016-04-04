@@ -7,16 +7,22 @@ import java.util.Map;
 
 public class Player {
 
-	private ArrayList<Integer> die;
+	private ArrayList<Integer> dice;
 	private int storedScore;
 	private int totalScore;
 	private String name;
+	private ServerCommand command;
 	private String status;
 	private Map<String, Player> opponents;
 	
 	public Player(){
-		
+		dice = new ArrayList<Integer>();
 		setOpponents(new HashMap<String, Player>());
+	}
+	public Player(ServerCommand command){
+		dice = new ArrayList<Integer>();
+		setOpponents(new HashMap<String, Player>());
+		parseCommand(command);
 	}
 	
 	
@@ -28,25 +34,28 @@ public class Player {
 	public void parseCommand(ServerCommand command) {	
 		setStatus(command.getCommand());
 		//setName(command.getName());
-		setDie(command.getDice().getDice());
+		setDice(command.getDice().getDice());
 		setTotalScore(command.getScore());
 		setStoredScore(command.getStoredScore());
+		this.command = command;
 	}
 	
 	/**
 	 * sets the Dice to values given from GameClient
 	 * @param givenDice
 	 */
-	public void setDie(List<Integer> die){
-		this.die = (ArrayList<Integer>) die;
+	public void setDice(ArrayList<Integer> rDice){
+	
+		dice = rDice;
+		
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public ArrayList<Integer> getDie() {
-		return die;
+	public ArrayList<Integer> getDice() {
+		return dice;
 	}
 	
 	/**

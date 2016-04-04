@@ -1,38 +1,35 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Panel;
-import java.awt.Font;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
-import javax.swing.border.BevelBorder;
+import edu.plu.cs.farkle.client.GameClient;
 
 public class GamePage extends JFrame {
 
 	//private static final boolean True = false;
 	private JPanel contentPane;
+	private GameClient gClient;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public GamePage(GameMainMenu frame) {
+	public GamePage(GameMainMenu frame, String token, String name) {
+		gClient = new GameClient(token, name);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -145,17 +142,32 @@ public class GamePage extends JFrame {
 		//ROLL DICE BUTTON LISTERNER __________________________________________________________
 		btnRollDice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
-				
-				
+				storeData.removeAll(storeData);
+				for(int i = 0; i < 6; i++){
+					storeData.add(0);
+				}
+				gClient.sendJSON("ROLL", name, "ROLLING", null, 0, 0);
+				try {
+					Thread.sleep(1500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					ArrayList<Integer> dice = gClient.getDice();
+					
 					//DICE 1---------------------------------------------------------
 					panel.removeAll();
+				
 					JButton picLabel = new JButton("");
-					String diceName = rollFunction();
+					String diceName = rollFunction(dice.get(0));
+					
 					Image img = new ImageIcon(this.getClass().getResource(diceName)).getImage();
 					picLabel.setIcon(new ImageIcon(img));
 					picLabel.setBounds(6, 6, 285, 266);
 					panel.add(picLabel);
+					if(diceName.equals("/0.jpg")){
+						panel.setVisible(false);
+					}
 					JButton picLabel7 = new JButton("");
 					picLabel7.setIcon(new ImageIcon(img));
 					picLabel7.setBounds(6, 6, 285, 266);
@@ -169,7 +181,7 @@ public class GamePage extends JFrame {
 					picLabel.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA);
-							storeData.add(rolledA);
+							storeData.set(0,rolledA);
 							panel.setVisible(false);
 							panel_6.setVisible(true);
 							
@@ -180,7 +192,7 @@ public class GamePage extends JFrame {
 					picLabel7.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							System.out.println("STORE MEEEE");
-							storeData.remove((Integer)rolledA);
+							storeData.set(0,0);
 							panel.removeAll();
 							panel.add(picLabel);
 							panel.setVisible(true);
@@ -196,11 +208,15 @@ public class GamePage extends JFrame {
 					//DICE 2---------------------------------------------------------
 					panel_1.removeAll();
 					JButton picLabel2 = new JButton("");
-					String diceName2 = rollFunction();
+					String diceName2 = rollFunction(dice.get(1));
+					
 					Image img2 = new ImageIcon(this.getClass().getResource(diceName2)).getImage();
 					picLabel2.setIcon(new ImageIcon(img2));
 					picLabel2.setBounds(6, 6, 285, 266);
 					panel_1.add(picLabel2);
+					if(diceName2.equals("/0.jpg")){
+						panel_1.setVisible(false);
+					}
 					JButton picLabel8 = new JButton("");
 					picLabel8.setIcon(new ImageIcon(img2));
 					picLabel8.setBounds(6, 6, 285, 266);
@@ -214,7 +230,7 @@ public class GamePage extends JFrame {
 					picLabel2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA2);
-							storeData.add(rolledA2);
+							storeData.set(1,rolledA2);
 							panel_1.setVisible(false);
 							panel_7.setVisible(true);
 						}
@@ -222,7 +238,7 @@ public class GamePage extends JFrame {
 					
 					picLabel8.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							storeData.remove((Integer)rolledA2);
+							storeData.set(1, 0);
 							panel_1.removeAll();
 							panel_1.add(picLabel2);
 							panel_1.setVisible(true);
@@ -236,7 +252,10 @@ public class GamePage extends JFrame {
 					
 					panel_2.removeAll();
 					JButton picLabel3 = new JButton("");
-					String diceName3 = rollFunction();
+					String diceName3 = rollFunction(dice.get(2));
+					if(diceName3.equals("/0.jpg")){
+						panel_2.setVisible(false);
+					}
 					Image img3 = new ImageIcon(this.getClass().getResource(diceName3)).getImage();
 					picLabel3.setIcon(new ImageIcon(img3));
 					picLabel3.setBounds(6, 6, 285, 266);
@@ -254,7 +273,7 @@ public class GamePage extends JFrame {
 					picLabel3.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA3);
-							storeData.add(rolledA3);
+							storeData.set(2,rolledA3);
 							panel_2.setVisible(false);
 							panel_8.setVisible(true);
 						}
@@ -262,7 +281,7 @@ public class GamePage extends JFrame {
 					
 					picLabel9.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							storeData.remove((Integer)rolledA3);
+							storeData.set(2,0);
 							panel_2.removeAll();
 							panel_2.add(picLabel3);
 							panel_2.setVisible(true);
@@ -277,7 +296,10 @@ public class GamePage extends JFrame {
 					
 					panel_3.removeAll();
 					JButton picLabel4 = new JButton("");
-					String diceName4 = rollFunction();
+					String diceName4 =rollFunction(dice.get(3));
+					if(diceName4.equals("/0.jpg")){
+						panel_3.setVisible(false);
+					}
 					Image img4 = new ImageIcon(this.getClass().getResource(diceName4)).getImage();
 					picLabel4.setIcon(new ImageIcon(img4));
 					picLabel4.setBounds(6, 6, 285, 266);
@@ -295,7 +317,7 @@ public class GamePage extends JFrame {
 					picLabel4.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA4);
-							storeData.add(rolledA4);
+							storeData.set(3,rolledA4);
 							panel_3.setVisible(false);
 							panel_9.setVisible(true);
 						}
@@ -303,7 +325,7 @@ public class GamePage extends JFrame {
 					
 					picLabel10.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							storeData.remove((Integer)rolledA4);
+							storeData.set(3,0);
 							panel_3.removeAll();
 							panel_3.add(picLabel4);
 							panel_3.setVisible(true);
@@ -316,7 +338,10 @@ public class GamePage extends JFrame {
 					
 					panel_4.removeAll();
 					JButton picLabel5 = new JButton("");
-					String diceName5 = rollFunction();
+					String diceName5 = rollFunction(dice.get(4));
+					if(diceName5.equals("/0.jpg")){
+						panel_4.setVisible(false);
+					}
 					Image img5 = new ImageIcon(this.getClass().getResource(diceName5)).getImage();
 					picLabel5.setIcon(new ImageIcon(img5));
 					picLabel5.setBounds(6, 6, 285, 266);
@@ -334,7 +359,7 @@ public class GamePage extends JFrame {
 					picLabel5.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA5);
-							storeData.add(rolledA5);
+							storeData.set(4,rolledA5);
 							panel_4.setVisible(false);
 							panel_10.setVisible(true);
 						}
@@ -342,7 +367,7 @@ public class GamePage extends JFrame {
 					
 					picLabel11.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							storeData.remove((Integer)rolledA5);
+							storeData.set(4,0);
 							panel_4.removeAll();
 							panel_4.add(picLabel5);
 							panel_4.setVisible(true);
@@ -357,7 +382,10 @@ public class GamePage extends JFrame {
 					
 					panel_5.removeAll();
 					JButton picLabel6 = new JButton("");
-					String diceName6 = rollFunction();
+					String diceName6 = rollFunction(dice.get(5));
+					if(diceName6.equals("/0.jpg")){
+						panel_5.setVisible(false);
+					}
 					Image img6 = new ImageIcon(this.getClass().getResource(diceName6)).getImage();
 					picLabel6.setIcon(new ImageIcon(img6));
 					picLabel6.setBounds(6, 6, 285, 266);
@@ -375,7 +403,7 @@ public class GamePage extends JFrame {
 					picLabel6.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//System.out.println(rolledA6);
-							storeData.add(rolledA6);
+							storeData.set(5,rolledA6);
 							panel_5.setVisible(false);
 							panel_11.setVisible(true);
 						}
@@ -383,7 +411,7 @@ public class GamePage extends JFrame {
 					
 					picLabel12.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							storeData.remove((Integer)rolledA6);
+							storeData.set(5,0);
 							panel_5.removeAll();
 							panel_5.add(picLabel6);
 							panel_5.setVisible(true);
@@ -403,6 +431,26 @@ public class GamePage extends JFrame {
 				for(int i =0; i<storeData.size(); i++){
 					System.out.print(storeData.get(i));
 				}
+				gClient.sendJSON("STORE", name, "STORE", storeData, gClient.getScore(), gClient.getStoredScore());
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				panel.setVisible(true);
+				panel_1.setVisible(true);
+				panel_2.setVisible(true);
+				panel_3.setVisible(true);
+				panel_4.setVisible(true);
+				panel_5.setVisible(true);
+				panel_6.setVisible(false);
+				panel_7.setVisible(false);
+				panel_8.setVisible(false);
+				panel_9.setVisible(false);
+				panel_10.setVisible(false);
+				panel_11.setVisible(false);
+				gClient.getStoredScore();
 			}
 		});
 		
@@ -412,13 +460,11 @@ public class GamePage extends JFrame {
 		
 	}//END OF PUBLIC GAMEPAGE
 
-	
+
 	
 
-	public static String rollFunction() {
-	      String pictureName = "";
-	      Random rand = new Random();	
-	      int randomNum = rand.nextInt((6 - 1) + 1) + 1;	
+	public static String rollFunction(int randomNum) {
+	      String pictureName;
 			if (randomNum == 1)
 				pictureName = "/1.jpg";
 			else if (randomNum == 2)
@@ -429,8 +475,10 @@ public class GamePage extends JFrame {
 				pictureName = "/4.jpg";
 			else if (randomNum == 5)
 				pictureName = "/5.jpg";
-			else
+			else if (randomNum == 6)
 				pictureName = "/6.jpg";
+			else
+				pictureName = "/0.jpg";
 	      return pictureName; 
 	   }
 }

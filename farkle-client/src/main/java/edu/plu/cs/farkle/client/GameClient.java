@@ -3,6 +3,7 @@ package edu.plu.cs.farkle.client;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
@@ -47,11 +48,13 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 	    public void onText(Session session, String message) throws IOException {
 	    	latch.countDown();
-	    	 if(player==null)
-	    		 player = new Player();
 	    	ObjectMapper mapper = new ObjectMapper();
+	    	
+	    	
 	    	System.out.println(message);
 	    	command = mapper.readValue(message, ServerCommand.class);
+//	    	 if(player==null)
+//	    		 player = new Player(command);
 	    	if(command.getName().equals(player.getName())){
 	    		player.parseCommand(command);
 	    	}else {
@@ -97,20 +100,22 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    			client.connect(socket, echoUri, request);
 	    			
 	    			
-	    			ArrayList<Integer> dice = new ArrayList<Integer>();
+	    		//	ArrayList<Integer> dice = new ArrayList<Integer>();
 	    			latch.await();
 	    			session = socket.getSession();
-	    			while(scan.hasNext()){
-	    				String input = scan.nextLine();
-	    				String[] split = input.split("\\s");
-	    				for (int i = 3; i < 9; i++)
-	    					dice.add(Integer.valueOf(split[i]));
-	    				
-	    				
-	    				sendJSON(split[0], split[1], split[2], new Dice(dice), 0, 0);
-	    				dice.removeAll(dice);
-	    				
-	    			}
+	    			player = socket.player;
+	    			
+//	    			while(scan.hasNext()){
+//	    				String input = scan.nextLine();
+//	    				String[] split = input.split("\\s");
+//	    				for (int i = 3; i < 9; i++)
+//	    					dice.add(Integer.valueOf(split[i]));
+//	    				
+//	    				
+//	    				sendJSON(split[0], split[1], split[2], new Dice(dice), 0, 0);
+//	    				dice.removeAll(dice);
+//	    				
+//	    			}
 	    	
 	    			} catch (Exception e) {
 	    				// TODO Auto-generated catch block
@@ -134,11 +139,24 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    		e.printStackTrace();
 	    	}
 	    }
+		public String getPlayerName(){
+			return player.getName();
+		}
+		public int getScore(){
+			return player.getTotalScore();
+		}
+		public int getStoredScore(){
+			return player.getStoredScore();
+		}
+		public ArrayList<Integer> getDice() {
+			return player.getDice();
+			
+		}
 	    	
-	    	public void sendJSON(String command, String name, String message, Dice dice,
+	    	public void sendJSON(String command, String name, String message, ArrayList<Integer> storeData,
 	    			int score, int storedScore){
 	    		ObjectMapper mapper = new ObjectMapper();
-	    		ServerCommand cmd = new ServerCommand(command, name, message,dice, score, storedScore);
+	    		ServerCommand cmd = new ServerCommand(command, name, message,new Dice(storeData), score, storedScore);
 	    		try {
 	    		sendMessage(mapper.writeValueAsString(cmd));
 	    	} catch (JsonGenerationException e) {
@@ -155,6 +173,8 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    		
 	    	
 	    }
+
+			
 	    }
 
 

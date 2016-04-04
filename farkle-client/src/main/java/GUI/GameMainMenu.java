@@ -98,7 +98,7 @@ public class GameMainMenu extends JFrame {
 				}
 				
 				//GameClient client = new GameClient(token, name);
-				GamePage newGamePage = new GamePage(frame);
+				GamePage newGamePage = new GamePage(frame, token, name);
 				newGamePage.setVisible(true);
 				setVisible(false);
 			}

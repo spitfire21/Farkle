@@ -66,14 +66,14 @@ public ServerCommand(){
 }
 }
 class Dice implements Serializable{
-	private List<Integer> dice;
-	public Dice(List<Integer> dice){
+	private ArrayList<Integer> dice;
+	public Dice(ArrayList<Integer> dice){
 		this.dice = dice;
 	}
 	public Dice (){
 		dice = new ArrayList<Integer>();
 	}
-	public List<Integer> getDice(){
+	public ArrayList<Integer> getDice(){
 		
 		return dice;
 	}
