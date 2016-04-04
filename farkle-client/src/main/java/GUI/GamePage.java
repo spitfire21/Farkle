@@ -7,6 +7,7 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -83,7 +84,12 @@ public class GamePage extends JFrame {
 		Panel panel_11 = new Panel();
 		panel_11.setBounds(705, 356, 115, 90);
 		contentPane.add(panel_11);
-		
+		panel_6.setVisible(false);
+		panel_7.setVisible(false);
+		panel_8.setVisible(false);
+		panel_9.setVisible(false);
+		panel_10.setVisible(false);
+		panel_11.setVisible(false);
 		//Create Label for Stored
 		JLabel lblNewLabel = new JLabel("Stored");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -146,9 +152,9 @@ public class GamePage extends JFrame {
 				for(int i = 0; i < 6; i++){
 					storeData.add(0);
 				}
-				gClient.sendJSON("ROLL", name, "ROLLING", null, 0, 0);
+				gClient.sendJSON("ROLL", name, "ROLLING", gClient.getDice(), 0, 0);
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(500);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -157,11 +163,13 @@ public class GamePage extends JFrame {
 					
 					//DICE 1---------------------------------------------------------
 					panel.removeAll();
-				
+					Image img = null;
+					String diceName = "/0.jpg";
 					JButton picLabel = new JButton("");
-					String diceName = rollFunction(dice.get(0));
+					if(!panel_6.isVisible()){
+					diceName = rollFunction(dice);
 					
-					Image img = new ImageIcon(this.getClass().getResource(diceName)).getImage();
+					img = new ImageIcon(this.getClass().getResource(diceName)).getImage();
 					picLabel.setIcon(new ImageIcon(img));
 					picLabel.setBounds(6, 6, 285, 266);
 					panel.add(picLabel);
@@ -172,22 +180,6 @@ public class GamePage extends JFrame {
 					picLabel7.setIcon(new ImageIcon(img));
 					picLabel7.setBounds(6, 6, 285, 266);
 					panel_6.add(picLabel7);
-					
-					String[] result = diceName.split("/|\\.");
-				         String temp = result[1];
-				         int rolledA = Integer.parseInt(temp);
-				         panel_6.setVisible(false);
-				         
-					picLabel.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//System.out.println(rolledA);
-							storeData.set(0,rolledA);
-							panel.setVisible(false);
-							panel_6.setVisible(true);
-							
-						}
-					});
-					
 					
 					picLabel7.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -200,6 +192,25 @@ public class GamePage extends JFrame {
 							
 						}
 					});
+					}
+				
+					
+					String[] result = diceName.split("/|\\.");
+				         String temp = result[1];
+				         int rolledA = Integer.parseInt(temp);
+				         
+				         
+					picLabel.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//System.out.println(rolledA);
+							storeData.set(0,rolledA);
+							panel.setVisible(false);
+							panel_6.setVisible(true);
+							
+						}
+					});
+					
+				
 					
 					
 
@@ -208,9 +219,12 @@ public class GamePage extends JFrame {
 					//DICE 2---------------------------------------------------------
 					panel_1.removeAll();
 					JButton picLabel2 = new JButton("");
-					String diceName2 = rollFunction(dice.get(1));
+					Image img2 = null;
+					String diceName2 = "/0.jpg";
+					if(!panel_7.isVisible()){
+					diceName2 = rollFunction(dice);
 					
-					Image img2 = new ImageIcon(this.getClass().getResource(diceName2)).getImage();
+					img2 = new ImageIcon(this.getClass().getResource(diceName2)).getImage();
 					picLabel2.setIcon(new ImageIcon(img2));
 					picLabel2.setBounds(6, 6, 285, 266);
 					panel_1.add(picLabel2);
@@ -221,21 +235,6 @@ public class GamePage extends JFrame {
 					picLabel8.setIcon(new ImageIcon(img2));
 					picLabel8.setBounds(6, 6, 285, 266);
 					panel_7.add(picLabel8);
-					
-					String[] result2 = diceName2.split("/|\\.");
-			         String temp2 = result2[1];
-			         int rolledA2 = Integer.parseInt(temp2);
-			         panel_7.setVisible(false);
-					
-					picLabel2.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//System.out.println(rolledA2);
-							storeData.set(1,rolledA2);
-							panel_1.setVisible(false);
-							panel_7.setVisible(true);
-						}
-					});
-					
 					picLabel8.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							storeData.set(1, 0);
@@ -246,17 +245,38 @@ public class GamePage extends JFrame {
 						}
 					});
 					
+					}
+					
+					
+					String[] result2 = diceName2.split("/|\\.");
+			         String temp2 = result2[1];
+			         int rolledA2 = Integer.parseInt(temp2);
+			      //   panel_7.setVisible(false);
+					
+					picLabel2.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//System.out.println(rolledA2);
+							storeData.set(1,rolledA2);
+							panel_1.setVisible(false);
+							panel_7.setVisible(true);
+						}
+					});
+					
+					
 					
 					//DICE 3---------------------------------------------------------
 					
 					
 					panel_2.removeAll();
 					JButton picLabel3 = new JButton("");
-					String diceName3 = rollFunction(dice.get(2));
+					Image img3 = null;
+					String diceName3= "/0.jpg";
+					if(!panel_8.isVisible()){
+					 diceName3 = rollFunction(dice);
 					if(diceName3.equals("/0.jpg")){
 						panel_2.setVisible(false);
 					}
-					Image img3 = new ImageIcon(this.getClass().getResource(diceName3)).getImage();
+					 img3 = new ImageIcon(this.getClass().getResource(diceName3)).getImage();
 					picLabel3.setIcon(new ImageIcon(img3));
 					picLabel3.setBounds(6, 6, 285, 266);
 					panel_2.add(picLabel3);
@@ -264,11 +284,22 @@ public class GamePage extends JFrame {
 					picLabel9.setIcon(new ImageIcon(img3));
 					picLabel9.setBounds(6, 6, 285, 266);
 					panel_8.add(picLabel9);
+					picLabel9.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							storeData.set(2,0);
+							panel_2.removeAll();
+							panel_2.add(picLabel3);
+							panel_2.setVisible(true);
+							panel_8.setVisible(false);
+						}
+					});
+					}
+					
 					
 					String[] result3 = diceName3.split("/|\\.");
 			         String temp3 = result3[1];
 			         int rolledA3 = Integer.parseInt(temp3);
-			         panel_8.setVisible(false);
+			       //  panel_8.setVisible(false);
 					
 					picLabel3.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -279,15 +310,7 @@ public class GamePage extends JFrame {
 						}
 					});
 					
-					picLabel9.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							storeData.set(2,0);
-							panel_2.removeAll();
-							panel_2.add(picLabel3);
-							panel_2.setVisible(true);
-							panel_8.setVisible(false);
-						}
-					});
+					
 					
 					
 					
@@ -296,11 +319,14 @@ public class GamePage extends JFrame {
 					
 					panel_3.removeAll();
 					JButton picLabel4 = new JButton("");
-					String diceName4 =rollFunction(dice.get(3));
+					Image img4 = null;
+					String diceName4 = "/0.jpg";
+					if(!panel_9.isVisible()){
+					diceName4 =rollFunction(dice);
 					if(diceName4.equals("/0.jpg")){
 						panel_3.setVisible(false);
 					}
-					Image img4 = new ImageIcon(this.getClass().getResource(diceName4)).getImage();
+					img4 = new ImageIcon(this.getClass().getResource(diceName4)).getImage();
 					picLabel4.setIcon(new ImageIcon(img4));
 					picLabel4.setBounds(6, 6, 285, 266);
 					panel_3.add(picLabel4);
@@ -308,20 +334,6 @@ public class GamePage extends JFrame {
 					picLabel10.setIcon(new ImageIcon(img4));
 					picLabel10.setBounds(6, 6, 285, 266);
 					panel_9.add(picLabel10);
-					
-					String[] result4 = diceName4.split("/|\\.");
-			         String temp4 = result4[1];
-			         int rolledA4 = Integer.parseInt(temp4);
-			         panel_9.setVisible(false);
-					
-					picLabel4.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//System.out.println(rolledA4);
-							storeData.set(3,rolledA4);
-							panel_3.setVisible(false);
-							panel_9.setVisible(true);
-						}
-					});
 					
 					picLabel10.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -332,38 +344,47 @@ public class GamePage extends JFrame {
 							panel_9.setVisible(false);
 						}
 					});
+					}
+					
+					
+					String[] result4 = diceName4.split("/|\\.");
+			         String temp4 = result4[1];
+			         int rolledA4 = Integer.parseInt(temp4);
+			        // panel_9.setVisible(false);
+					
+					picLabel4.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//System.out.println(rolledA4);
+							storeData.set(3,rolledA4);
+							panel_3.setVisible(false);
+							panel_9.setVisible(true);
+						}
+					});
+					
+					
 					
 					
 					//DICE 5---------------------------------------------------------
 					
 					panel_4.removeAll();
 					JButton picLabel5 = new JButton("");
-					String diceName5 = rollFunction(dice.get(4));
+					Image img5 = null;
+					String diceName5 = "/0.jpg";
+					if(!panel_10.isVisible()){
+					diceName5 = rollFunction(dice);
+					
 					if(diceName5.equals("/0.jpg")){
 						panel_4.setVisible(false);
 					}
-					Image img5 = new ImageIcon(this.getClass().getResource(diceName5)).getImage();
+					img5 = new ImageIcon(this.getClass().getResource(diceName5)).getImage();
 					picLabel5.setIcon(new ImageIcon(img5));
 					picLabel5.setBounds(6, 6, 285, 266);
 					panel_4.add(picLabel5);
+					
 					JButton picLabel11 = new JButton("");
 					picLabel11.setIcon(new ImageIcon(img5));
 					picLabel11.setBounds(6, 6, 285, 266);
 					panel_10.add(picLabel11);
-					
-					String[] result5 = diceName5.split("/|\\.");
-			         String temp5 = result5[1];
-			         int rolledA5 = Integer.parseInt(temp5);
-			         panel_10.setVisible(false);
-					
-					picLabel5.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//System.out.println(rolledA5);
-							storeData.set(4,rolledA5);
-							panel_4.setVisible(false);
-							panel_10.setVisible(true);
-						}
-					});
 					
 					picLabel11.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -375,6 +396,24 @@ public class GamePage extends JFrame {
 						}
 					});
 					
+					}
+					
+					
+					String[] result5 = diceName5.split("/|\\.");
+			         String temp5 = result5[1];
+			         int rolledA5 = Integer.parseInt(temp5);
+			        // panel_10.setVisible(false);
+					
+					picLabel5.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//System.out.println(rolledA5);
+							storeData.set(4,rolledA5);
+							panel_4.setVisible(false);
+							panel_10.setVisible(true);
+						}
+					});
+					
+					
 					
 					
 					//DICE 6---------------------------------------------------------
@@ -382,32 +421,24 @@ public class GamePage extends JFrame {
 					
 					panel_5.removeAll();
 					JButton picLabel6 = new JButton("");
-					String diceName6 = rollFunction(dice.get(5));
+					String diceName6 = "/0.jpg";
+					Image img6 = null;
+					if(!panel_11.isVisible()){
+					diceName6 = rollFunction(dice);
+				
+					
 					if(diceName6.equals("/0.jpg")){
 						panel_5.setVisible(false);
 					}
-					Image img6 = new ImageIcon(this.getClass().getResource(diceName6)).getImage();
+				    img6 = new ImageIcon(this.getClass().getResource(diceName6)).getImage();
 					picLabel6.setIcon(new ImageIcon(img6));
 					picLabel6.setBounds(6, 6, 285, 266);
 					panel_5.add(picLabel6);
+					
 					JButton picLabel12 = new JButton("");
 					picLabel12.setIcon(new ImageIcon(img6));
 					picLabel12.setBounds(6, 6, 285, 266);
 					panel_11.add(picLabel12);
-					
-					String[] result6 = diceName6.split("/|\\.");
-			         String temp6 = result6[1];
-			         int rolledA6 = Integer.parseInt(temp6);
-			         panel_11.setVisible(false);
-					
-					picLabel6.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//System.out.println(rolledA6);
-							storeData.set(5,rolledA6);
-							panel_5.setVisible(false);
-							panel_11.setVisible(true);
-						}
-					});
 					
 					picLabel12.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -418,6 +449,24 @@ public class GamePage extends JFrame {
 							panel_11.setVisible(false);
 						}
 					});
+					
+					}
+					
+					String[] result6 = diceName6.split("/|\\.");
+			         String temp6 = result6[1];
+			         int rolledA6 = Integer.parseInt(temp6);
+			       //  panel_11.setVisible(false);
+					
+					picLabel6.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//System.out.println(rolledA6);
+							storeData.set(5,rolledA6);
+							panel_5.setVisible(false);
+							panel_11.setVisible(true);
+						}
+					});
+					
+					
 			contentPane.revalidate();	
 			}
 		}); //END OF BUTTON LISTENER ROLL DICE
@@ -438,19 +487,27 @@ public class GamePage extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				panel.setVisible(true);
-				panel_1.setVisible(true);
-				panel_2.setVisible(true);
-				panel_3.setVisible(true);
-				panel_4.setVisible(true);
-				panel_5.setVisible(true);
-				panel_6.setVisible(false);
-				panel_7.setVisible(false);
-				panel_8.setVisible(false);
-				panel_9.setVisible(false);
-				panel_10.setVisible(false);
-				panel_11.setVisible(false);
+				if(!gClient.getError().equals("Error")){
+//				panel.setVisible(true);
+//				panel_1.setVisible(true);
+//				panel_2.setVisible(true);
+//				panel_3.setVisible(true);
+//				panel_4.setVisible(true);
+//				panel_5.setVisible(true);
+//				if(!panel_6.isVisible())
+				panel_6.removeAll();
+	//			if(!panel_7.isVisible())
+				panel_7.removeAll();
+		//		if(!panel_8.isVisible())
+				panel_8.removeAll();
+			//	if(!panel_9.isVisible())
+				panel_9.removeAll();
+				//if(!panel_10.isVisible())
+				panel_10.removeAll();
+				//if(!panel_11.isVisible())
+				panel_11.removeAll();
 				gClient.getStoredScore();
+				}
 			}
 		});
 		
@@ -463,8 +520,14 @@ public class GamePage extends JFrame {
 
 	
 
-	public static String rollFunction(int randomNum) {
-	      String pictureName;
+	public static String rollFunction(List<Integer> dice) {
+	      String pictureName = "/0.jpg";;
+	      int randomNum = 0;
+	      if(dice.size()>0){
+	      randomNum = dice.get(0);
+	      dice.remove(0);
+	      }
+	      
 			if (randomNum == 1)
 				pictureName = "/1.jpg";
 			else if (randomNum == 2)
@@ -479,6 +542,8 @@ public class GamePage extends JFrame {
 				pictureName = "/6.jpg";
 			else
 				pictureName = "/0.jpg";
+	      
+	      
 	      return pictureName; 
 	   }
 }

@@ -174,6 +174,11 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    	
 	    }
 
+			public String getError() {
+				// TODO Auto-generated method stub
+				return player.getStatus();
+			}
+
 			
 	    }
 

@@ -452,7 +452,8 @@ public class Game {
 		 */
 		public void checkCommand(ServerCommand cmd){
 			String command = cmd.getCommand();
-
+			List<Integer> tempDice = new ArrayList<Integer>();
+			tempDice.addAll(dice);
 			System.out.println(command);
 			// if command is ROLL and can roll generate numbers
 			if (command.startsWith("ROLL") && canRoll(this)) {
@@ -477,9 +478,14 @@ public class Game {
 					endTurn(this);
 				}
 			}
+			else 
+				sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 			// if command is STORE
+			
 			STORE: if (command.startsWith("STORE")) {
 				int numOfDice = 0;
+				System.out.println(tempDice);
+				
 				ArrayList<Integer> sentDice = (ArrayList<Integer>) cmd.getDice().getDice();
 				// check if dice is not 0
 				if (dice.size() > 0) {
@@ -491,9 +497,11 @@ public class Game {
 					} else {
 						// go through split and check for valid numbers
 						for (int i = 0; i < sentDice.size(); i++) {
-							if (dice.contains(Integer.valueOf(sentDice.get(i)))) {
-								storedDice.add(Integer.valueOf(sentDice.get(i)));
-								dice.remove(Integer.valueOf(sentDice.get(i)));
+							if (dice.contains(sentDice.get(i)) && sentDice.get(i)!=0) {
+								storedDice.add(sentDice.get(i));
+								System.out.println(sentDice.get(i));
+								dice.remove((Integer)sentDice.get(i));
+								numOfDice += 1;
 								
 							} else if (Integer.valueOf(sentDice.get(i))==0){
 								
@@ -502,14 +510,15 @@ public class Game {
 								// invalid 
 								sendMessage("Error","INVALID STORE WRITE NUMBERS AGAIN");
 								// remove added dice
-								for(int x = 0; x < i; x++){
+								for(int x = 0; x < numOfDice; x++){
 									storedDice.remove(storedDice.size()-1);
 								}
 								// break to store label
+								dice = tempDice;
 								break STORE;
 							}
-							// set numOfDice to i
-							numOfDice = i;
+							
+							
 						}
 						// check if store hand has non scoring die
 						if (checkStoreHand(storedDice)) {
@@ -519,16 +528,19 @@ public class Game {
 								storedDice.remove(storedDice.size()-1);
 							}
 							// break to STORE label
+							dice = tempDice;
 							break STORE;
 						}
 						// remove all dice
 						dice.removeAll(dice);
+						
 						// calculate score
 						storedScore += checkScore(storedDice);
 						// tell player what score they could get
 						sendJSON("STORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 						// reset roll
 						stored = true;
+					
 						// reset roll if player gets 6 stored dice
 						if (storedDice.size() == 6) {
 							storedDice.removeAll(storedDice);
