@@ -23,10 +23,10 @@ import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 import static java.util.concurrent.TimeUnit.*;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 1;
+	private int GAME_SIZE = 2;
 	// current player rolling
 	private Player currentPlayer;
-	private int winningScore = 10;
+	private int winningScore = 10000;
 	// status of game
 	private String status;
 	// list of players
@@ -61,6 +61,10 @@ public class Game {
 			// if game can hold people, then add player
 		} else if (players.size() < GAME_SIZE){
 			players.add(p);
+			for(int i = 0; i < players.size()-1; i++){
+				players.get(i).sendMessage("Status Waiting", p.id + " connected to the game");
+			}
+
 			
 		}
 		// if game is now full then start
@@ -69,6 +73,7 @@ public class Game {
 			
 			start();
 		}
+		
 		
 	}
 	public int getNumberOfPlayers(){
@@ -398,10 +403,7 @@ public class Game {
 				sendMessage("Status Waiting","YOU ARE PLAYER #" + playerNumber);
 				sendMessage("Status Waiting","MESSAGE Waiting for opponent to connect");
 				
-				for(int i = 0; i < players.size()-1; i++){
-					players.get(i).sendMessage("Status Waiting", id + " connected to the game");
-				}
-
+				
 		}
 		/**
 		 * add opponent

@@ -15,13 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import edu.plu.cs.farkle.client.GUICallBack;
 import edu.plu.cs.farkle.client.GameClient;
 import edu.plu.cs.farkle.client.ServerCommand;
-import javax.swing.JTextPane;
 
 public class GamePage extends JFrame implements GUICallBack {
 
@@ -44,6 +44,7 @@ public class GamePage extends JFrame implements GUICallBack {
 	private String name;
 	private JTextPane txtpnScore;
 	private JTextPane txtpnStoredScore;
+	private JTextPane txtpnStatus;
 
 	/**
 	 * Create the frame.
@@ -181,6 +182,11 @@ public class GamePage extends JFrame implements GUICallBack {
 		txtpnStoredScore.setText("Stored Score");
 		txtpnStoredScore.setBounds(464, 105, 207, 21);
 		contentPane.add(txtpnStoredScore);
+		
+		txtpnStatus = new JTextPane();
+		txtpnStatus.setText("Status:");
+		txtpnStatus.setBounds(32, 105, 150, 40);
+		contentPane.add(txtpnStatus);
 		
 		
 		
@@ -632,9 +638,10 @@ public class GamePage extends JFrame implements GUICallBack {
 	@Override
 	public void updateStatus(ServerCommand command) {
 		
-		if(command.getCommand().equals("Status Waiting") && 
-				command.getCommand().equals("It is now your turn, please roll")
-				&& command.getName().equals(name)){
+		if(command.getCommand().equals("Status Rolling") && 
+				command.getMessage().contains(("please roll")))
+				{
+			
 			panel.removeAll();
 			panel_1.removeAll();
 			panel_2.removeAll();
@@ -661,6 +668,8 @@ public class GamePage extends JFrame implements GUICallBack {
 			panel_9.setVisible(false);
 			panel_10.setVisible(false);
 			panel_11.setVisible(false);
+			 JOptionPane.showMessageDialog(null, command.getMessage() , "Status Rolling",
+                     JOptionPane.INFORMATION_MESSAGE);
 		}
 		if(command.getCommand().equals("Status Waiting") && 
 				command.getMessage().startsWith("YOU ARE") && command.getName().equals(name)){
@@ -672,9 +681,19 @@ public class GamePage extends JFrame implements GUICallBack {
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Waiting",
                     JOptionPane.INFORMATION_MESSAGE);
 		}
-		
+		try{
 		txtpnScore.setText("Score: " + command.getScore());
 		txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
+		txtpnStatus.setText("Status: "+ command.getCommand());
+		if(command.getCommand().equals("SCORE")){
+			txtpnStatus.setText("Status: Waiting");
+			
+		}
 		
+		}
+		catch(NullPointerException e)
+		{
+			
+		}
 	}
 }
