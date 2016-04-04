@@ -36,6 +36,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
  		private Player player;
 	 	private Session session;
 	 	private ServerCommand command;
+	 	private GUICallBack callBack;
 	 
 	    @OnWebSocketConnect
 	    public void onConnect(Session session) {
@@ -57,16 +58,20 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 //	    		 player = new Player(command);
 	    	if(command.getName().equals(player.getName())){
 	    		player.parseCommand(command);
+	    		callBack.updateStatus(command);
 	    	}else {
 	    		Player opponent = new Player();
 	    		opponent.setName(command.getName());
 	    		opponent.parseCommand(command);
 	    		player.addOpponent(command.getName(), opponent);
 	    	}
+	    	
 	    	//TODO Callback stuff for the game
+	    	
 	  
 	    }
-	    public GameClient(String name){
+	    public GameClient(String name, GUICallBack callBack){
+	    	this.callBack = callBack;
 	    	player = new Player();
 	    	player.setName(name);
 	    	
@@ -75,7 +80,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    
 	    
 	    
-	    	public GameClient(String token, String name){
+	    	public GameClient(String token, String name, GUICallBack callBack){
 	    		 
 	     		this.token = token;
 	     		
@@ -83,7 +88,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 	            String dest = "ws://localhost:8080/farkle/game";
 	    		WebSocketClient client = new WebSocketClient();
-	    		GameClient socket = new GameClient(name);
+	    		GameClient socket = new GameClient(name, callBack);
 	    		
 	    		scan = new Scanner(System.in);
 	    			

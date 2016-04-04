@@ -20,19 +20,37 @@ import javax.swing.border.SoftBevelBorder;
 
 import edu.plu.cs.farkle.client.GUICallBack;
 import edu.plu.cs.farkle.client.GameClient;
+import edu.plu.cs.farkle.client.ServerCommand;
+import javax.swing.JTextPane;
 
 public class GamePage extends JFrame implements GUICallBack {
 
 	//private static final boolean True = false;
 	private JPanel contentPane;
 	private GameClient gClient;
-
+	private Panel panel;
+	private Panel panel_2;
+	private Panel panel_1;
+	private Panel panel_3;
+	private Panel panel_4;
+	private Panel panel_5;
+	private Panel panel_6;
+	private Panel panel_7;
+	private Panel panel_8;
+	private Panel panel_9;
+	private Panel panel_10;
+	private Panel panel_11;
+	
+	private String name;
+	private JTextPane txtpnScore;
+	private JTextPane txtpnStoredScore;
 
 	/**
 	 * Create the frame.
 	 */
 	public GamePage(GameMainMenu frame, String token, String name) {
-		gClient = new GameClient(token, name);
+		this.name = name;
+		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
@@ -50,40 +68,40 @@ public class GamePage extends JFrame implements GUICallBack {
 		contentPane.add(btnRollDice);
 		
 		//Create Dice Panels
-		Panel panel = new Panel();
+		panel = new Panel();
 		panel.setBounds(22, 205, 117, 90);
 		contentPane.add(panel);
-		Panel panel_1 = new Panel();
+		panel_1 = new Panel();
 		panel_1.setBounds(158, 205, 117, 90);
 		contentPane.add(panel_1);
-		Panel panel_2 = new Panel();
+		panel_2 = new Panel();
 		panel_2.setBounds(294, 205, 117, 90);
 		contentPane.add(panel_2);
-		Panel panel_3 = new Panel();
+		panel_3 = new Panel();
 		panel_3.setBounds(428, 205, 117, 90);
 		contentPane.add(panel_3);
-		Panel panel_4 = new Panel();
+		panel_4 = new Panel();
 		panel_4.setBounds(564, 205, 117, 90);
 		contentPane.add(panel_4);
-		Panel panel_5 = new Panel();
+	    panel_5 = new Panel();
 		panel_5.setBounds(703, 205, 117, 90);
 		contentPane.add(panel_5);
-		Panel panel_6 = new Panel();
+		 panel_6 = new Panel();
 		panel_6.setBounds(22, 356, 117, 90);
 		contentPane.add(panel_6);
-		Panel panel_7 = new Panel();
+		panel_7 = new Panel();
 		panel_7.setBounds(158, 356, 117, 90);
 		contentPane.add(panel_7);
-		Panel panel_8 = new Panel();
+	    panel_8 = new Panel();
 		panel_8.setBounds(294, 356, 117, 90);
 		contentPane.add(panel_8);
-		Panel panel_9 = new Panel();
+		panel_9 = new Panel();
 		panel_9.setBounds(428, 356, 117, 90);
 		contentPane.add(panel_9);
-		Panel panel_10 = new Panel();
+		panel_10 = new Panel();
 		panel_10.setBounds(564, 356, 117, 90);
 		contentPane.add(panel_10);
-		Panel panel_11 = new Panel();
+		panel_11 = new Panel();
 		panel_11.setBounds(705, 356, 115, 90);
 		contentPane.add(panel_11);
 		panel_6.setVisible(false);
@@ -103,14 +121,14 @@ public class GamePage extends JFrame implements GUICallBack {
 		JLabel lblFarkle = new JLabel("Farkle");
 		lblFarkle.setForeground(new Color(255, 255, 255));
 		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.BOLD | Font.ITALIC, 65));
-		lblFarkle.setBounds(22, 31, 185, 51);
+		lblFarkle.setBounds(22, 31, 302, 51);
 		contentPane.add(lblFarkle);
 		
 		//Create Label for Game Leaderboard
 		JLabel lblGameStandings = new JLabel("Game Standing");
 		lblGameStandings.setForeground(new Color(255, 255, 255));
 		lblGameStandings.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 27));
-		lblGameStandings.setBounds(464, 31, 185, 29);
+		lblGameStandings.setBounds(464, 31, 240, 29);
 		contentPane.add(lblGameStandings);
 		
 		//Create Label for underline for Farkle
@@ -136,7 +154,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		JLabel lblYourRoll = new JLabel("Your Roll (Click to store)");
 		lblYourRoll.setForeground(new Color(255, 255, 255));
 		lblYourRoll.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 24));
-		lblYourRoll.setBounds(22, 168, 273, 22);
+		lblYourRoll.setBounds(22, 168, 359, 22);
 		contentPane.add(lblYourRoll);
 		
 		
@@ -144,6 +162,25 @@ public class GamePage extends JFrame implements GUICallBack {
 		JButton btnStoreDice = new JButton("Store Dice");
 		btnStoreDice.setBounds(428, 310, 117, 29);
 		contentPane.add(btnStoreDice);
+		
+		JButton btnEndTurn = new JButton("End Turn");
+		btnEndTurn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gClient.sendJSON("SCORE", name, "SCORING", gClient.getDice(), 0, 0);
+			}
+		});
+		btnEndTurn.setBounds(364, 171, 117, 25);
+		contentPane.add(btnEndTurn);
+		
+		txtpnScore = new JTextPane();
+		txtpnScore.setText("Score");
+		txtpnScore.setBounds(464, 72, 207, 21);
+		contentPane.add(txtpnScore);
+		
+		txtpnStoredScore = new JTextPane();
+		txtpnStoredScore.setText("Stored Score");
+		txtpnStoredScore.setBounds(464, 105, 207, 21);
+		contentPane.add(txtpnStoredScore);
 		
 		
 		
@@ -475,7 +512,8 @@ public class GamePage extends JFrame implements GUICallBack {
 				
 				 JOptionPane.showMessageDialog(null, "Farkle", "Please Wait",
 						                                    JOptionPane.ERROR_MESSAGE);
-						
+				 txtpnScore.setText("Score: " + 0);
+					txtpnStoredScore.setText("Stored Score: " + 0);
 						
 					}
 			}
@@ -504,7 +542,13 @@ public class GamePage extends JFrame implements GUICallBack {
 //				panel_3.setVisible(true);
 //				panel_4.setVisible(true);
 //				panel_5.setVisible(true);
-//			
+					panel.removeAll();
+					panel_1.removeAll();
+					panel_2.removeAll();
+					panel_3.removeAll();
+					panel_4.removeAll();
+					panel_5.removeAll();
+		
 				panel_6.removeAll();
 				
 				panel_7.removeAll();
@@ -581,4 +625,56 @@ public class GamePage extends JFrame implements GUICallBack {
 	      
 	      return pictureName; 
 	   }
+
+
+
+
+	@Override
+	public void updateStatus(ServerCommand command) {
+		
+		if(command.getCommand().equals("Status Waiting") && 
+				command.getCommand().equals("It is now your turn, please roll")
+				&& command.getName().equals(name)){
+			panel.removeAll();
+			panel_1.removeAll();
+			panel_2.removeAll();
+			panel_3.removeAll();
+			panel_4.removeAll();
+			panel_5.removeAll();
+			panel_6.removeAll();
+			panel_7.removeAll();
+			panel_8.removeAll();
+			panel_9.removeAll();
+			panel_10.removeAll();
+			panel_11.removeAll();
+			
+			panel.setVisible(true);
+			panel_1.setVisible(true);
+			panel_2.setVisible(true);
+			panel_3.setVisible(true);
+			panel_4.setVisible(true);
+			panel_5.setVisible(true);
+			
+			panel_6.setVisible(false);
+			panel_7.setVisible(false);
+			panel_8.setVisible(false);
+			panel_9.setVisible(false);
+			panel_10.setVisible(false);
+			panel_11.setVisible(false);
+		}
+		if(command.getCommand().equals("Status Waiting") && 
+				command.getMessage().startsWith("YOU ARE") && command.getName().equals(name)){
+			 JOptionPane.showMessageDialog(null, command.getMessage() + "\n Hello "+command.getName()
+			 + "\nWaiting for other opponents", "Status Waiting",
+                     JOptionPane.INFORMATION_MESSAGE);
+		}
+		if(command.getCommand().equals("Status Waiting") && command.getMessage().contains("connected to the game")){
+			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Waiting",
+                    JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		txtpnScore.setText("Score: " + command.getScore());
+		txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
+		
+	}
 }

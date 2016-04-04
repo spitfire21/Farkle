@@ -554,6 +554,7 @@ public class Game {
 			if (command.startsWith("SCORE")) {
 				score += checkScore(dice);
 				score += storedScore;
+				storedScore = 0;
 				sendJSON("SCORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 				endTurn(this);
 			}
