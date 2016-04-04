@@ -13,13 +13,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import edu.plu.cs.farkle.client.GUICallBack;
 import edu.plu.cs.farkle.client.GameClient;
 
-public class GamePage extends JFrame {
+public class GamePage extends JFrame implements GUICallBack {
 
 	//private static final boolean True = false;
 	private JPanel contentPane;
@@ -159,6 +161,7 @@ public class GamePage extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			
 					ArrayList<Integer> dice = gClient.getDice();
 					
 					//DICE 1---------------------------------------------------------
@@ -468,6 +471,13 @@ public class GamePage extends JFrame {
 					
 					
 			contentPane.revalidate();	
+			if(gClient.getError().equals("Farkle") || gClient.getError().equals("Status Waiting") ){
+				
+				 JOptionPane.showMessageDialog(null, "Farkle", "Please Wait",
+						                                    JOptionPane.ERROR_MESSAGE);
+						
+						
+					}
 			}
 		}); //END OF BUTTON LISTENER ROLL DICE
 		
@@ -494,19 +504,44 @@ public class GamePage extends JFrame {
 //				panel_3.setVisible(true);
 //				panel_4.setVisible(true);
 //				panel_5.setVisible(true);
-//				if(!panel_6.isVisible())
+//			
 				panel_6.removeAll();
-	//			if(!panel_7.isVisible())
+				
 				panel_7.removeAll();
-		//		if(!panel_8.isVisible())
+			
 				panel_8.removeAll();
-			//	if(!panel_9.isVisible())
+			
 				panel_9.removeAll();
-				//if(!panel_10.isVisible())
+				
 				panel_10.removeAll();
-				//if(!panel_11.isVisible())
+				
 				panel_11.removeAll();
+				
 				gClient.getStoredScore();
+			
+					if(panel_6.isVisible()&&panel_7.isVisible()
+							&&panel_8.isVisible()&&panel_9.isVisible()
+							&&panel_10.isVisible()&&panel_11.isVisible()){
+						panel.setVisible(true);
+						panel_1.setVisible(true);
+						panel_2.setVisible(true);
+						panel_3.setVisible(true);
+						panel_4.setVisible(true);
+						panel_5.setVisible(true);
+						panel_6.setVisible(false);
+						panel_7.setVisible(false);
+						panel_8.setVisible(false);
+						panel_9.setVisible(false);
+						panel_10.setVisible(false);
+						panel_11.setVisible(false);
+						
+						
+					
+				}
+				}
+				else {
+					 JOptionPane.showMessageDialog(null, "Invalid Store", "Error",
+                             JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

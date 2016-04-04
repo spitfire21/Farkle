@@ -183,7 +183,7 @@ public class Game {
 		// remove storedDice
 		player.storedDice.removeAll(player.storedDice);
 		// send message to player
-		player.sendMessage("Status Waiting", "WAIT YOUR TURN");
+		//player.sendMessage("Status Waiting", "WAIT YOUR TURN");
 		// set player as stored
 		player.stored = true;
 		// if last player in list then rotate to first
