@@ -23,7 +23,7 @@ public class MainPage {
 	
 	public MainPage(){
 		
-		MongoConnection db = FarkleServerApplication.getDatabase();
+		db = FarkleServerApplication.getDatabase();
 
 		 
 	
@@ -35,8 +35,6 @@ public class MainPage {
 		Victories vList = db.getVictors();
 		//String vList =
 			//    "{ \"user1\" : \"0\", \"mickey\" : \"0\", }";
-
-
 		 		
 		return Response.ok(db.sendJSON(vList)).build();
 	}

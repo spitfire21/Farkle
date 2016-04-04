@@ -6,9 +6,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.plu.cs.farkle.client.CallBack;
+import edu.plu.cs.farkle.client.ClientMainPage;
 import edu.plu.cs.farkle.client.GameClient;
 
 public class GameMainMenu extends JFrame {
@@ -48,13 +51,24 @@ public class GameMainMenu extends JFrame {
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		listModel.addElement("hello world");
-		
-		
-		JList<String> list = new JList<String>(listModel);
-		list.setBounds(486, 93, 269, 325);
-		
+		//Get LeaderBoard
+				ClientMainPage mp = new ClientMainPage();
+				DefaultListModel<String> listModel = new DefaultListModel<String>();
+				List<String> vList;
+
+				try {
+					vList = mp.getList();
+					for(int i=0;i<vList.size();i++){
+						listModel.addElement(vList.get(i));
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+				
+				JList<String> list = new JList<String>(listModel);
+				list.setBounds(486, 93, 269, 325);
+								
 		
 		
 		desktopPane.add(list);

@@ -115,7 +115,6 @@ public class FarkleDB {
 				victories.add(victors.get(i));
 			
 		}
-		System.out.println(victories.toString());
 		return victories;
 	}
 	/**

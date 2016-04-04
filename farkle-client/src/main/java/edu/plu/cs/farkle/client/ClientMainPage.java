@@ -1,6 +1,7 @@
 package edu.plu.cs.farkle.client;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -30,13 +32,7 @@ public class ClientMainPage{
 	
 	public String requestVictors() throws JsonProcessingException, IOException{
 		
-		
-		//Domain model
-		//architecture
-		//leader-board
-		//rules
-		//gamepage
-		
+			
 		WebTarget webTarget = client.target("http://localhost:8080/farkle/victories");
 		Invocation.Builder invocBuild =
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -44,33 +40,28 @@ public class ClientMainPage{
 		
 		System.out.println(response.getStatus());
 		
-		
-		return null; 
-		
+		return response.readEntity(String.class);
+					
 	}
 	
 	
-public void parseVictors(String vics) {
-	System.out.println(vics);
-}
-
-public void setList(String v) {
-	vList = v;
-}
-
-public String getList() {
+public Victories parseVictors(String vics) {
+	ObjectMapper mapper = new ObjectMapper();
 	try {
-		String v = this.requestVictors();
-		this.parseVictors(v);
+		return mapper.readValue(vics, Victories.class);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
-	return "null";
+		return null;
+	}	
+}
+
+public List<String> getList() throws JsonParseException, JsonMappingException, IOException {
+	String v = this.requestVictors();
+	Victories vList = parseVictors(v);
+	return vList.getVictors();
 }
 	
-
-
 
 
 }

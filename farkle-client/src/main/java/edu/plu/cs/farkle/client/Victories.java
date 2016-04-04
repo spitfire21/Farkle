@@ -10,6 +10,10 @@ public class Victories implements Serializable{
 	
 	private List<String> victors;
 	
+	public Victories(){
+		//DUMMY
+	}
+	
 	public Victories(List<String> v){
 		victors = v;
 	}
