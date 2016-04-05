@@ -23,7 +23,7 @@ import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 import static java.util.concurrent.TimeUnit.*;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 2;
+	private int GAME_SIZE = 3;
 	// current player rolling
 	private Player currentPlayer;
 	private int winningScore = 10000;
@@ -87,9 +87,14 @@ public class Game {
 		// set first player to roll
 		currentPlayer = players.get(0);
 		for (int i = 0; i < players.size(); i++) {
+			players.get(i).opponents.addAll(players);
+			players.get(i).opponents.remove(players.get(i).getPlayerNumber());
 			players.get(i).start();
+		
 			
 		}
+		System.out.println(players.size());
+		
 		checkPlayers();
 	}
 	/**
@@ -195,10 +200,13 @@ public class Game {
 		// set player as stored
 		player.stored = true;
 		// if last player in list then rotate to first
-		if (getNumberOfPlayers() - 1 == player.getPlayerNumber()) {
-			currentPlayer = player.opponents.get(0);
+		if (player.opponents.size() == player.getPlayerNumber()) {
+			currentPlayer = players.get(0);
 		} else {
+			//TODO this is broken fix it
 			// move to next player
+			
+			//System.out.println(currentPlayer.getPlayerNumber() + " " +players.size() + " " +player.opponents.size());
 			currentPlayer = player.opponents.get(player.getPlayerNumber());
 		}
 		// send message to player
@@ -338,18 +346,22 @@ public class Game {
 	                	for (int i = 0; i < players.size(); i++) {
 	                		Player temp = players.get(i);
 	            			if(!temp.checkAlive()){
-	            				if(currentPlayer.equals(temp))
+	            				if(currentPlayer.equals(temp)){
 	            					endTurn(temp);
-	            				
+	            				}
+	            				players.remove(i);
+	            				for (int y = 0; y < players.size(); y++) {
+	            	                
+	    	                		players.get(y).setPlayerNumber(y);
+	    	                		players.get(y).opponents = players;
+	    	                		players.get(y).opponents.remove(players.get(y).getPlayerNumber());
+	            					}
+	    	            		
 	            			}
-	            			players.remove(i);
+	            	
 	            			
 	            		}
-	                	for (int i = 0; i < players.size(); i++) {
-	                
-	                		players.get(i).setPlayerNumber(i);
-	            			
-	            		}
+	                	
 	                	
 	                	
 	                }
@@ -432,14 +444,7 @@ public class Game {
 		private void start() {
 			//send start message
 			sendMessage("Status Waiting","MESSAGE All players connected");
-			for (int i = 0; i < players.size(); i++) {
-				for (int y = 0; y < players.size(); y++) {
-					if (players.get(i).getPlayerNumber() != y) {
-						// add other players as opponents
-						players.get(i).addOpponent(players.get(y));
-					}
-				}
-			}
+		
 			 
 			// player is first player to join, they roll first
 			if (getPlayerNumber() == 0)
@@ -493,7 +498,7 @@ public class Game {
 				sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
 			// if command is STORE
 			
-			STORE: if (command.startsWith("STORE")) {
+			STORE: if (command.startsWith("STORE") && currentPlayer == this) {
 				int numOfDice = 0;
 				System.out.println(tempDice);
 				
@@ -562,7 +567,7 @@ public class Game {
 
 			}
 			// score players hand
-			if (command.startsWith("SCORE")) {
+			if (command.startsWith("SCORE") && currentPlayer == this) {
 				score += checkScore(dice);
 				score += storedScore;
 				storedScore = 0;
