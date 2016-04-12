@@ -20,9 +20,11 @@ public class PlayVariations extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the PlayVariations object. In this object,
+	 * the user in question can read about Farkle play variations
 	 */
 	public PlayVariations(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

@@ -27,17 +27,22 @@ public class GameMainMenu extends JFrame {
 
 	private JPanel contentPane;
 	GameMainMenu frame;
-	ScoringVariations scoVar;
-	PlayVariations playVar;
+	AdjustScoring scoVar;
+	AdjustGameplay playVar;
 
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the GameMainMenu object.
+	 * This object serves as the window in which a user can
+	 * choose to start a new game, adjust settings, read about rules,
+	 * as well as exit the game.
 	 */
 	public GameMainMenu(final ArrayList callBack) {
 		frame = this;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,14 +69,6 @@ public class GameMainMenu extends JFrame {
 		
 		JList<String> list = new JList<String>(listModel);
 		list.setBounds(486, 93, 269, 325);
-						
-
-
-		
-
-		
-		
-		
 		desktopPane.add(list);
 		
 		JLabel lblLeaderboard = new JLabel("Leaderboard");
@@ -80,9 +77,6 @@ public class GameMainMenu extends JFrame {
 		lblLeaderboard.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 34));
 		lblLeaderboard.setBounds(528, 15, 184, 66);
 		desktopPane.add(lblLeaderboard);
-		
-		
-		
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
@@ -98,7 +92,6 @@ public class GameMainMenu extends JFrame {
 					name = call.getName();
 				}
 				
-				//GameClient client = new GameClient(token, name);
 				GamePage newGamePage = new GamePage(frame, token, name);
 				newGamePage.setVisible(true);
 				setVisible(false);

@@ -20,9 +20,11 @@ public class Rules extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the Rules object. The Rules object
+	 * allows for a user to select which rules they wish to view
 	 */
 	public Rules(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

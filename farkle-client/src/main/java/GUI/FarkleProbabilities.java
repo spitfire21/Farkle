@@ -18,11 +18,14 @@ import java.awt.event.ActionEvent;
 public class FarkleProbabilities extends JFrame {
 
 	private JPanel contentPane;
+	
 	/**
-	 * Create the frame.
-	 * @param frame 
+	 * This creates the frame for the FarkleProbabilities object.
+	 * The ScoringVariations object highlights the probabilities
+	 * for various aspects of Farkle
 	 */
 	public FarkleProbabilities(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

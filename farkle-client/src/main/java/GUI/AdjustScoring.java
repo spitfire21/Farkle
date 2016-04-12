@@ -21,9 +21,11 @@ public class AdjustScoring extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the AdjustScoring object. This object allows
+	 * for a user to adjust how the scores for a Farkle game are calculated
 	 */
-	public AdjustScoring(GameMainMenu frame, ScoringVariations var, PlayVariations play) {
+	public AdjustScoring(GameMainMenu frame, AdjustScoring var, AdjustGameplay play) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

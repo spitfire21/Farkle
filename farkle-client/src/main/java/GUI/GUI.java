@@ -30,7 +30,7 @@ public class GUI extends JFrame {
 	private ArrayList clientObjs = new ArrayList(); 
 	private static GUI frame;
 	/**
-	 * Launch the application.
+	 * This main method exists to launch the program.
 	 */
 	public static void main(String[] args) {
 		
@@ -40,6 +40,8 @@ public class GUI extends JFrame {
 					
 					frame = new GUI();
 					client = new ClientBase(frame);
+					//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					frame.setResizable(false);
 					frame.setVisible(true);
 				
 					
@@ -51,7 +53,10 @@ public class GUI extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the GUI object frame. The GUI object exists
+	 * to serve as the first window a user will see when the game is initialized.
+	 * The user can create a new account, login, or exit the game
+	 * through this window.
 	 */
 	public GUI() {
 		try {
@@ -129,6 +134,11 @@ public class GUI extends JFrame {
 		lblNewLabel_1.setBounds(305, 420, 224, 16);
 		desktopPane.add(lblNewLabel_1);
 	}
+	
+	/**
+	 * Used for client login
+	 * @param client
+	 */
 	public void registerCallback(CallBack client)
 		{
 			clientObjs.add(client);

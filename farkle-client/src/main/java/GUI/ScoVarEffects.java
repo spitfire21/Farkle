@@ -20,10 +20,14 @@ public class ScoVarEffects extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
-	 * @param frame 
+	 * /**
+	 * This creates the frame for the ScoVarEffects object.
+	 * This object highlights the effects of various scoring
+	 * variations on the probabilities of a Farkle game
 	 */
+
 	public ScoVarEffects(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

@@ -20,9 +20,12 @@ public class ScoringVariations extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * This creates the frame for the ScoringVariations object.
+	 * The ScoringVariations object highlights the various
+	 * Farkle scoring variations possible
 	 */
 	public ScoringVariations(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

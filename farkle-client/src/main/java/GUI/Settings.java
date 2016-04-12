@@ -25,9 +25,12 @@ public class Settings extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the settings object. This object
+	 * allows for the user to select which game settings 
+	 * they wish to alter
 	 */
-	public Settings(GameMainMenu frame, ScoringVariations var, PlayVariations play) {
+	public Settings(GameMainMenu frame, AdjustScoring var, AdjustGameplay play) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

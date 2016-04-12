@@ -20,10 +20,13 @@ public class StandardScoring extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the StandardScoring object. This object
+	 * allows for users to view the standard scoring practices for
+	 * a game of farkle.
 	 * @param frame 
 	 */
 	public StandardScoring(GameMainMenu frame) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();

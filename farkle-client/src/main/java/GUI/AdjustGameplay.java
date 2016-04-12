@@ -22,13 +22,22 @@ public class AdjustGameplay extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtAdjustScoreThreshold;
 	private JTextField txtAdjustMaxScore;
-
+	boolean button1 = false;
+	boolean button2 = false;
+	boolean button3 = false;
+	boolean button4 = false;
+	boolean button5 = false;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the AdjustGameplay object. This object
+	 * allows for the user to adjust various gameplay settings
+	 * in order to effect how the game plays.
 	 */
-	public AdjustGameplay(GameMainMenu frame, ScoringVariations var, PlayVariations play) {
+	public AdjustGameplay(GameMainMenu frame, AdjustScoring var, AdjustGameplay play) {
+		//play = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,33 +86,87 @@ public class AdjustGameplay extends JFrame {
 		txtAdjustMaxScore.setColumns(10);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Enable Piggybacking");
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button1 = true;
+			}
+		});
 		rdbtnNewRadioButton.setToolTipText("In a variant described as \"piggybacking\" or \"high-stakes\", each player after the first can choose to begin their turn either with a fresh set of six dice, or by throwing the dice remaining after the previous player has completed their turn. For example, if a player banks three 1's for a score of 1000, the next player may choose to roll the remaining three dice. If they score at least one die, they score 1000 plus whatever additional score they accumulate. Players may thus assume the greater risk of farkling for the chance of scoring the points already accumulated by the player before them. If a player ends their turn on a \"hot dice\", the next player may \"piggyback\" using all six dice.");
 		rdbtnNewRadioButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		rdbtnNewRadioButton.setBounds(64, 117, 171, 23);
+		if(rdbtnNewRadioButton.isSelected())
+		{
+			
+		}
 		desktopPane.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnHotDiceMod = new JRadioButton("Hot Dice Mod");
+		rdbtnHotDiceMod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button2 = true;
+			}
+		});
 		rdbtnHotDiceMod.setToolTipText("Players may be required to make at least one additional throw when they have hot dice, even if they have accumulated a high enough score that they would choose not to risk farkling.");
 		rdbtnHotDiceMod.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		rdbtnHotDiceMod.setBounds(64, 152, 141, 23);
 		desktopPane.add(rdbtnHotDiceMod);
 		
 		JRadioButton rdbtnEnableDeduction = new JRadioButton("Enable Deduction");
+		rdbtnEnableDeduction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button3 = true;
+			}
+		});
 		rdbtnEnableDeduction.setToolTipText("Three farkles in a row can result in a deduction of 500[10] or 1000 points from the player's score.");
 		rdbtnEnableDeduction.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		rdbtnEnableDeduction.setBounds(64, 187, 156, 23);
 		desktopPane.add(rdbtnEnableDeduction);
 		
 		JRadioButton rdbtnUseFiveDice = new JRadioButton("Use Five Dice");
+		rdbtnUseFiveDice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button4 = true;
+			}
+		});
 		rdbtnUseFiveDice.setToolTipText("Another variation is using five dice instead of six. In this version, players cannot score three pair, and this variation often couples an \"instant\" win option, where on the first roll of the five dice on any turn, if the player rolls five of a kind, that player instantly wins the game, regardless of the scores to that point.");
 		rdbtnUseFiveDice.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		rdbtnUseFiveDice.setBounds(64, 222, 141, 23);
 		desktopPane.add(rdbtnUseFiveDice);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Enable Welfare");
+		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button5 = true;
+			}
+		});
 		rdbtnNewRadioButton_1.setToolTipText("An end-of-game variation described as \"welfare\" requires the winner to score exactly 10,000 points. If a player scores more than 10,000 points, then all points scored in that turn are given to the player with the lowest score.");
 		rdbtnNewRadioButton_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		rdbtnNewRadioButton_1.setBounds(64, 257, 141, 23);
 		desktopPane.add(rdbtnNewRadioButton_1);
+		
+		if(button1 == true)
+		{
+			rdbtnNewRadioButton.setSelected(true);
+		}
+		
+		if(button2 == true)
+		{
+			rdbtnHotDiceMod.setSelected(true);
+		}
+		
+		if(button3 == true)
+		{
+			rdbtnEnableDeduction.setSelected(true);
+		}
+		
+		if(button4 == true)
+		{
+			rdbtnUseFiveDice.setSelected(true);
+		}
+		
+		if(button5 == true)
+		{
+			rdbtnNewRadioButton_1.setSelected(true);
+		}
 	}
 }

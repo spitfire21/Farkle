@@ -30,11 +30,15 @@ public class UserCreationPage extends JFrame {
 	private JPasswordField passwordField_1;
 
 	/**
-	 * Create the frame.
+	 * This initializes the UserCreationPage object. This object
+	 * serves as the window in which a user will create an
+	 * account with which to login to game.
 	 */
 	public UserCreationPage(final ArrayList callBack, GUI gui) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -48,8 +52,6 @@ public class UserCreationPage extends JFrame {
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String userName = textField.getText();
-				System.out.println(userName);
-				//...
 			}
 		});
 		textField.setBounds(352, 74, 130, 26);
@@ -85,7 +87,6 @@ public class UserCreationPage extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				
 				gui.setVisible(true);
 			}
 		});
@@ -95,6 +96,8 @@ public class UserCreationPage extends JFrame {
 		JButton btnCreateAccount = new JButton("Create Account");
 		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
 		btnCreateAccount.addActionListener(new ActionListener() {
+			
+			// serves to verify user credentials (make sure they are unique, passwords match, etc)
 			public void actionPerformed(ActionEvent e) {
 				
 				String registered = "";
@@ -122,8 +125,6 @@ public class UserCreationPage extends JFrame {
 		passwordField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String userPassWordBox1 = passwordField.getText();
-				System.out.println(userPassWordBox1);
-				//...
 			}
 		});
 		passwordField.setBounds(352, 136, 130, 26);
@@ -133,8 +134,6 @@ public class UserCreationPage extends JFrame {
 		passwordField_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String userPassWordBox2 = passwordField.getText();
-				System.out.println(userPassWordBox2);
-				//...
 			}
 		});
 		passwordField_1.setBounds(352, 200, 130, 26);

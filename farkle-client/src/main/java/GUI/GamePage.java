@@ -47,10 +47,14 @@ public class GamePage extends JFrame implements GUICallBack {
 	private JTextPane txtpnStatus;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for the GameMainMenu object. This object allows
+	 * for users to see and play a game of Farkle either locally, or 
+	 * in a multiplayer fashion.
 	 */
 	public GamePage(GameMainMenu frame, String token, String name) {
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.name = name;
+		setResizable(false);
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);

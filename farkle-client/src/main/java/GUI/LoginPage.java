@@ -34,10 +34,15 @@ public class LoginPage extends JFrame {
 	private JPasswordField passwordField;
 
 	/**
-	 * Create the frame.
+	 * Creates the frame for the LoginPage object.
+	 * LoginPage represents the window in which
+	 * a user will login to his/her account in order
+	 * to be able to participate in the game.
 	 */
 	public LoginPage(final ArrayList callBack, GUI gui) {
 		
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
 		contentPane = new JPanel();
