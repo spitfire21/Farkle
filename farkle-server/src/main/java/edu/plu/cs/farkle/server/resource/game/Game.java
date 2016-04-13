@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.server.resource;
+package edu.plu.cs.farkle.server.resource.game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -347,9 +347,10 @@ public class Game {
 	                		Player temp = players.get(i);
 	            			if(!temp.checkAlive()){
 	            				if(currentPlayer.equals(temp)){
+	            					
 	            					endTurn(temp);
 	            				}
-	            				players.remove(i);
+	            				players.remove(temp);
 	            				for (int y = 0; y < players.size(); y++) {
 	            	                
 	    	                		players.get(y).setPlayerNumber(y);

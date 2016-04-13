@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.server.resource;
+package edu.plu.cs.farkle.server.resource.game;
 
 import javax.servlet.annotation.WebServlet;
 

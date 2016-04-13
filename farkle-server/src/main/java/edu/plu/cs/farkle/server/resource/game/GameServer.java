@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.server.resource;
+package edu.plu.cs.farkle.server.resource.game;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 import edu.plu.cs.farkle.server.auth.Secured;
-import edu.plu.cs.farkle.server.resource.Game.Player;
+import edu.plu.cs.farkle.server.resource.game.Game.Player;
 
 @WebSocket
 public class GameServer {
@@ -62,7 +62,7 @@ public class GameServer {
 	    public void onClose(Session session, int status, String reason) {
 	    	
 	        logger.info(String.format("Session %s closed because of %s", reason));
-	       // session.close();
+	       session.close();
 	    }
 	    
 	    

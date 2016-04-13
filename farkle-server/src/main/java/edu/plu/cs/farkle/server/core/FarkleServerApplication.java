@@ -14,11 +14,11 @@ import edu.plu.cs.farkle.server.auth.AuthenticatorFilter;
 import edu.plu.cs.farkle.server.auth.SocketFilter;
 import edu.plu.cs.farkle.server.database.FarkleDB;
 import edu.plu.cs.farkle.server.database.MongoConnection;
-import edu.plu.cs.farkle.server.resource.GameServlet;
 import edu.plu.cs.farkle.server.resource.MainPage;
 import edu.plu.cs.farkle.server.resource.PingPongResource;
 import edu.plu.cs.farkle.server.resource.UserRegistration;
 import edu.plu.cs.farkle.server.resource.UserService;
+import edu.plu.cs.farkle.server.resource.game.GameServlet;
 
 /**
  * This is the central "control" for the Farkle application.  It manages
