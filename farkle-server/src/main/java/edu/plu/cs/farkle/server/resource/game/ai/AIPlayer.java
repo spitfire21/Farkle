@@ -18,44 +18,53 @@ public class AIPlayer {
 	private Game game;
 	
 	public AIPlayer(int aggression, String name, Game game){
+		random = new Random();
 		dice = new ArrayList<Integer>();
+		storedDice = new ArrayList<Integer>();
 		score = totalScore = 0;
 		this.aggression = aggression;
 		this.game = game;
 		this.name = name;
 	}
 	private void roll(){
-		
+		System.out.println(storedDice.size());
 		for(int i = storedDice.size(); i < 6; i++){
 			dice.add(random.nextInt(6)+1);
 		}
+		System.out.println(dice);
 		
-		AIfarkled();
+		if(AIfarkled() == false){
+		
 		AIPickDice();
+		System.out.println(storedDice);
 		score = game.checkScore(storedDice);
 		startTurn();
+		}
 		
 		
 	}
 	private void AIPickDice(){
 		List<Integer> temp;
 		temp = checkHand(dice);
-		if(temp.contains(1)){
-			temp.remove(1);
-			dice.remove(1);
-		}
-		if(temp.contains(5)){
-			temp.remove(5);
-			dice.remove(5);
-		}
+		
 		for (int i = 0; i < 6; i++){
 		while(Collections.frequency(temp, i) == 3){
 			for(int j = 0; j < 3; j++){
-			temp.remove(i);
-			dice.remove(i);
+			temp.remove((Integer)i);
+			//dice.remove(i);
 			storedDice.add(i);
 			}
 		}
+		}
+		while(temp.contains(1)){
+			temp.remove((Integer)1);
+			storedDice.add(1);
+			//dice.remove(1);
+		}
+		while(temp.contains(5)){
+			temp.remove((Integer)5);
+			storedDice.add(5);
+			//dice.remove(5);
 		}
 	}
 	private List<Integer> checkHand(List<Integer> checkDice){
@@ -109,8 +118,11 @@ public class AIPlayer {
 		if(totalScore >= game.getWinningScore()){
 			return true;
 		}
-		int chance = aggression*dice.size() - score/100;
-		if(random.nextInt(60) + 1 <= chance){
+		int chance = aggression*(6-dice.size()) - score/50;
+		if(dice.size()==0 && storedDice.size() == 0){
+			roll();
+		}
+		else if(random.nextInt(60) + 1 <= chance){
 			roll();
 		} else {
 			endTurn();
@@ -152,5 +164,13 @@ public class AIPlayer {
 	public String getName() {
 		
 		return name;
+	}
+	public int getTotalScore() {
+		// TODO Auto-generated method stub
+		return totalScore;
+	}
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return score;
 	}
 }

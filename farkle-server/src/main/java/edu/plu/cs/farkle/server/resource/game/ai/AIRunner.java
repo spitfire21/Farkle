@@ -1,16 +1,20 @@
 package edu.plu.cs.farkle.server.resource.game.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AIRunner {
 	private List<AIPlayer> players;
 	
-	
+	public AIRunner(){
+		players = new ArrayList<AIPlayer>();
+	}
 	public void runAI(){
+		while(true)
 		for(int i = 0; i < players.size(); i++){
 			if(players.get(i).startTurn()){
 				//TODO temp
-				System.out.println(players.get(i).getName() + " WINS");
+				System.out.println(players.get(i).getName() + " WINS" + players.get(i).getTotalScore());
 				return;
 			}
 		}
