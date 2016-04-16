@@ -8,7 +8,11 @@ public class AIRunner {
 	
 	public void runAI(){
 		for(int i = 0; i < players.size(); i++){
-			players.get(i).startTurn();
+			if(players.get(i).startTurn()){
+				//TODO temp
+				System.out.println(players.get(i).getName() + " WINS");
+				return;
+			}
 		}
 		
 	}

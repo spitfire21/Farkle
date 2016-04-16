@@ -123,7 +123,7 @@ public class Game {
 	 * @param dice
 	 * @return
 	 */
-	private boolean checkFarkle(List<Integer> dice) {
+	public boolean checkFarkle(List<Integer> dice) {
 		if (dice.contains(1)) {
 			return false;
 		} else if (Collections.frequency(dice, 1) == 3) {
@@ -149,7 +149,7 @@ public class Game {
 	 * @param dice
 	 * @return
 	 */
-	private boolean checkStoreHand(List<Integer> dice) {
+	public boolean checkStoreHand(List<Integer> dice) {
 		boolean flag = false;
 		if (dice.contains(1)) {
 			flag = false;
@@ -226,7 +226,7 @@ public class Game {
 	 * @param storedDice
 	 * @return
 	 */
-	private int checkScore(List<Integer> storedDice) {
+	public int checkScore(List<Integer> storedDice) {
 		//TODO scoring fails when you score 4 1s
 		int score = 0;
 		int count = 0;
@@ -338,7 +338,9 @@ public class Game {
 		return score;
 
 	}
-	
+	public int getWinningScore(){
+		return winningScore;
+	}
 	 public void checkPlayers() {
 	        final Runnable check = new Runnable() {
 	                public void run() { 
@@ -583,6 +585,7 @@ public class Game {
 			else return false;
 			
 		}
+		
 		
 		
 		
