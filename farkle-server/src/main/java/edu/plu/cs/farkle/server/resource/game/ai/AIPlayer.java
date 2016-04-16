@@ -37,7 +37,10 @@ public class AIPlayer {
 		
 		AIPickDice();
 		System.out.println(storedDice);
-		score = game.checkScore(storedDice);
+		score = game.checkScore(storedDice)*((aggression*2)/10);
+		if(storedDice.size() == 6){
+			storedDice.removeAll(storedDice);
+		}
 		startTurn();
 		}
 		
@@ -56,17 +59,33 @@ public class AIPlayer {
 			}
 		}
 		}
-		while(temp.contains(1)){
+		if(random.nextInt(10) < aggression  && aggression > 6 && temp.contains(1)){
 			temp.remove((Integer)1);
 			storedDice.add(1);
+		}else{
+		while(temp.contains(1)){
+			temp.remove((Integer)1);
+			
+		
+				storedDice.add(1);
+			
+			
 			//dice.remove(1);
+			}
 		}
-		while(temp.contains(5)){
+		if(random.nextInt(10) < aggression  && aggression > 6 && temp.contains(5)){
 			temp.remove((Integer)5);
 			storedDice.add(5);
+		}else {
+		while(temp.contains(5)){
+			temp.remove((Integer)5);
+			
+				storedDice.add(5);
+			
 			//dice.remove(5);
+				}
+			}
 		}
-	}
 	private List<Integer> checkHand(List<Integer> checkDice){
 		
 			List<Integer> temp = new ArrayList<Integer>();
@@ -118,7 +137,7 @@ public class AIPlayer {
 		if(totalScore >= game.getWinningScore()){
 			return true;
 		}
-		int chance = aggression*(6-dice.size()) - score/50;
+		int chance = aggression*(6-dice.size()) - score/25;
 		if(dice.size()==0 && storedDice.size() == 0){
 			roll();
 		}
