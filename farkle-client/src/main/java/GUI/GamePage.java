@@ -22,6 +22,8 @@ import javax.swing.border.SoftBevelBorder;
 import edu.plu.cs.farkle.client.GUICallBack;
 import edu.plu.cs.farkle.client.GameClient;
 import edu.plu.cs.farkle.client.ServerCommand;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class GamePage extends JFrame implements GUICallBack {
 
@@ -45,6 +47,7 @@ public class GamePage extends JFrame implements GUICallBack {
 	private JTextPane txtpnScore;
 	private JTextPane txtpnStoredScore;
 	private JTextPane txtpnStatus;
+	private JTextPane txtpnHowYouStack;
 
 	/**
 	 * Create the frame for the GameMainMenu object. This object allows
@@ -57,7 +60,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		setResizable(false);
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 845, 489);
+		setBounds(100, 100, 1600, 800);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(128, 0, 0));
 		contentPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -69,7 +72,8 @@ public class GamePage extends JFrame implements GUICallBack {
 		
 		//Create Roll Dice Button
 		JButton btnRollDice = new JButton("Roll Dice");
-		btnRollDice.setBounds(294, 310, 117, 29);
+		btnRollDice.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnRollDice.setBounds(231, 337, 180, 90);
 		contentPane.add(btnRollDice);
 		
 		//Create Dice Panels
@@ -92,22 +96,22 @@ public class GamePage extends JFrame implements GUICallBack {
 		panel_5.setBounds(703, 205, 117, 90);
 		contentPane.add(panel_5);
 		 panel_6 = new Panel();
-		panel_6.setBounds(22, 356, 117, 90);
+		panel_6.setBounds(22, 487, 117, 90);
 		contentPane.add(panel_6);
 		panel_7 = new Panel();
-		panel_7.setBounds(158, 356, 117, 90);
+		panel_7.setBounds(158, 487, 117, 90);
 		contentPane.add(panel_7);
 	    panel_8 = new Panel();
-		panel_8.setBounds(294, 356, 117, 90);
+		panel_8.setBounds(294, 487, 117, 90);
 		contentPane.add(panel_8);
 		panel_9 = new Panel();
-		panel_9.setBounds(428, 356, 117, 90);
+		panel_9.setBounds(428, 487, 117, 90);
 		contentPane.add(panel_9);
 		panel_10 = new Panel();
-		panel_10.setBounds(564, 356, 117, 90);
+		panel_10.setBounds(564, 487, 117, 90);
 		contentPane.add(panel_10);
 		panel_11 = new Panel();
-		panel_11.setBounds(705, 356, 115, 90);
+		panel_11.setBounds(705, 487, 115, 90);
 		contentPane.add(panel_11);
 		panel_6.setVisible(false);
 		panel_7.setVisible(false);
@@ -116,24 +120,24 @@ public class GamePage extends JFrame implements GUICallBack {
 		panel_10.setVisible(false);
 		panel_11.setVisible(false);
 		//Create Label for Stored
-		JLabel lblNewLabel = new JLabel("Stored");
+		JLabel lblNewLabel = new JLabel("Stored Dice");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 24));
-		lblNewLabel.setBounds(22, 328, 117, 22);
+		lblNewLabel.setBounds(22, 451, 199, 22);
 		contentPane.add(lblNewLabel);
 		
 		//Create Label for Farkle
-		JLabel lblFarkle = new JLabel("Farkle");
+		JLabel lblFarkle = new JLabel("Farkle Multiplayer");
 		lblFarkle.setForeground(new Color(255, 255, 255));
 		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.BOLD | Font.ITALIC, 65));
-		lblFarkle.setBounds(22, 31, 302, 51);
+		lblFarkle.setBounds(22, 31, 523, 51);
 		contentPane.add(lblFarkle);
 		
 		//Create Label for Game Leaderboard
 		JLabel lblGameStandings = new JLabel("Game Standing");
 		lblGameStandings.setForeground(new Color(255, 255, 255));
 		lblGameStandings.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 27));
-		lblGameStandings.setBounds(464, 31, 240, 29);
+		lblGameStandings.setBounds(954, 55, 240, 29);
 		contentPane.add(lblGameStandings);
 		
 		//Create Label for underline for Farkle
@@ -144,7 +148,8 @@ public class GamePage extends JFrame implements GUICallBack {
 		contentPane.add(lblHh);
 		
 		//Create button to go back to home page
-		JButton btnHomePage = new JButton("Home Page");
+		JButton btnHomePage = new JButton("Exit Current Game");
+		btnHomePage.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 16));
 		btnHomePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -152,11 +157,11 @@ public class GamePage extends JFrame implements GUICallBack {
 			}
 		});
 		//Set bounds for home page button
-		btnHomePage.setBounds(722, 17, 117, 29);
+		btnHomePage.setBounds(988, 499, 137, 78);
 		contentPane.add(btnHomePage);
 		
 		//Create label for Your roll
-		JLabel lblYourRoll = new JLabel("Your Roll (Click to store)");
+		JLabel lblYourRoll = new JLabel("Your Current Roll (Click to store)");
 		lblYourRoll.setForeground(new Color(255, 255, 255));
 		lblYourRoll.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 24));
 		lblYourRoll.setBounds(22, 168, 359, 22);
@@ -165,32 +170,60 @@ public class GamePage extends JFrame implements GUICallBack {
 		
 		//CREATE STORE DICE BUTTON __________________________________________________________
 		JButton btnStoreDice = new JButton("Store Dice");
-		btnStoreDice.setBounds(428, 310, 117, 29);
+		btnStoreDice.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnStoreDice.setBounds(423, 337, 180, 90);
 		contentPane.add(btnStoreDice);
 		
 		JButton btnEndTurn = new JButton("End Turn");
+		btnEndTurn.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
 		btnEndTurn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gClient.sendJSON("SCORE", name, "SCORING", gClient.getDice(), 0, 0);
 			}
 		});
-		btnEndTurn.setBounds(364, 171, 117, 25);
+		btnEndTurn.setBounds(328, 600, 182, 90);
 		contentPane.add(btnEndTurn);
 		
 		txtpnScore = new JTextPane();
-		txtpnScore.setText("Score");
-		txtpnScore.setBounds(464, 72, 207, 21);
+		txtpnScore.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
+		txtpnScore.setText("Your Total Score:");
+		txtpnScore.setBounds(954, 96, 207, 21);
 		contentPane.add(txtpnScore);
 		
 		txtpnStoredScore = new JTextPane();
-		txtpnStoredScore.setText("Stored Score");
-		txtpnStoredScore.setBounds(464, 105, 207, 21);
+		txtpnStoredScore.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
+		txtpnStoredScore.setText("Stored Score:");
+		txtpnStoredScore.setBounds(954, 139, 207, 21);
 		contentPane.add(txtpnStoredScore);
 		
 		txtpnStatus = new JTextPane();
-		txtpnStatus.setText("Status:");
-		txtpnStatus.setBounds(32, 105, 150, 40);
+		txtpnStatus.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
+		txtpnStatus.setText("Game Status:");
+		txtpnStatus.setBounds(32, 105, 274, 40);
 		contentPane.add(txtpnStatus);
+		
+		JPanel panel_12 = new JPanel();
+		panel_12.setBackground(Color.BLACK);
+		panel_12.setForeground(Color.BLACK);
+		panel_12.setBounds(879, 0, 10, 799);
+		contentPane.add(panel_12);
+		
+		txtpnHowYouStack = new JTextPane();
+		txtpnHowYouStack.setText("How you stack up:");
+		txtpnHowYouStack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
+		txtpnHowYouStack.setBounds(954, 183, 207, 290);
+		contentPane.add(txtpnHowYouStack);
+		
+		JPanel panel_13 = new JPanel();
+		panel_13.setBounds(1233, 139, 339, 551);
+		contentPane.add(panel_13);
+		
+		JLabel lblSpectatorViewOf = new JLabel("Spectator View of Current Roll");
+		lblSpectatorViewOf.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSpectatorViewOf.setForeground(Color.WHITE);
+		lblSpectatorViewOf.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 18));
+		lblSpectatorViewOf.setBounds(1269, 111, 274, 16);
+		contentPane.add(lblSpectatorViewOf);
 		
 		
 		
@@ -526,6 +559,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					txtpnStoredScore.setText("Stored Score: " + 0);
 						
 					}
+		
 			}
 		}); //END OF BUTTON LISTENER ROLL DICE
 		
@@ -690,6 +724,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
 		txtpnStatus.setText("Status: "+ command.getCommand());
 		if(command.getCommand().equals("SCORE")){
+			txtpnHowYouStack.setText("Other scores" + command.getName() + command.getScore());
 			txtpnStatus.setText("Status: Waiting");
 			
 		}
