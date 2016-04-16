@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bson.Document;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -88,7 +89,21 @@ public class FarkleDB {
 		return users.get(0);
 		}
 	}	
-	
+	/*
+	 * return rank with user and string
+	 */
+	public List<String> getUserRank(String userName) {
+		//Query to get user's victories
+		String rank = findUser(userName).get("_id") + ": " + findUser(userName).get("victories");
+		List<String> userRank = new ArrayList<String>();
+		//userRank.add(this.getVictors().indexOf(rank)+1 + ". " + rank);
+		int rNum = this.getVictors().indexOf(rank)+1;
+		String vNum = " at " + findUser(userName).get("victories") + " wins!";
+		
+		userRank.add("your rank: " + rNum + vNum );
+		
+		return userRank;
+	}
 	/**
 	 * 
 	 * @return a json containing top victors and their win count
@@ -99,23 +114,22 @@ public class FarkleDB {
 		        .sort(new Document("victories", -1));
 		
 		final ArrayList<String> victors = new ArrayList<String>();
-	
-
+		
 		iter.forEach(new Block<Document>() {
 		    @Override
 		    public void apply(final Document document) {
 		      victors.add(document.get("_id") + ": " + document.get("victories"));
 		    }
 		});
-				
+		/*		
 		for(int i=0;i<10;i++){
 			if(victors.size()<=i)
 				victories.add("null: null");
 			else 
 				victories.add(victors.get(i));
 			
-		}
-		return victories;
+		} */
+		return victors;
 	}
 	/**
 	 * updates username's document to add to their number of victories

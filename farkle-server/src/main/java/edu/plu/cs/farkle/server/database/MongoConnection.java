@@ -18,6 +18,7 @@ public class MongoConnection {
 	MongoDatabase db;
 	MongoClient mongoClient;
 	private List<String> dbVictors;
+	private List<String> userRank;
 	public MongoConnection(){
 	 mongoClient = new MongoClient( "localhost" , 27017 );
 		
@@ -41,6 +42,14 @@ public class MongoConnection {
 			return false;
 		}
 	}
+	
+	public Victories getUsersRank(String userName) {
+		userRank = mu.getUserRank(userName);
+		Victories vic = new Victories(userRank);
+		
+		return vic;
+	}
+	
 	public Victories getVictors(){
 		
 		dbVictors = mu.getVictors();

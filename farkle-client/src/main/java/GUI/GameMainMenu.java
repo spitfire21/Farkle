@@ -53,12 +53,24 @@ public class GameMainMenu extends JFrame {
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		//Get LeaderBoard
+		String uName = "";
+		CallBack call;
+		for (Iterator it = callBack.iterator(); it.hasNext();){
+			call = (CallBack) it.next();
+			uName = call.getName();
+		}
+		
+		
 		ClientMainPage mp = new ClientMainPage();
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		List<String> vList;
+		List<String> vList;	
 
 		try {
 			vList = mp.getList();
+			
+			listModel.addElement(mp.getURank(uName));
+			listModel.addElement("\n");
+			
 			for(int i=0;i<vList.size();i++){
 				listModel.addElement(vList.get(i));
 			}
@@ -135,3 +147,6 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(btnExitGame);
 	}
 }
+
+
+
