@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import edu.plu.cs.farkle.client.CallBack;
@@ -52,36 +53,51 @@ public class GameMainMenu extends JFrame {
 		desktopPane.setBackground(new Color(139, 0, 0));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
-		//Get LeaderBoard
-		String uName = "";
-		CallBack call;
-		for (Iterator it = callBack.iterator(); it.hasNext();){
-			call = (CallBack) it.next();
-			uName = call.getName();
-		}
 		
 		
 		ClientMainPage mp = new ClientMainPage();
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		List<String> vList;	
+		//Get LeaderBoard
 
-		try {
-			vList = mp.getList();
-			
-			listModel.addElement(mp.getURank(uName));
-			listModel.addElement("\n");
-			
-			for(int i=0;i<vList.size();i++){
-				listModel.addElement(vList.get(i));
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
 		
-		JList<String> list = new JList<String>(listModel);
-		list.setBounds(486, 93, 269, 325);
-		desktopPane.add(list);
+		 ActionListener getLeaderBoardGui = new ActionListener() {
+	            public void actionPerformed(ActionEvent evt) {
+	            	
+	        		DefaultListModel<String> listModel = new DefaultListModel<String>();
+
+	            	try {
+	            		String uName = "";
+	            		CallBack call;
+	            		for (Iterator it = callBack.iterator(); it.hasNext();){
+	            			call = (CallBack) it.next();
+	            			uName = call.getName();
+	            		}
+	            		
+	            		List<String> vList = mp.getList();
+	        			
+	        			listModel.addElement(mp.getURank(uName));
+	        			listModel.addElement("\n");
+	        			
+	        			for(int i=0;i<vList.size();i++){
+	        				listModel.addElement(vList.get(i));
+	        			}
+	        		} catch (IOException e1) {
+	        			// TODO Auto-generated catch block
+	        			e1.printStackTrace();
+	        		}
+	            	JList<String> list = new JList<String>(listModel);
+	        		list.setBounds(486, 93, 269, 325);
+	        		desktopPane.add(list);
+	            }
+	            
+		 };
+		 	//updates every 100 seconds
+	        Timer timer = new Timer(100000,getLeaderBoardGui);
+	        timer.setInitialDelay(0);
+	        timer.setRepeats(true);
+	        timer.start();
+
+		
+		
 		
 		JLabel lblLeaderboard = new JLabel("Leaderboard");
 		lblLeaderboard.setForeground(new Color(255, 255, 255));
@@ -103,7 +119,7 @@ public class GameMainMenu extends JFrame {
 					token = call.getToken();
 					name = call.getName();
 				}
-				
+				timer.stop();
 				GamePage newGamePage = new GamePage(frame, token, name);
 				newGamePage.setVisible(true);
 				setVisible(false);
