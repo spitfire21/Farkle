@@ -1,5 +1,7 @@
 package edu.plu.cs.farkle.server.resource.game;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,15 +17,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.util.JSON;
-
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
-
-import static java.util.concurrent.TimeUnit.*;
+import edu.plu.cs.farkle.server.resource.game.ai.AIPlayer;
+import edu.plu.cs.farkle.server.resource.game.ai.AIRunner;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 3;
+	private int GAME_SIZE = 1;
 	// current player rolling
 	private Player currentPlayer;
 	private int winningScore = 10000;
@@ -33,6 +32,8 @@ public class Game {
 	private List<Player> players;
 	// id of the game
 	private int id;
+	// AI Runner
+	AIRunner ai;
 	
 	
 	 private final ScheduledExecutorService scheduler =
@@ -46,6 +47,7 @@ public class Game {
 		setStatus("WAITING");
 		this.id = id;
 		players = new ArrayList<Player>();
+		ai = new AIRunner();
 	}
 	/**
 	 * Add player to game
@@ -84,6 +86,19 @@ public class Game {
      * @throws IOException
      */
 	private void start(){
+		if(GAME_SIZE == 1){
+			ai.addPlayer(new AIPlayer(1, "AI1", this));
+			
+			ai.addPlayer(new AIPlayer(2, "AI2", this));
+			ai.addPlayer(new AIPlayer(10, "AI3", this));
+			for (int i =0; i < 3; i++){
+				for (int y = 0; y < players.size(); y++ ){
+			
+				players.get(y).sendMessage("Status Waiting", ai.getPlayers().get(i).getName() + " connected to the game");
+			   }
+			}
+			
+		}
 		// set first player to roll
 		currentPlayer = players.get(0);
 		for (int i = 0; i < players.size(); i++) {
@@ -201,9 +216,9 @@ public class Game {
 		player.stored = true;
 		// if last player in list then rotate to first
 		if (player.opponents.size() == player.getPlayerNumber()) {
+			ai.runAI();
 			currentPlayer = players.get(0);
 		} else {
-			//TODO this is broken fix it
 			// move to next player
 			
 			//System.out.println(currentPlayer.getPlayerNumber() + " " +players.size() + " " +player.opponents.size());

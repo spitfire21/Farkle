@@ -10,7 +10,7 @@ public class AIRunner {
 		players = new ArrayList<AIPlayer>();
 	}
 	public void runAI(){
-		while(true)
+		//while(true)
 		for(int i = 0; i < players.size(); i++){
 			if(players.get(i).startTurn()){
 				//TODO temp

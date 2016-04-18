@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import edu.plu.cs.farkle.server.resource.game.Game;
 
@@ -37,9 +38,17 @@ public class AIPlayer {
 		
 		AIPickDice();
 		System.out.println(storedDice);
-		score = game.checkScore(storedDice)*((aggression*2)/10);
+		score = game.checkScore(storedDice);
+		score += (score*aggression)/10;
 		if(storedDice.size() == 6){
 			storedDice.removeAll(storedDice);
+		}
+		try {
+			//Thread.sleep(1500);
+			TimeUnit.MILLISECONDS.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		startTurn();
 		}
@@ -59,7 +68,7 @@ public class AIPlayer {
 			}
 		}
 		}
-		if(random.nextInt(10) < aggression  && aggression > 6 && temp.contains(1)){
+		if(random.nextInt(10)+1 < aggression  && aggression > 6 && temp.contains(1)){
 			temp.remove((Integer)1);
 			storedDice.add(1);
 		}else{
@@ -73,7 +82,7 @@ public class AIPlayer {
 			//dice.remove(1);
 			}
 		}
-		if(random.nextInt(10) < aggression  && aggression > 6 && temp.contains(5)){
+		if(random.nextInt(10)+1 < aggression  && aggression > 6 && temp.contains(5)){
 			temp.remove((Integer)5);
 			storedDice.add(5);
 		}else {
@@ -137,7 +146,7 @@ public class AIPlayer {
 		if(totalScore >= game.getWinningScore()){
 			return true;
 		}
-		int chance = aggression*(6-dice.size()) - score/25;
+		int chance = aggression*(6-dice.size()) - score/50;
 		if(dice.size()==0 && storedDice.size() == 0){
 			roll();
 		}
@@ -151,6 +160,7 @@ public class AIPlayer {
 	}
 	private void endTurn(){
 		totalScore += score;
+		System.out.println(name + " score is: " + totalScore);
 		score = 0;
 		dice.removeAll(dice);
 		storedDice.removeAll(storedDice);
