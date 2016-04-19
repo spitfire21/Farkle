@@ -22,7 +22,7 @@ import edu.plu.cs.farkle.server.resource.game.ai.AIPlayer;
 import edu.plu.cs.farkle.server.resource.game.ai.AIRunner;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 1;
+	private int GAME_SIZE = 3;
 	// current player rolling
 	private Player currentPlayer;
 	private int winningScore = 10000;
@@ -512,10 +512,14 @@ public class Game {
 					endTurn(this);
 				}
 			}
-			else 
-				sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
+			else {
+				for (int i = 0; i < players.size(); i++){
+					
+						players.get(i).sendJSON("ROLL", this.id,"Success", new Dice(dice), this.score, this.storedScore);
+				}
+				
 			// if command is STORE
-			
+			}
 			STORE: if (command.startsWith("STORE") && currentPlayer == this) {
 				int numOfDice = 0;
 				System.out.println(tempDice);
@@ -567,11 +571,18 @@ public class Game {
 						}
 						// remove all dice
 						dice.removeAll(dice);
-						
+						for (int i = 0; i < players.size(); i++){
+							if(!players.get(i).id.equals(id))
+								players.get(i).sendJSON("STORE", this.id,"Success", cmd.getDice(), this.score, this.storedScore);
+						}
 						// calculate score
 						storedScore += checkScore(storedDice);
-						// tell player what score they could get
-						sendJSON("STORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
+						//send stored dice to players
+						
+						// tell all players what score they could get
+						for (int i = 0; i < players.size(); i++){
+						players.get(i).sendJSON("STORE", this.id,"Success", new Dice(dice), this.score, this.storedScore);
+						}
 						// reset roll
 						stored = true;
 					

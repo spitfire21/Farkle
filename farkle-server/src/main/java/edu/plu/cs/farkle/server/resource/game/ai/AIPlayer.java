@@ -39,7 +39,7 @@ public class AIPlayer {
 		AIPickDice();
 		System.out.println(storedDice);
 		score = game.checkScore(storedDice);
-		score += (score*aggression)/10;
+	
 		if(storedDice.size() == 6){
 			storedDice.removeAll(storedDice);
 		}
@@ -47,7 +47,7 @@ public class AIPlayer {
 			//Thread.sleep(1500);
 			TimeUnit.MILLISECONDS.sleep(1500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		startTurn();
