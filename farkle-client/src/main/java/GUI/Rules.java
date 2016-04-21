@@ -37,7 +37,7 @@ public class Rules extends JFrame {
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -55,7 +55,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnGeneralRules.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnGeneralRules.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnGeneralRules.setBounds(71, 47, 160, 71);
 		desktopPane.add(btnGeneralRules);
 		
@@ -67,7 +67,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnStandardScoring.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnStandardScoring.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnStandardScoring.setBounds(71, 141, 160, 71);
 		desktopPane.add(btnStandardScoring);
 		
@@ -79,7 +79,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnScoringVariations.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnScoringVariations.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnScoringVariations.setBounds(71, 224, 160, 71);
 		desktopPane.add(btnScoringVariations);
 		
@@ -91,7 +91,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnPlayVariations.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnPlayVariations.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnPlayVariations.setBounds(555, 47, 160, 71);
 		desktopPane.add(btnPlayVariations);
 		
@@ -103,11 +103,11 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnProbabilities.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnProbabilities.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnProbabilities.setBounds(555, 141, 160, 71);
 		desktopPane.add(btnProbabilities);
 		
-		JButton btnEffectsOfScoring = new JButton("Effects of Scoring Variations");
+		JButton btnEffectsOfScoring = new JButton("Scoring Variation Effects\n");
 		btnEffectsOfScoring.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScoVarEffects a = new ScoVarEffects(frame);

@@ -87,7 +87,7 @@ public class GUI extends JFrame {
 		desktopPane.add(lblFarkle);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnLogin.setFont(new Font("Arial", Font.PLAIN, 22));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage test = new LoginPage(clientObjs, frame);
@@ -100,7 +100,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 22));
+		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 18));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -112,7 +112,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnCreateAccount);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 19));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

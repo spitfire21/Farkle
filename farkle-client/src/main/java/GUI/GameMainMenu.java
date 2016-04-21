@@ -105,7 +105,7 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(lblLeaderboard);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnNewGame.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -127,7 +127,7 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(btnNewGame);
 		
 		JButton btnRules = new JButton("Rules");
-		btnRules.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnRules.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnRules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -139,7 +139,7 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(btnRules);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

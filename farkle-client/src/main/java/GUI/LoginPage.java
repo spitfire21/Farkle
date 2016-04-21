@@ -70,14 +70,14 @@ public class LoginPage extends JFrame {
 		lblUsername.setForeground(new Color(255, 255, 255));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsername.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblUsername.setBounds(249, 150, 101, 16);
+		lblUsername.setBounds(200, 150, 150, 23);
 		desktopPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassword.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblPassword.setBounds(249, 249, 101, 16);
+		lblPassword.setBounds(200, 249, 150, 23);
 		desktopPane.add(lblPassword);
 		
 		JButton btnBack = new JButton("Back");
