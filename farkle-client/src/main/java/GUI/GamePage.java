@@ -1,9 +1,11 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ public class GamePage extends JFrame implements GUICallBack {
 	private JTextPane txtpnStoredScore;
 	private JTextPane txtpnStatus;
 	private JTextPane txtpnHowYouStack;
+	
+	ArrayList<Double> storeDemensions;
 
 	/**
 	 * Create the frame for the GameMainMenu object. This object allows
@@ -56,11 +60,20 @@ public class GamePage extends JFrame implements GUICallBack {
 	 */
 	public GamePage(GameMainMenu frame, String token, String name) {
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		 storeDemensions = new ArrayList<Double>();
+		 storeDemensions.add(0.0);
+		 storeDemensions.add(0.0);
+		 storeDemensions.add(0.0);
+		 storeDemensions.add(0.0);
+		 
 		this.name = name;
 		setResizable(false);
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1600, 800);
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds(0, 0, screenSize.width, screenSize.height);
+		//System.out.print("width = " + screenSize.width + " height = " + screenSize.height);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(128, 0, 0));
 		contentPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -70,48 +83,64 @@ public class GamePage extends JFrame implements GUICallBack {
 		//Create storeDATA LIST
 		ArrayList<Integer> storeData = new ArrayList<Integer>();
 		
+		
 		//Create Roll Dice Button
 		JButton btnRollDice = new JButton("Roll Dice");
 		btnRollDice.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
-		btnRollDice.setBounds(231, 337, 180, 90);
+		
+		conversion(332,419,150,54);
+		//System.out.println("FIRST ARRAY" + storeDemensions.get(0) + "  SECOND " + storeDemensions.get(1) + storeDemensions.get(2) + " " + storeDemensions.get(2));
+		btnRollDice.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(btnRollDice);
 		
 		//Create Dice Panels
 		panel = new Panel();
-		panel.setBounds(22, 205, 117, 90);
+		conversion(104, 293, 117, 90);
+		panel.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel);
 		panel_1 = new Panel();
-		panel_1.setBounds(158, 205, 117, 90);
+		conversion(240, 293, 117, 90);
+		panel_1.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_1);
 		panel_2 = new Panel();
-		panel_2.setBounds(294, 205, 117, 90);
+		conversion(376, 293, 117, 90);
+		panel_2.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_2);
 		panel_3 = new Panel();
-		panel_3.setBounds(428, 205, 117, 90);
+		conversion(510, 293, 117, 90);
+		panel_3.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_3);
 		panel_4 = new Panel();
-		panel_4.setBounds(564, 205, 117, 90);
+		conversion(646, 293, 117, 90);
+		panel_4.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_4);
 	    panel_5 = new Panel();
-		panel_5.setBounds(703, 205, 117, 90);
+	    conversion(785, 293, 117, 90);
+		panel_5.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_5);
-		 panel_6 = new Panel();
-		panel_6.setBounds(22, 487, 117, 90);
+		panel_6 = new Panel();
+		conversion(104, 514, 117, 90);
+		panel_6.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_6);
 		panel_7 = new Panel();
-		panel_7.setBounds(158, 487, 117, 90);
+		conversion(240, 514, 117, 90);
+		panel_7.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_7);
 	    panel_8 = new Panel();
-		panel_8.setBounds(294, 487, 117, 90);
+	    conversion(376, 514, 117, 90);
+		panel_8.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_8);
 		panel_9 = new Panel();
-		panel_9.setBounds(428, 487, 117, 90);
+		conversion(510, 514, 117, 90);
+		panel_9.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_9);
 		panel_10 = new Panel();
-		panel_10.setBounds(564, 487, 117, 90);
+		conversion(646, 514, 117, 90);
+		panel_10.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_10);
 		panel_11 = new Panel();
-		panel_11.setBounds(705, 487, 115, 90);
+		conversion(785, 514, 115, 90);
+		panel_11.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(panel_11);
 		panel_6.setVisible(false);
 		panel_7.setVisible(false);
@@ -123,29 +152,28 @@ public class GamePage extends JFrame implements GUICallBack {
 		JLabel lblNewLabel = new JLabel("Stored Dice");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 24));
-		lblNewLabel.setBounds(22, 451, 199, 22);
+		conversion(29, 426, 143, 47);
+		lblNewLabel.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblNewLabel);
 		
 		//Create Label for Farkle
 		JLabel lblFarkle = new JLabel("Farkle Multiplayer");
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.BOLD | Font.ITALIC, 65));
-		lblFarkle.setBounds(22, 31, 523, 51);
+		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.BOLD | Font.ITALIC, 50));
+		conversion(22, 18, 422, 61);
+		lblFarkle.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblFarkle);
 		
 		//Create Label for Game Leaderboard
 		JLabel lblGameStandings = new JLabel("Game Standing");
+		lblGameStandings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGameStandings.setForeground(new Color(255, 255, 255));
 		lblGameStandings.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 27));
-		lblGameStandings.setBounds(954, 55, 240, 29);
+		conversion(1023, 39, 174, 40);
+		lblGameStandings.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblGameStandings);
 		
-		//Create Label for underline for Farkle
-		JLabel lblHh = new JLabel("__________________________");
-		lblHh.setForeground(new Color(255, 255, 255));
-		lblHh.setBackground(Color.BLACK);
-		lblHh.setBounds(22, 76, 212, 22);
-		contentPane.add(lblHh);
+		
 		
 		//Create button to go back to home page
 		JButton btnHomePage = new JButton("Exit Current Game");
@@ -157,21 +185,24 @@ public class GamePage extends JFrame implements GUICallBack {
 			}
 		});
 		//Set bounds for home page button
-		btnHomePage.setBounds(988, 499, 137, 78);
+		conversion(1023, 627, 174, 48);
+		btnHomePage.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(btnHomePage);
 		
 		//Create label for Your roll
 		JLabel lblYourRoll = new JLabel("Your Current Roll (Click to store)");
 		lblYourRoll.setForeground(new Color(255, 255, 255));
 		lblYourRoll.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 24));
-		lblYourRoll.setBounds(22, 168, 359, 22);
+		conversion(29, 233, 363, 40);
+		lblYourRoll.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblYourRoll);
 		
 		
 		//CREATE STORE DICE BUTTON __________________________________________________________
 		JButton btnStoreDice = new JButton("Store Dice");
 		btnStoreDice.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
-		btnStoreDice.setBounds(423, 337, 180, 90);
+		conversion(523, 419, 150, 54);
+		btnStoreDice.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(btnStoreDice);
 		
 		JButton btnEndTurn = new JButton("End Turn");
@@ -181,49 +212,37 @@ public class GamePage extends JFrame implements GUICallBack {
 				gClient.sendJSON("SCORE", name, "SCORING", gClient.getDice(), 0, 0);
 			}
 		});
-		btnEndTurn.setBounds(328, 600, 182, 90);
+		conversion(419, 623, 165, 48);
+		btnEndTurn.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(btnEndTurn);
 		
 		txtpnScore = new JTextPane();
 		txtpnScore.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
 		txtpnScore.setText("Your Total Score:");
-		txtpnScore.setBounds(954, 96, 207, 21);
+		conversion(1023, 105, 174, 47);
+		txtpnScore.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnScore);
 		
 		txtpnStoredScore = new JTextPane();
 		txtpnStoredScore.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
 		txtpnStoredScore.setText("Stored Score:");
-		txtpnStoredScore.setBounds(954, 139, 207, 21);
+		conversion(1023, 189, 174, 47);
+		txtpnStoredScore.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnStoredScore);
 		
 		txtpnStatus = new JTextPane();
 		txtpnStatus.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
 		txtpnStatus.setText("Game Status:");
-		txtpnStatus.setBounds(32, 105, 274, 40);
+		conversion(32, 105, 274, 40);
+		txtpnStatus.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnStatus);
-		
-		JPanel panel_12 = new JPanel();
-		panel_12.setBackground(Color.BLACK);
-		panel_12.setForeground(Color.BLACK);
-		panel_12.setBounds(879, 0, 10, 799);
-		contentPane.add(panel_12);
 		
 		txtpnHowYouStack = new JTextPane();
 		txtpnHowYouStack.setText("How you stack up:");
 		txtpnHowYouStack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 17));
-		txtpnHowYouStack.setBounds(954, 183, 207, 290);
+		conversion(1023, 285, 174, 276);
+		txtpnHowYouStack.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnHowYouStack);
-		
-		JPanel panel_13 = new JPanel();
-		panel_13.setBounds(1233, 139, 339, 551);
-		contentPane.add(panel_13);
-		
-		JLabel lblSpectatorViewOf = new JLabel("Spectator View of Current Roll");
-		lblSpectatorViewOf.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSpectatorViewOf.setForeground(Color.WHITE);
-		lblSpectatorViewOf.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 18));
-		lblSpectatorViewOf.setBounds(1269, 111, 274, 16);
-		contentPane.add(lblSpectatorViewOf);
 		
 		
 		
@@ -254,14 +273,16 @@ public class GamePage extends JFrame implements GUICallBack {
 					
 					img = new ImageIcon(this.getClass().getResource(diceName)).getImage();
 					picLabel.setIcon(new ImageIcon(img));
-					picLabel.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel.add(picLabel);
 					if(diceName.equals("/0.jpg")){
 						panel.setVisible(false);
 					}
 					JButton picLabel7 = new JButton("");
 					picLabel7.setIcon(new ImageIcon(img));
-					picLabel7.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel7.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_6.add(picLabel7);
 					
 					picLabel7.addActionListener(new ActionListener() {
@@ -309,14 +330,16 @@ public class GamePage extends JFrame implements GUICallBack {
 					
 					img2 = new ImageIcon(this.getClass().getResource(diceName2)).getImage();
 					picLabel2.setIcon(new ImageIcon(img2));
-					picLabel2.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel2.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_1.add(picLabel2);
 					if(diceName2.equals("/0.jpg")){
 						panel_1.setVisible(false);
 					}
 					JButton picLabel8 = new JButton("");
 					picLabel8.setIcon(new ImageIcon(img2));
-					picLabel8.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel8.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_7.add(picLabel8);
 					picLabel8.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -361,11 +384,13 @@ public class GamePage extends JFrame implements GUICallBack {
 					}
 					 img3 = new ImageIcon(this.getClass().getResource(diceName3)).getImage();
 					picLabel3.setIcon(new ImageIcon(img3));
-					picLabel3.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel3.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_2.add(picLabel3);
 					JButton picLabel9 = new JButton("");
 					picLabel9.setIcon(new ImageIcon(img3));
-					picLabel9.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel9.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_8.add(picLabel9);
 					picLabel9.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -411,11 +436,13 @@ public class GamePage extends JFrame implements GUICallBack {
 					}
 					img4 = new ImageIcon(this.getClass().getResource(diceName4)).getImage();
 					picLabel4.setIcon(new ImageIcon(img4));
-					picLabel4.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel4.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_3.add(picLabel4);
 					JButton picLabel10 = new JButton("");
 					picLabel10.setIcon(new ImageIcon(img4));
-					picLabel10.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel10.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_9.add(picLabel10);
 					
 					picLabel10.addActionListener(new ActionListener() {
@@ -461,12 +488,14 @@ public class GamePage extends JFrame implements GUICallBack {
 					}
 					img5 = new ImageIcon(this.getClass().getResource(diceName5)).getImage();
 					picLabel5.setIcon(new ImageIcon(img5));
-					picLabel5.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel5.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_4.add(picLabel5);
 					
 					JButton picLabel11 = new JButton("");
 					picLabel11.setIcon(new ImageIcon(img5));
-					picLabel11.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel11.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_10.add(picLabel11);
 					
 					picLabel11.addActionListener(new ActionListener() {
@@ -515,12 +544,14 @@ public class GamePage extends JFrame implements GUICallBack {
 					}
 				    img6 = new ImageIcon(this.getClass().getResource(diceName6)).getImage();
 					picLabel6.setIcon(new ImageIcon(img6));
-					picLabel6.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel6.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_5.add(picLabel6);
 					
 					JButton picLabel12 = new JButton("");
 					picLabel12.setIcon(new ImageIcon(img6));
-					picLabel12.setBounds(6, 6, 285, 266);
+					conversion(6, 6, 285, 266);
+					picLabel12.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_11.add(picLabel12);
 					
 					picLabel12.addActionListener(new ActionListener() {
@@ -641,9 +672,33 @@ public class GamePage extends JFrame implements GUICallBack {
 	}//END OF PUBLIC GAMEPAGE
 
 
-	
+	public void conversion(int x, int y, int w, int h){
+		//ArrayList<Integer> storeDemensions = new ArrayList<Integer>();
+		//storeDemensions.removeAll(storeDemensions);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		  double sw = screenSize.width;
+		  double sh = screenSize.height;
+		  double temp1 = sw/x;
+		  double a = (sw/temp1);
+		  System.out.print("temp1= " + temp1);
+		  System.out.print("a is : " + a);
+		  storeDemensions.set(0,a);
+		
+		  double temp2 = sh/y;
+		  double b = (sh/temp2);
+		  storeDemensions.set(1,b);
+		
+		  double temp3 = sw/w;
+		  double c = (sw/temp3);
+		  storeDemensions.set(2,c);
+		
+		  double temp4 = sh/h;
+		  double d = (sh/temp4);
+		  storeDemensions.set(3,d);
+		
+}
 
-	public static String rollFunction(List<Integer> dice) {
+	public String rollFunction(List<Integer> dice) {
 	      String pictureName = "/0.jpg";;
 	      int randomNum = 0;
 	      if(dice.size()>0){
