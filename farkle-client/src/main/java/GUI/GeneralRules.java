@@ -46,7 +46,7 @@ public class GeneralRules extends JFrame {
 				rules.setVisible(true);
 			}
 		});
-		btnNewButton.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnNewButton.setBounds(339, 351, 156, 65);
 		desktopPane.add(btnNewButton);
 		
@@ -59,7 +59,7 @@ public class GeneralRules extends JFrame {
 		JTextPane txtpnFarkleIsPlayed = new JTextPane();
 		
 		scrollPane.setViewportView(txtpnFarkleIsPlayed);
-		txtpnFarkleIsPlayed.setFont(new Font("Bodoni 72", Font.PLAIN, 18));
+		txtpnFarkleIsPlayed.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtpnFarkleIsPlayed.setText("GENERAL RULES:\n\nFarkle is played by two or more players, with each player in succession having a turn at throwing the dice. Each player's turn results in a score, and the scores for each player accumulate to some winning total (usually 10,000).\n\nAt the beginning of each turn, the player throws all the dice at once from a cup.\n\nAfter each throw, one or more scoring dice must be set aside (see sections on scoring below).\n\nThe player may then either end their turn and bank the score accumulated so far, or continue to throw the remaining dice.\n\nIf the player has scored all six dice, they have \"hot dice\" and may continue their turn with a new throw of all six dice, adding to the score they have already accumulated. There is no limit to the number of \"hot dice\" a player may roll in one turn.\n\nIf none of the dice score in any given throw, the player has \"farkled\" and all points for that turn are lost.\n\nAt the end of the player's turn, the dice are handed to the next player in succession (usually in clockwise rotation), and they have their turn.\n\nOnce a player has achieved a winning point total, each other player has one last turn to score enough points to surpass that high-score.");
 		txtpnFarkleIsPlayed.setCaretPosition(0);
 	}

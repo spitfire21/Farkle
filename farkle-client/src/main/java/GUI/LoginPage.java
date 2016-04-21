@@ -62,26 +62,26 @@ public class LoginPage extends JFrame {
 				//...
 			}
 		});
-		textField.setBounds(362, 147, 130, 26);
+		textField.setBounds(352, 147, 130, 26);
 		desktopPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setForeground(new Color(255, 255, 255));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblUsername.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblUsername.setBounds(249, 150, 101, 16);
 		desktopPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblPassword.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblPassword.setBounds(249, 249, 101, 16);
 		desktopPane.add(lblPassword);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnBack.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -93,7 +93,7 @@ public class LoginPage extends JFrame {
 		desktopPane.add(btnBack);
 		
 		JButton btnLogin2 = new JButton("Login");
-		btnLogin2.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnLogin2.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnLogin2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -115,9 +115,9 @@ public class LoginPage extends JFrame {
 		
 		JLabel lblFarkle = new JLabel("FARKLE:\nLogin");
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 56));
+		lblFarkle.setFont(new Font("Arial Black", Font.PLAIN, 56));
 		lblFarkle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFarkle.setBounds(242, 6, 350, 137);
+		lblFarkle.setBounds(190, 6, 454, 137);
 		desktopPane.add(lblFarkle);
 		
 		passwordField = new JPasswordField();
@@ -129,7 +129,7 @@ public class LoginPage extends JFrame {
 				
 			}
 		});
-		passwordField.setBounds(362, 246, 130, 26);
+		passwordField.setBounds(352, 246, 130, 26);
 		desktopPane.add(passwordField);
 	}
 }

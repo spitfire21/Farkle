@@ -55,7 +55,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnGeneralRules.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnGeneralRules.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnGeneralRules.setBounds(71, 47, 160, 71);
 		desktopPane.add(btnGeneralRules);
 		
@@ -67,7 +67,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnStandardScoring.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnStandardScoring.setFont(new Font("Arial", Font.PLAIN, 18));
 		btnStandardScoring.setBounds(71, 141, 160, 71);
 		desktopPane.add(btnStandardScoring);
 		
@@ -79,7 +79,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnScoringVariations.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 18));
+		btnScoringVariations.setFont(new Font("Arial", Font.PLAIN, 18));
 		btnScoringVariations.setBounds(71, 224, 160, 71);
 		desktopPane.add(btnScoringVariations);
 		
@@ -91,7 +91,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnPlayVariations.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnPlayVariations.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnPlayVariations.setBounds(555, 47, 160, 71);
 		desktopPane.add(btnPlayVariations);
 		
@@ -103,7 +103,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnProbabilities.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnProbabilities.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnProbabilities.setBounds(555, 141, 160, 71);
 		desktopPane.add(btnProbabilities);
 		
@@ -115,7 +115,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnEffectsOfScoring.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 11));
+		btnEffectsOfScoring.setFont(new Font("Arial", Font.PLAIN, 10));
 		btnEffectsOfScoring.setBounds(555, 224, 160, 71);
 		desktopPane.add(btnEffectsOfScoring);
 	}

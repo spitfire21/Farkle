@@ -47,7 +47,7 @@ public class ScoVarEffects extends JFrame {
 				rules.setVisible(true);
 			}
 		});
-		button.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		button.setFont(new Font("Arial", Font.PLAIN, 20));
 		button.setBounds(337, 321, 160, 71);
 		desktopPane.add(button);
 		
@@ -57,7 +57,7 @@ public class ScoVarEffects extends JFrame {
 		
 		JTextPane txtpnEffectsOfScoring = new JTextPane();
 		scrollPane.setViewportView(txtpnEffectsOfScoring);
-		txtpnEffectsOfScoring.setFont(new Font("Bodoni 72", Font.PLAIN, 18));
+		txtpnEffectsOfScoring.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtpnEffectsOfScoring.setText("EFFECTS OF SCORING VARIATIONS:\n\nScoring additional combinations such as straights and three pairs increases the speed of play by awarding high scores for low probability events that otherwise would score little or nothing (for example, a straight with standard scoring is worth only 150 for the single 1 and single 5). To assess the impact of scoring variations, the following table shows the average score on the initial throw of six dice, assuming that all scoring dice are banked and ignoring any additional scores that would be made on a re-roll of hot dice. The first row shows the average score with standard scoring, and the other rows show the increment in that average for each scoring variant that is used in play.\n\nThe numbers in the table are calculated based on the following scores for variant combinations:\n\nFour of a kind scores three times the score of the corresponding triplet.\nFive of a kind scores five times the score of the corresponding triplet.\nSix of a kind scores ten times the score of the corresponding triplet.\nA straight scores 2500.\nThree pair scores 1500.\nScoring combination\tAverage score on initial throw\nStandard scoring\t302\nFour of a kind\t+47\nFive of a kind\t+8\nSix of a kind\t+0.6\nStraight\t+37\nThree pair\t+52\nTotal (all combinations)\t446.6\n\nThe impact of four or five of a kind is substantially similar if they are scored as 1000 and 2000, respectively. If lower scores are awarded for straights or three pairs, the impact on average scoring will be proportionately lower.\n\nThe above table somewhat overstates the impact of straight and three pair on overall speed of play, as they only score on the initial throw of six dice.");
 		txtpnEffectsOfScoring.setCaretPosition(0);
 	}

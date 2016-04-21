@@ -82,12 +82,12 @@ public class GUI extends JFrame {
 		JLabel lblFarkle = new JLabel("FARKLE");
 		lblFarkle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 68));
-		lblFarkle.setBounds(35, -28, 267, 161);
+		lblFarkle.setFont(new Font("Arial Black", Font.PLAIN, 68));
+		lblFarkle.setBounds(35, -28, 363, 161);
 		desktopPane.add(lblFarkle);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnLogin.setFont(new Font("Arial", Font.PLAIN, 26));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage test = new LoginPage(clientObjs, frame);
@@ -100,7 +100,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 22));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -112,7 +112,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnCreateAccount);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 26));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -128,7 +128,7 @@ public class GUI extends JFrame {
 		desktopPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 3: Team Yellow");
-		lblNewLabel_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 15));
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(305, 420, 224, 16);

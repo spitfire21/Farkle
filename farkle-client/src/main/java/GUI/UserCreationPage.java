@@ -58,32 +58,33 @@ public class UserCreationPage extends JFrame {
 		desktopPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblCreateANew = new JLabel("Create a new Account");
+		JLabel lblCreateANew = new JLabel("New Account");
+		lblCreateANew.setForeground(Color.WHITE);
 		lblCreateANew.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateANew.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		lblCreateANew.setFont(new Font("Arial Black", Font.PLAIN, 26));
 		lblCreateANew.setBounds(297, 16, 241, 46);
 		desktopPane.add(lblCreateANew);
 		
 		JLabel lblCreateUsername = new JLabel("Create Username:");
 		lblCreateUsername.setForeground(new Color(255, 255, 255));
-		lblCreateUsername.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
-		lblCreateUsername.setBounds(168, 70, 144, 16);
+		lblCreateUsername.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblCreateUsername.setBounds(168, 77, 172, 16);
 		desktopPane.add(lblCreateUsername);
 		
 		JLabel lblNewLabel = new JLabel("Create Password:");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
-		lblNewLabel.setBounds(168, 141, 144, 16);
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNewLabel.setBounds(168, 141, 172, 16);
 		desktopPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Verify Password:");
-		lblNewLabel_1.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(168, 205, 144, 16);
+		lblNewLabel_1.setBounds(168, 205, 172, 16);
 		desktopPane.add(lblNewLabel_1);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnBack.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -94,7 +95,7 @@ public class UserCreationPage extends JFrame {
 		desktopPane.add(btnBack);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 20));
+		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			
 			// serves to verify user credentials (make sure they are unique, passwords match, etc)

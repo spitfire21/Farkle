@@ -28,8 +28,6 @@ public class GameMainMenu extends JFrame {
 
 	private JPanel contentPane;
 	GameMainMenu frame;
-	AdjustScoring scoVar;
-	AdjustGameplay playVar;
 
 
 	/**
@@ -101,13 +99,13 @@ public class GameMainMenu extends JFrame {
 		
 		JLabel lblLeaderboard = new JLabel("Leaderboard");
 		lblLeaderboard.setForeground(new Color(255, 255, 255));
-		lblLeaderboard.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLeaderboard.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 34));
-		lblLeaderboard.setBounds(528, 15, 184, 66);
+		lblLeaderboard.setHorizontalAlignment(SwingConstants.LEFT);
+		lblLeaderboard.setFont(new Font("Arial Black", Font.PLAIN, 34));
+		lblLeaderboard.setBounds(497, 17, 274, 66);
 		desktopPane.add(lblLeaderboard);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnNewGame.setFont(new Font("Arial", Font.PLAIN, 26));
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -128,20 +126,8 @@ public class GameMainMenu extends JFrame {
 		btnNewGame.setBounds(70, 38, 207, 86);
 		desktopPane.add(btnNewGame);
 		
-		JButton btnSettings = new JButton("Settings");
-		btnSettings.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
-		btnSettings.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Settings set = new Settings(frame, scoVar, playVar);
-				set.setVisible(true);
-			}
-		});
-		btnSettings.setBounds(70, 136, 207, 86);
-		desktopPane.add(btnSettings);
-		
 		JButton btnRules = new JButton("Rules");
-		btnRules.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnRules.setFont(new Font("Arial", Font.PLAIN, 26));
 		btnRules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -149,17 +135,17 @@ public class GameMainMenu extends JFrame {
 				rule.setVisible(true);
 			}
 		});
-		btnRules.setBounds(70, 234, 207, 86);
+		btnRules.setBounds(70, 136, 207, 86);
 		desktopPane.add(btnRules);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Bodoni 72 Smallcaps", Font.PLAIN, 26));
+		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 26));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnExitGame.setBounds(70, 332, 207, 86);
+		btnExitGame.setBounds(70, 234, 207, 86);
 		desktopPane.add(btnExitGame);
 	}
 }
