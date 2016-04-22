@@ -599,10 +599,22 @@ public class GamePage extends JFrame implements GUICallBack {
 		}); //END OF BUTTON LISTENER ROLL DICE
 		
 		
+		
+		
+		//INSERT THE BACKGROUND DICE IMAGE--------------------------------------
 		JLabel background = new JLabel();
 		background.setBounds(0, 0, screenSize.width, screenSize.height);
 		Image backgroundImg = null;
-		backgroundImg = new ImageIcon(this.getClass().getResource("/backDie.jpg")).getImage();
+		
+		if (screenSize.width <= 1280){
+		backgroundImg = new ImageIcon(this.getClass().getResource("/blackDie1280.jpg")).getImage();
+		}
+		else if (screenSize.width > 1280 && screenSize.width <= 1440){
+		backgroundImg = new ImageIcon(this.getClass().getResource("/blackDie1440.jpg")).getImage();	
+		}
+		else{
+		backgroundImg = new ImageIcon(this.getClass().getResource("/blackDie1920.jpg")).getImage();
+		}
 		background.setIcon(new ImageIcon(backgroundImg));
 		contentPane.add(background);
 		
