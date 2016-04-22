@@ -71,10 +71,16 @@ public class GamePage extends JFrame implements GUICallBack {
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
+		
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(0, 0, screenSize.width, screenSize.height);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(128, 0, 0));
+		
+		
+		
+		//contentPane.setBackground(new Color(128, 0, 0));
 		contentPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -84,8 +90,8 @@ public class GamePage extends JFrame implements GUICallBack {
 		
 		
 		//Create Roll Dice Button
-		JButton btnRollDice = new JButton("Roll");
-		btnRollDice.setFont(new Font("Arial", Font.PLAIN, 26));
+		JButton btnRollDice = new JButton("Roll Dice");
+		btnRollDice.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		
 		conversion(332,419,150,54);
 		btnRollDice.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
@@ -149,33 +155,33 @@ public class GamePage extends JFrame implements GUICallBack {
 		//Create Label for Stored
 		JLabel lblNewLabel = new JLabel("Stored Dice");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		conversion(29, 426, 143, 47);
 		lblNewLabel.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblNewLabel);
 		
 		//Create Label for Farkle
-		JLabel lblFarkle = new JLabel("Farkle");
+		JLabel lblFarkle = new JLabel("Farkle Multiplayer");
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Arial", Font.PLAIN, 50));
-		conversion(22, 18, 550, 61);
+		lblFarkle.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+		conversion(22, 18, 422, 61);
 		lblFarkle.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblFarkle);
 		
 		//Create Label for Game Leaderboard
 		JLabel lblGameStandings = new JLabel("Game Standing");
-		lblGameStandings.setHorizontalAlignment(SwingConstants.LEFT);
+		lblGameStandings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGameStandings.setForeground(new Color(255, 255, 255));
-		lblGameStandings.setFont(new Font("Arial", Font.PLAIN, 27));
-		conversion(1023, 39, 300, 40);
+		lblGameStandings.setFont(new Font("Times New Roman", Font.PLAIN, 27));
+		conversion(1023, 39, 174, 40);
 		lblGameStandings.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblGameStandings);
 		
 		
 		
 		//Create button to go back to home page
-		JButton btnHomePage = new JButton("Exit Game");
-		btnHomePage.setFont(new Font("Arial", Font.PLAIN, 16));
+		JButton btnHomePage = new JButton("Exit Current Game");
+		btnHomePage.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnHomePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -190,21 +196,21 @@ public class GamePage extends JFrame implements GUICallBack {
 		//Create label for Your roll
 		JLabel lblYourRoll = new JLabel("Your Current Roll (Click to store)");
 		lblYourRoll.setForeground(new Color(255, 255, 255));
-		lblYourRoll.setFont(new Font("Arial", Font.PLAIN, 24));
-		conversion(29, 233, 450, 40);
+		lblYourRoll.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		conversion(29, 233, 363, 40);
 		lblYourRoll.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(lblYourRoll);
 		
 		
 		//CREATE STORE DICE BUTTON __________________________________________________________
-		JButton btnStoreDice = new JButton("Store");
-		btnStoreDice.setFont(new Font("Arial", Font.PLAIN, 26));
+		JButton btnStoreDice = new JButton("Store Dice");
+		btnStoreDice.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		conversion(523, 419, 150, 54);
 		btnStoreDice.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(btnStoreDice);
 		
 		JButton btnEndTurn = new JButton("End Turn");
-		btnEndTurn.setFont(new Font("Arial", Font.PLAIN, 26));
+		btnEndTurn.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		btnEndTurn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gClient.sendJSON("SCORE", name, "SCORING", gClient.getDice(), 0, 0);
@@ -215,21 +221,21 @@ public class GamePage extends JFrame implements GUICallBack {
 		contentPane.add(btnEndTurn);
 		
 		txtpnScore = new JTextPane();
-		txtpnScore.setFont(new Font("Arial", Font.PLAIN, 17));
+		txtpnScore.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtpnScore.setText("Your Total Score:");
 		conversion(1023, 105, 174, 47);
 		txtpnScore.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnScore);
 		
 		txtpnStoredScore = new JTextPane();
-		txtpnStoredScore.setFont(new Font("Arial", Font.PLAIN, 17));
+		txtpnStoredScore.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtpnStoredScore.setText("Stored Score:");
 		conversion(1023, 189, 174, 47);
 		txtpnStoredScore.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnStoredScore);
 		
 		txtpnStatus = new JTextPane();
-		txtpnStatus.setFont(new Font("Arial", Font.PLAIN, 17));
+		txtpnStatus.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtpnStatus.setText("Game Status:");
 		conversion(32, 105, 274, 40);
 		txtpnStatus.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
@@ -237,7 +243,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		
 		txtpnHowYouStack = new JTextPane();
 		txtpnHowYouStack.setText("How you stack up:");
-		txtpnHowYouStack.setFont(new Font("Arial", Font.PLAIN, 17));
+		txtpnHowYouStack.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		conversion(1023, 285, 174, 276);
 		txtpnHowYouStack.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnHowYouStack);
@@ -591,6 +597,14 @@ public class GamePage extends JFrame implements GUICallBack {
 		
 			}
 		}); //END OF BUTTON LISTENER ROLL DICE
+		
+		
+		JLabel background = new JLabel();
+		background.setBounds(0, 0, screenSize.width, screenSize.height);
+		Image backgroundImg = null;
+		backgroundImg = new ImageIcon(this.getClass().getResource("/backDie.jpg")).getImage();
+		background.setIcon(new ImageIcon(backgroundImg));
+		contentPane.add(background);
 		
 		
 //STORE DICE BUTTON LISTERNER __________________________________________________________
