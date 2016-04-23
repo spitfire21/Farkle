@@ -38,14 +38,14 @@ public class UserCreationPage extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(128, 0, 0));
+		desktopPane.setBackground(new Color(55, 55, 55));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
@@ -61,30 +61,30 @@ public class UserCreationPage extends JFrame {
 		JLabel lblCreateANew = new JLabel("New Account");
 		lblCreateANew.setForeground(Color.WHITE);
 		lblCreateANew.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateANew.setFont(new Font("Arial Black", Font.PLAIN, 26));
+		lblCreateANew.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		lblCreateANew.setBounds(297, 16, 241, 46);
 		desktopPane.add(lblCreateANew);
 		
 		JLabel lblCreateUsername = new JLabel("Create Username:");
 		lblCreateUsername.setForeground(new Color(255, 255, 255));
-		lblCreateUsername.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblCreateUsername.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblCreateUsername.setBounds(150, 77, 190, 16);
 		desktopPane.add(lblCreateUsername);
 		
 		JLabel lblNewLabel = new JLabel("Create Password:");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblNewLabel.setBounds(150, 141, 190, 16);
 		desktopPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Verify Password:");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(150, 205, 190, 21);
 		desktopPane.add(lblNewLabel_1);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnBack.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -95,7 +95,7 @@ public class UserCreationPage extends JFrame {
 		desktopPane.add(btnBack);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnCreateAccount.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			
 			// serves to verify user credentials (make sure they are unique, passwords match, etc)

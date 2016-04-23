@@ -39,16 +39,15 @@ public class GameMainMenu extends JFrame {
 	public GameMainMenu(final ArrayList callBack) {
 		frame = this;
 		setResizable(false);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(139, 0, 0));
+		desktopPane.setBackground(new Color(55, 55, 55));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		
@@ -100,12 +99,12 @@ public class GameMainMenu extends JFrame {
 		JLabel lblLeaderboard = new JLabel("Leaderboard");
 		lblLeaderboard.setForeground(new Color(255, 255, 255));
 		lblLeaderboard.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLeaderboard.setFont(new Font("Arial Black", Font.PLAIN, 34));
+		lblLeaderboard.setFont(new Font("Times New Roman", Font.PLAIN, 34));
 		lblLeaderboard.setBounds(497, 17, 274, 66);
 		desktopPane.add(lblLeaderboard);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnNewGame.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -127,7 +126,7 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(btnNewGame);
 		
 		JButton btnRules = new JButton("Rules");
-		btnRules.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnRules.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnRules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -139,7 +138,7 @@ public class GameMainMenu extends JFrame {
 		desktopPane.add(btnRules);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnExitGame.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

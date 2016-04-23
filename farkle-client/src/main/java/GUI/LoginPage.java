@@ -45,13 +45,14 @@ public class LoginPage extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(128, 0, 0));
+		desktopPane.setBackground(new Color(55, 55, 55));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		textField = new JTextField();
@@ -69,19 +70,19 @@ public class LoginPage extends JFrame {
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setForeground(new Color(255, 255, 255));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblUsername.setBounds(200, 150, 150, 23);
 		desktopPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblPassword.setBounds(200, 249, 150, 23);
 		desktopPane.add(lblPassword);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnBack.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -93,7 +94,7 @@ public class LoginPage extends JFrame {
 		desktopPane.add(btnBack);
 		
 		JButton btnLogin2 = new JButton("Login");
-		btnLogin2.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnLogin2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnLogin2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -115,7 +116,7 @@ public class LoginPage extends JFrame {
 		
 		JLabel lblFarkle = new JLabel("FARKLE:\nLogin");
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Arial Black", Font.PLAIN, 56));
+		lblFarkle.setFont(new Font("Times New Roman", Font.PLAIN, 56));
 		lblFarkle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFarkle.setBounds(190, 6, 454, 137);
 		desktopPane.add(lblFarkle);

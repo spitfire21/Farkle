@@ -27,17 +27,18 @@ public class Rules extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(128, 0, 0));
+		desktopPane.setBackground(new Color(55, 55, 55));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -55,7 +56,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnGeneralRules.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnGeneralRules.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnGeneralRules.setBounds(71, 47, 160, 71);
 		desktopPane.add(btnGeneralRules);
 		
@@ -67,7 +68,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnStandardScoring.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnStandardScoring.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnStandardScoring.setBounds(71, 141, 160, 71);
 		desktopPane.add(btnStandardScoring);
 		
@@ -79,7 +80,7 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnScoringVariations.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnScoringVariations.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnScoringVariations.setBounds(71, 224, 160, 71);
 		desktopPane.add(btnScoringVariations);
 		
@@ -91,8 +92,8 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnPlayVariations.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnPlayVariations.setBounds(555, 47, 160, 71);
+		btnPlayVariations.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		btnPlayVariations.setBounds(597, 47, 160, 71);
 		desktopPane.add(btnPlayVariations);
 		
 		JButton btnProbabilities = new JButton("Probabilities");
@@ -103,8 +104,8 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnProbabilities.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnProbabilities.setBounds(555, 141, 160, 71);
+		btnProbabilities.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		btnProbabilities.setBounds(597, 141, 160, 71);
 		desktopPane.add(btnProbabilities);
 		
 		JButton btnEffectsOfScoring = new JButton("Scoring Variation Effects\n");
@@ -115,8 +116,8 @@ public class Rules extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnEffectsOfScoring.setFont(new Font("Arial", Font.PLAIN, 10));
-		btnEffectsOfScoring.setBounds(555, 224, 160, 71);
+		btnEffectsOfScoring.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		btnEffectsOfScoring.setBounds(597, 226, 160, 71);
 		desktopPane.add(btnEffectsOfScoring);
 	}
 }
