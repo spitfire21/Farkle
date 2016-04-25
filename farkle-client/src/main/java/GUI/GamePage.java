@@ -32,6 +32,7 @@ public class GamePage extends JFrame implements GUICallBack {
 	//private static final boolean True = false;
 	private JPanel contentPane;
 	private GameClient gClient;
+	private GameSettings gSettings;
 	private Panel panel;
 	private Panel panel_2;
 	private Panel panel_1;
@@ -70,6 +71,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		setResizable(false);
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gSettings = new GameSettings();
 		
 		
 		
@@ -788,9 +790,24 @@ public class GamePage extends JFrame implements GUICallBack {
 		}
 		if(command.getCommand().equals("Status Waiting") && 
 				command.getMessage().startsWith("YOU ARE") && command.getName().equals(name)){
+			
+			 if(command.getMessage().charAt(command.getMessage().length()-1) == '0') {
+				 SettingsDialogue sd = new SettingsDialogue();
+			      int result = JOptionPane.showConfirmDialog(null, sd, 
+			               "Game Settings", JOptionPane.OK_CANCEL_OPTION);
+			      if (result == JOptionPane.OK_OPTION) {
+			         System.out.println("value: " + sd.getSettings());
+			         gClient.sendJSON("SETTINGS", command.getName(), sd.getSettings(), null, 0, 0);
+
+			      }
+				 //gSettings = new GameSettings();
+					//gSettings.setVisible(true);
+					//gSettings.isAlwaysOnTop();
+				}
 			 JOptionPane.showMessageDialog(null, command.getMessage() + "\n Hello "+command.getName()
 			 + "\nWaiting for other opponents", "Status Waiting",
                      JOptionPane.INFORMATION_MESSAGE);
+			 
 		}
 		if(command.getCommand().equals("Status Waiting") && command.getMessage().contains("connected to the game")){
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Waiting",
