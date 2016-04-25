@@ -32,7 +32,6 @@ public class GamePage extends JFrame implements GUICallBack {
 	//private static final boolean True = false;
 	private JPanel contentPane;
 	private GameClient gClient;
-	private GameSettings gSettings;
 	private Panel panel;
 	private Panel panel_2;
 	private Panel panel_1;
@@ -71,7 +70,6 @@ public class GamePage extends JFrame implements GUICallBack {
 		setResizable(false);
 		gClient = new GameClient(token, name, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gSettings = new GameSettings();
 		
 		
 		
@@ -797,12 +795,11 @@ public class GamePage extends JFrame implements GUICallBack {
 			               "Game Settings", JOptionPane.OK_CANCEL_OPTION);
 			      if (result == JOptionPane.OK_OPTION) {
 			         System.out.println("value: " + sd.getSettings());
+			         //send settings message order:max points, threshold, 3 pair, 4+, straight, full, farkle deduction
 			         gClient.sendJSON("SETTINGS", command.getName(), sd.getSettings(), null, 0, 0);
 
 			      }
-				 //gSettings = new GameSettings();
-					//gSettings.setVisible(true);
-					//gSettings.isAlwaysOnTop();
+				 
 				}
 			 JOptionPane.showMessageDialog(null, command.getMessage() + "\n Hello "+command.getName()
 			 + "\nWaiting for other opponents", "Status Waiting",
