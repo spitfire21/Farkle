@@ -5,7 +5,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -22,7 +24,7 @@ import edu.plu.cs.farkle.server.resource.game.ai.AIPlayer;
 import edu.plu.cs.farkle.server.resource.game.ai.AIRunner;
 public class Game {
 	// set size of game
-	private int GAME_SIZE = 3;
+	private int GAME_SIZE = 1;
 	// current player rolling
 	private Player currentPlayer;
 	private int winningScore = 10000;
@@ -141,17 +143,17 @@ public class Game {
 	public boolean checkFarkle(List<Integer> dice) {
 		if (dice.contains(1)) {
 			return false;
-		} else if (Collections.frequency(dice, 1) == 3) {
+		} else if (Collections.frequency(dice, 1) >= 3) {
 			return false;
-		} else if (Collections.frequency(dice, 2) == 3) {
+		} else if (Collections.frequency(dice, 2) >=  3) {
 			return false;
-		} else if (Collections.frequency(dice, 3) == 3) {
+		} else if (Collections.frequency(dice, 3) >=  3) {
 			return false;
-		} else if (Collections.frequency(dice, 4) == 3) {
+		} else if (Collections.frequency(dice, 4) >=  3) {
 			return false;
-		} else if (Collections.frequency(dice, 5) == 3) {
+		} else if (Collections.frequency(dice, 5) >= 3) {
 			return false;
-		} else if (Collections.frequency(dice, 6) == 3) {
+		} else if (Collections.frequency(dice, 6) >=  3) {
 			return false;
 		} else if (dice.contains(5)) {
 			return false;
@@ -216,8 +218,15 @@ public class Game {
 		player.stored = true;
 		// if last player in list then rotate to first
 		if (player.opponents.size() == player.getPlayerNumber()) {
-			ai.runAI();
-			currentPlayer = players.get(0);
+			String aiStatus = ai.runAI();
+			if(aiStatus.equals("")){
+				currentPlayer = players.get(0);
+			}
+			else {
+				for(int i =0; i < players.size(); i++){
+					players.get(i).sendMessage("GAME", aiStatus+" WON!");
+				}
+			}
 		} else {
 			// move to next player
 			
@@ -236,122 +245,62 @@ public class Game {
 	}
 
 	/**
-	 * Really ugly needs to be redone
+	 * Checks score by creating a hash map and checking frequency.
 	 * 
 	 * @param storedDice
 	 * @return
 	 */
 	public int checkScore(List<Integer> storedDice) {
-		//TODO scoring fails when you score 4 1s
 		int score = 0;
-		int count = 0;
-		
-		while (storedDice.contains(1)) {
-			storedDice.remove(Integer.valueOf(1));
-			count++;
+		Map<Integer, Integer> counter = new HashMap<Integer, Integer>();
+		for(int i = 0; i <= 6; i++){
+			counter.put(i, 0);
 		}
-		if(count > 3){
+		for (int i = 0; i < storedDice.size(); i++) {
+		    
+		    
+		    	int temp = counter.get(storedDice.get(i));
+		    	temp++;
+		    	counter.replace(storedDice.get(i), temp);
+		    	storedDice.set(i, 0);
+		    	System.out.println("num of dice: "+temp);
+		    
+		}
+		if(counter.get(1) == 3){
 			score += 1000;
-			count -= 3;
 		}
-		if (count == 3) {
+		else if (counter.get(1) >= 3){
 			score += 1000;
-
+			score += counter.get(1)*100 - 300;
 		}
-
 		else {
-			score += count * 100;
-
+			score += counter.get(1)*100;
 		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
-		}
-		count = 0;
-		while (storedDice.contains(2)) {
-			storedDice.remove(Integer.valueOf(2));
-			count++;
-		}
-		if(count > 3){
+		if(counter.get(2) == 3){
 			score += 200;
-			count -= 3;
 		}
-		if (count == 3) {
-			score += 200;
-
-		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
-		}
-		count = 0;
-		while (storedDice.contains(3)) {
-			storedDice.remove(Integer.valueOf(3));
-			count++;
-		}
-		if(count > 3){
+		if(counter.get(3) == 3){
 			score += 300;
-			count -= 3;
 		}
-		if (count == 3) {
-			score += 300;
-
-		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
-		}
-		count = 0;
-		while (storedDice.contains(4)) {
-			storedDice.remove(Integer.valueOf(4));
-			count++;
-		}
-		if(count > 3){
+		if(counter.get(4) == 3){
 			score += 400;
-			count -= 3;
 		}
-		if (count == 3) {
-			score += 400;
-
-		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
-		}
-		count = 0;
-		while (storedDice.contains(5)) {
-			storedDice.remove(Integer.valueOf(5));
-			count++;
-		}
-		if(count > 3){
+		if(counter.get(5) == 3){
 			score += 500;
-			count -= 3;
 		}
-		if (count == 3) {
+		else if (counter.get(5) >= 3){
 			score += 500;
-
-		} else {
-			score += count * 50;
-
+			score += counter.get(5)*50 - 150;
 		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
+		else {
+			score += counter.get(5)*50;
 		}
-		count = 0;
-		while (storedDice.contains(6)) {
-			storedDice.remove(Integer.valueOf(6));
-			count++;
-		}
-		if(count > 3){
+		if(counter.get(6) == 3){
 			score += 600;
-			count -= 3;
 		}
-		if (count == 3) {
-			score += 600;
-
-		}
-		for (int i = 0; i < count; i++) {
-			storedDice.add(0);
-		}
-		count = 0;
+		
 		return score;
-
+		
 	}
 	public int getWinningScore(){
 		return winningScore;

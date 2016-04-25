@@ -9,16 +9,17 @@ public class AIRunner {
 	public AIRunner(){
 		players = new ArrayList<AIPlayer>();
 	}
-	public void runAI(){
+	public String runAI(){
 		//while(true)
 		for(int i = 0; i < players.size(); i++){
 			if(players.get(i).startTurn()){
 				//TODO temp
 				System.out.println(players.get(i).getName() + " WINS" + players.get(i).getTotalScore());
-				return;
+				return players.get(i).getName();
 			}
+			
 		}
-		
+		return "";
 	}
 	
 	public void addPlayer(AIPlayer player){

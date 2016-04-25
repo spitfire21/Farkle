@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.plu.cs.farkle.client.CallBack;
 import edu.plu.cs.farkle.client.ClientBase;
+import java.awt.SystemColor;
 
 public class GUI extends JFrame {
 
@@ -70,24 +71,25 @@ public class GUI extends JFrame {
 		setDefaultLookAndFeelDecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 489);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(128, 0, 0));
+		desktopPane.setBackground(new Color(55, 55, 55));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		
 		JLabel lblFarkle = new JLabel("FARKLE");
 		lblFarkle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFarkle.setForeground(new Color(255, 255, 255));
-		lblFarkle.setFont(new Font("Arial Black", Font.PLAIN, 68));
+		lblFarkle.setFont(new Font("Times New Roman", Font.PLAIN, 68));
 		lblFarkle.setBounds(35, -28, 363, 161);
 		desktopPane.add(lblFarkle);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Arial", Font.PLAIN, 22));
+		btnLogin.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage test = new LoginPage(clientObjs, frame);
@@ -100,7 +102,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnCreateAccount.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -112,7 +114,7 @@ public class GUI extends JFrame {
 		desktopPane.add(btnCreateAccount);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		btnExitGame.setFont(new Font("Arial", Font.PLAIN, 19));
+		btnExitGame.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -127,8 +129,8 @@ public class GUI extends JFrame {
 		lblNewLabel.setBounds(410, 58, 339, 350);
 		desktopPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 3: Team Yellow");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		JLabel lblNewLabel_1 = new JLabel("Farkle Sprint 5: Team Yellow");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(305, 420, 224, 16);
