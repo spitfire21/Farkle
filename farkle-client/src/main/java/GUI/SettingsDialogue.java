@@ -44,7 +44,7 @@ public class SettingsDialogue extends JPanel {
 		threshCombo.addItem("1000");
 		add(threshCombo);
 		
-		JLabel label_2 = new JLabel("Three a Kind");
+		JLabel label_2 = new JLabel("Three Pair");
 		label_2.setToolTipText("Rolling three pairs (eg: 1,1,3,3,6,6) will earn this number of points");
 		label_2.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		add(label_2);
@@ -118,12 +118,12 @@ public class SettingsDialogue extends JPanel {
 	
 	public String getSettings(){
 		 
-		return playCombo.getSelectedItem().toString() + ", " +
-				threshCombo.getSelectedItem().toString() + ", " + 
-				threeCombo.getSelectedItem().toString() + ", " +
-				fourCombo.getSelectedItem().toString() + ", " +
-				straightCombo.getSelectedItem().toString() + ", " +
-				fullCombo.getSelectedItem().toString() + ", " +
+		return playCombo.getSelectedItem().toString() + "," +
+				threshCombo.getSelectedItem().toString() + "," + 
+				threeCombo.getSelectedItem().toString() + "," +
+				fourCombo.getSelectedItem().toString() + "," +
+				straightCombo.getSelectedItem().toString() + "," +
+				fullCombo.getSelectedItem().toString() + "," +
 				farkleCombo.getSelectedItem().toString();
 	}
 

@@ -43,7 +43,9 @@ public class GameServer {
 	 
 	    @OnWebSocketMessage
 	    public void onText(Session session, String message) throws IOException {
-	    	
+	    	//TODO
+	    	//CHECK FOR SINGLE PLAYER OR MULTIPLAYER
+	    	//THEN CREATE GAME
 	    	Player player = null;
 	    	
 	    		// find player with session

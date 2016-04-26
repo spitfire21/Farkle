@@ -13,7 +13,7 @@ public class DiceTest {
 	@Before
 	public void setUp() throws Exception {
 		map = new HashMap<Integer, Integer>();
-		var = new Variation();
+		var = new Variation(1000, 1000, 1000, "add");
 	}
 	@Test
 	public void test() {
@@ -23,7 +23,7 @@ public class DiceTest {
 		map.put(4, 0);
 		map.put(5, 0);
 		map.put(6, 0);
-		assertEquals(var.Check6(map), 8000);
+		assertEquals(var.Check6(map), 4000);
 		map.put(1, 1);
 		map.put(2, 2);
 		map.put(3, 3);
@@ -37,21 +37,28 @@ public class DiceTest {
 		map.put(4, 0);
 		map.put(5, 0);
 		map.put(6, 2);
-		assertEquals(var.FullHouse(map), 1250);
+		assertEquals(var.FullHouse(map), 2000);
 		map.put(1, 0);
 		map.put(2, 2);
 		map.put(3, 3);
 		map.put(4, 0);
 		map.put(5, 0);
 		map.put(6, 0);
-		assertEquals(var.FullHouse(map), 550);
+		assertEquals(var.FullHouse(map), 1300);
 		map.put(1, 2);
 		map.put(2, 2);
 		map.put(3, 2);
 		map.put(4, 0);
 		map.put(5, 0);
 		map.put(6, 0);
-		assertEquals(var.ThreePair(map), 1500);
+		assertEquals(var.ThreePair(map), 1000);
+		map.put(1, 6);
+		map.put(2, 0);
+		map.put(3, 0);
+		map.put(4, 0);
+		map.put(5, 0);
+		map.put(6, 0);
+		assertEquals(var.checkAll(map), 4000);
 	}
 
 }

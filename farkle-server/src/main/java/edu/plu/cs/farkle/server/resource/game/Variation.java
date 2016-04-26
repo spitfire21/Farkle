@@ -3,9 +3,19 @@ package edu.plu.cs.farkle.server.resource.game;
 import java.util.Map;
 
 public class Variation {
+	int straight;
+	int threePair;
+	int fullHouse;
+	String mode;
+	public Variation(int straight, int threePair, int fullHouse, String mode ){
+		this.straight = straight;
+		this.threePair = threePair;
+		this.fullHouse = fullHouse;
+		this.mode = mode;
+	}
 
 	public int CheckStraight(Map<Integer, Integer> dice){
-		int score = 1000;
+		int score = straight;
 		for(int i =1; i <= 6; i++){
 			if(dice.get(i)==0){
 				score = 0;
@@ -22,7 +32,7 @@ public class Variation {
 			}
 		}
 		if(count == 3){
-			score = 1500;
+			score = threePair;
 		}
 		return score;
 	}
@@ -41,11 +51,11 @@ public class Variation {
 				}
 			}
 			else if(dice.get(i)==2 && flag == true){
-				score += 250;
+				score += fullHouse;
 				return score;
 			}
 			else if(dice.get(i)==2 && flag == false){
-				score+=250;
+				score+=fullHouse;
 				flag2 = true;
 			}
 			else if(dice.get(i)==3 && flag2 == true ){
@@ -61,31 +71,76 @@ public class Variation {
 		}
 		return 0;
 	}
+	public int checkAll(Map<Integer, Integer> dice){
+		int temp1, temp2; 
+		temp1 = Check4(dice);
+		temp2 = Check5(dice);
+		if(temp2 > temp1){
+			temp1 = temp2; 
+		}
+		temp2 = Check6(dice);
+		if(temp2 > temp1){
+			
+			temp1 = temp2;
+		}
+		
+		return temp1;
+	}
 	public int Check4(Map<Integer, Integer> dice){
 		int score = 0;
 		for(int i =1; i <= 6; i++){
 			if(i == 1){
 				if(dice.get(i)==4){
-					score += 2000;
+					if (mode.equals("double"))
+						score += 2000;
+					else if (mode.equals("add")){
+						score += 2000;
+					}
+					else if (mode.equals("set")){
+						score += 2000;
+					}
 				}
 			}
 			else if (dice.get(i)==4){
-				score += i * 200;
+				if (mode.equals("double"))
+					score += i * 200;
+				else if (mode.equals("add")){
+					score += i * 200;
+				}
+				else if (mode.equals("set")){
+					score += 2000;
+				}
+				
 			}
 		}
 		return score;
 		
 	}
-	public int Check5(Map<Integer, Integer> dice){
+	
+	public int Check5(Map<Integer,Integer> dice){
 		int score = 0;
 		for(int i =1; i <= 6; i++){
 			if(i == 1){
 				if(dice.get(i)==5){
-					score += 4000;
+					if (mode.equals("double"))
+						score += 4000;
+					else if (mode.equals("add")){
+						score += 3000;
+					}
+					else if (mode.equals("set")){
+						score += 4000;
+					}
 				}
 			}
 			else if (dice.get(i)==5){
-				score += i * 400;
+				if (mode.equals("double"))
+					score += i * 400;
+				else if (mode.equals("add")){
+					score += i * 300;
+				}
+				else if (mode.equals("set")){
+					score += 4000;
+				}
 			}
 		}
 		return score;
@@ -96,11 +151,25 @@ public class Variation {
 		for(int i =1; i <= 6; i++){
 			if(i == 1){
 				if(dice.get(i)==6){
-					score += 8000;
+					if (mode.equals("double"))
+						score += 8000;
+					else if (mode.equals("add")){
+						score += 4000;
+					}
+					else if (mode.equals("set")){
+						score += 6000;
+					}
 				}
 			}
 			else if (dice.get(i)==6){
-				score += i * 800;
+				if (mode.equals("double"))
+					score += i * 800;
+				else if (mode.equals("add")){
+					score += i * 400;
+				}
+				else if (mode.equals("set")){
+					score += 6000;
+				}
 			}
 		}
 		return score;
