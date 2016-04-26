@@ -264,7 +264,7 @@ public class Game {
 				return score;
 			}
 		}
-		if (!fourPlusKind.equals(0))
+		if (!fourPlusKind.equals("none"))
 			score = var.checkAll(counter);
 		if (score == 0 && fullHouse > 0) {
 
