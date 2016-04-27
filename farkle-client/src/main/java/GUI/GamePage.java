@@ -193,7 +193,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		conversion(785, 514, 115, 90);
 		panel_11.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 		panel_11.setLayout(new BorderLayout());
-        panel_11.setOpaque(true);
+        panel_11.setOpaque(false);
 		panel_11.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_11);
 		
@@ -323,6 +323,8 @@ public class GamePage extends JFrame implements GUICallBack {
 					Image img = null;
 					String diceName = "/0.jpg";
 					JButton picLabel = new JButton("");
+					picLabel.setBackground(new Color(0,0,0,0));
+					
 					if(!panel_6.isVisible()){
 					diceName = rollFunction(dice);
 					
@@ -335,6 +337,7 @@ public class GamePage extends JFrame implements GUICallBack {
 						panel.setVisible(false);
 					}
 					JButton picLabel7 = new JButton("");
+					picLabel7.setBackground(new Color(0,0,0,0));
 					picLabel7.setIcon(new ImageIcon(img));
 					conversion(6, 6, 285, 266);
 					picLabel7.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
@@ -380,6 +383,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JButton picLabel2 = new JButton("");
 					Image img2 = null;
 					String diceName2 = "/0.jpg";
+					picLabel2.setBackground(new Color(0,0,0,0));
 					if(!panel_7.isVisible()){
 					diceName2 = rollFunction(dice);
 					
@@ -393,6 +397,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					}
 					JButton picLabel8 = new JButton("");
 					picLabel8.setIcon(new ImageIcon(img2));
+					picLabel8.setBackground(new Color(0,0,0,0));
 					conversion(6, 6, 285, 266);
 					picLabel8.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_7.add(picLabel8);
@@ -432,6 +437,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JButton picLabel3 = new JButton("");
 					Image img3 = null;
 					String diceName3= "/0.jpg";
+					picLabel3.setBackground(new Color(0,0,0,0));
 					if(!panel_8.isVisible()){
 					 diceName3 = rollFunction(dice);
 					if(diceName3.equals("/0.jpg")){
@@ -443,6 +449,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					picLabel3.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_2.add(picLabel3);
 					JButton picLabel9 = new JButton("");
+					picLabel9.setBackground(new Color(0,0,0,0));
 					picLabel9.setIcon(new ImageIcon(img3));
 					conversion(6, 6, 285, 266);
 					picLabel9.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
@@ -484,6 +491,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JButton picLabel4 = new JButton("");
 					Image img4 = null;
 					String diceName4 = "/0.jpg";
+					picLabel4.setBackground(new Color(0,0,0,0));
 					if(!panel_9.isVisible()){
 					diceName4 =rollFunction(dice);
 					if(diceName4.equals("/0.jpg")){
@@ -495,6 +503,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					picLabel4.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_3.add(picLabel4);
 					JButton picLabel10 = new JButton("");
+					picLabel10.setBackground(new Color(0,0,0,0));
 					picLabel10.setIcon(new ImageIcon(img4));
 					conversion(6, 6, 285, 266);
 					picLabel10.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
@@ -535,6 +544,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JButton picLabel5 = new JButton("");
 					Image img5 = null;
 					String diceName5 = "/0.jpg";
+					picLabel5.setBackground(new Color(0,0,0,0));
 					if(!panel_10.isVisible()){
 					diceName5 = rollFunction(dice);
 					
@@ -549,6 +559,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					
 					JButton picLabel11 = new JButton("");
 					picLabel11.setIcon(new ImageIcon(img5));
+					picLabel11.setBackground(new Color(0,0,0,0));
 					conversion(6, 6, 285, 266);
 					picLabel11.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_10.add(picLabel11);
@@ -590,6 +601,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JButton picLabel6 = new JButton("");
 					String diceName6 = "/0.jpg";
 					Image img6 = null;
+					picLabel6.setBackground(new Color(0,0,0,0));
 					if(!panel_11.isVisible()){
 					diceName6 = rollFunction(dice);
 				
@@ -605,6 +617,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					
 					JButton picLabel12 = new JButton("");
 					picLabel12.setIcon(new ImageIcon(img6));
+					picLabel12.setBackground(new Color(0,0,0,0));
 					conversion(6, 6, 285, 266);
 					picLabel12.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
 					panel_11.add(picLabel12);
