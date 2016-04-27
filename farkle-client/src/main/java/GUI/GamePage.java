@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,24 +27,26 @@ import edu.plu.cs.farkle.client.GameClient;
 import edu.plu.cs.farkle.client.ServerCommand;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class GamePage extends JFrame implements GUICallBack {
 
 	//private static final boolean True = false;
 	private JPanel contentPane;
 	private GameClient gClient;
-	private Panel panel;
-	private Panel panel_2;
-	private Panel panel_1;
-	private Panel panel_3;
-	private Panel panel_4;
-	private Panel panel_5;
-	private Panel panel_6;
-	private Panel panel_7;
-	private Panel panel_8;
-	private Panel panel_9;
-	private Panel panel_10;
-	private Panel panel_11;
+	private JPanel panel;
+	private JPanel panel_2;
+	private JPanel panel_1;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JPanel panel_8;
+	private JPanel panel_9;
+	private JPanel panel_10;
+	private JPanel panel_11;
 	
 	private String name;
 	private JTextPane txtpnScore;
@@ -98,54 +101,102 @@ public class GamePage extends JFrame implements GUICallBack {
 		contentPane.add(btnRollDice);
 		
 		//Create Dice Panels
-		panel = new Panel();
+		panel = new JPanel();
 		conversion(104, 293, 117, 90);
 		panel.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+        panel.setLayout(new BorderLayout());
+        panel.setOpaque(true);
+		panel.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel);
-		panel_1 = new Panel();
+		
+		panel_1 = new JPanel();
 		conversion(240, 293, 117, 90);
 		panel_1.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_1.setLayout(new BorderLayout());
+        panel_1.setOpaque(true);
+		panel_1.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_1);
-		panel_2 = new Panel();
+		
+		panel_2 = new JPanel();
 		conversion(376, 293, 117, 90);
 		panel_2.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_2.setLayout(new BorderLayout());
+        panel_2.setOpaque(true);
+		panel_2.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_2);
-		panel_3 = new Panel();
+		
+		panel_3 = new JPanel();
 		conversion(510, 293, 117, 90);
 		panel_3.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_3.setLayout(new BorderLayout());
+        panel_3.setOpaque(true);
+		panel_3.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_3);
-		panel_4 = new Panel();
+		
+		panel_4 = new JPanel();
 		conversion(646, 293, 117, 90);
 		panel_4.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_4.setLayout(new BorderLayout());
+        panel_4.setOpaque(true);
+		panel_4.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_4);
-	    panel_5 = new Panel();
+		
+	    panel_5 = new JPanel();
 	    conversion(785, 293, 117, 90);
 		panel_5.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_5.setLayout(new BorderLayout());
+        panel_5.setOpaque(true);
+		panel_5.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_5);
-		panel_6 = new Panel();
+		
+		panel_6 = new JPanel();
 		conversion(104, 514, 117, 90);
 		panel_6.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_6.setLayout(new BorderLayout());
+        panel_6.setOpaque(true);
+		panel_6.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_6);
-		panel_7 = new Panel();
+		
+		panel_7 = new JPanel();
 		conversion(240, 514, 117, 90);
 		panel_7.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_7.setLayout(new BorderLayout());
+        panel_7.setOpaque(true);
+		panel_7.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_7);
-	    panel_8 = new Panel();
+	   
+		panel_8 = new JPanel();
 	    conversion(376, 514, 117, 90);
 		panel_8.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_8.setLayout(new BorderLayout());
+        panel_8.setOpaque(true);
+		panel_8.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_8);
-		panel_9 = new Panel();
+		
+		panel_9 = new JPanel();
 		conversion(510, 514, 117, 90);
 		panel_9.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_9.setLayout(new BorderLayout());
+        panel_9.setOpaque(true);
+		panel_9.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_9);
-		panel_10 = new Panel();
+		
+		panel_10 = new JPanel();
 		conversion(646, 514, 117, 90);
 		panel_10.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_10.setLayout(new BorderLayout());
+        panel_10.setOpaque(true);
+		panel_10.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_10);
-		panel_11 = new Panel();
+		
+		panel_11 = new JPanel();
 		conversion(785, 514, 115, 90);
 		panel_11.setBounds((int)Math.round(storeDemensions.get(0)), (int)Math.round(storeDemensions.get(1)), (int)Math.round(storeDemensions.get(2)), (int)Math.round(storeDemensions.get(3)));
+		panel_11.setLayout(new BorderLayout());
+        panel_11.setOpaque(true);
+		panel_11.setBackground(new Color(0,0,0,0));
 		contentPane.add(panel_11);
+		
 		panel_6.setVisible(false);
 		panel_7.setVisible(false);
 		panel_8.setVisible(false);
