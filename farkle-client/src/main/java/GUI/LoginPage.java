@@ -102,7 +102,7 @@ public class LoginPage extends JFrame {
 				for (Iterator it = callBack.iterator(); it.hasNext();)
 					token = ((CallBack)(it.next())).login(textField.getText(),passwordField.getText());
 				if(token.length() < 8){
-					// FAILED
+					JOptionPane.showMessageDialog(null, "Login Failed. Please enter a correct username and/or password.");
 				}
 				else{
 					setVisible(false);

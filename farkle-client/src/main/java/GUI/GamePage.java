@@ -884,8 +884,6 @@ public class GamePage extends JFrame implements GUICallBack {
             System.out.println("MP:"+mp);
 
             gClient.sendJSON("MULTI", command.getName(), mp, null, 0, 0);
-            
-            
 
 			if (command.getMessage().charAt(command.getMessage().length() - 1) == '0') {
 				SettingsDialogue sd = new SettingsDialogue();

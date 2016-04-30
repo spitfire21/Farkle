@@ -10,6 +10,7 @@ import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,6 @@ public class UserCreationPage extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
 
 	/**
 	 * This initializes the UserCreationPage object. This object
@@ -77,12 +77,6 @@ public class UserCreationPage extends JFrame {
 		lblNewLabel.setBounds(150, 141, 190, 16);
 		desktopPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Verify Password:");
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(150, 205, 190, 21);
-		desktopPane.add(lblNewLabel_1);
-		
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnBack.addActionListener(new ActionListener() {
@@ -110,9 +104,10 @@ public class UserCreationPage extends JFrame {
 				}
 				
 				if (registered.equals("User Already Exists") || registered == null){
-				// failed
+					JOptionPane.showMessageDialog(null, "Account already exits. Please change your username.");
 				}
 				else {
+					JOptionPane.showMessageDialog(null, "Account successfully created!");
 					setVisible(false);
 				GameMainMenu gameMenu = new GameMainMenu(callBack);
 				gameMenu.setVisible(true);
@@ -130,14 +125,5 @@ public class UserCreationPage extends JFrame {
 		});
 		passwordField.setBounds(352, 136, 130, 26);
 		desktopPane.add(passwordField);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String userPassWordBox2 = passwordField.getText();
-			}
-		});
-		passwordField_1.setBounds(352, 200, 130, 26);
-		desktopPane.add(passwordField_1);
 	}
 }
