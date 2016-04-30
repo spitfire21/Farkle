@@ -50,13 +50,14 @@ public class Game {
 	 * 
 	 * @param id
 	 */
-	public Game(int id) {
+	public Game(int id, int gameSize) {
 		setStatus("WAITING");
 		this.id = id;
 		players = new ArrayList<Player>();
 		ai = new AIRunner();
 		fourPlusKind = "";
 		threshHold = threePair = straight = fullHouse = farkleDeduction = 0;
+		GAME_SIZE = gameSize;
 	}
 
 	/**
@@ -235,7 +236,7 @@ public class Game {
 			player.stored = true;
 			currentPlayer = null;
 			FarkleServerApplication.getDatabase().updateVictories(player.id);
-			JOptionPane.showMessageDialog(null, player.id + " wins the game!");
+			
 		}
 	}
 
@@ -439,17 +440,7 @@ public class Game {
 				sendMessage("Status Rolling", "It is your turn to roll");
 		}
 
-		public void test(String command) {
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				ServerCommand cmd = mapper.readValue(command, ServerCommand.class);
-				checkCommand(cmd);
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-
-		}
+		
 
 		/**
 		 * Check command client sent to server

@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
-import edu.plu.cs.farkle.server.auth.Secured;
 import edu.plu.cs.farkle.server.resource.game.Game.Player;
 
 @WebSocket
@@ -27,16 +27,11 @@ public class GameServer {
 	    
 	    @OnWebSocketConnect
 	    public void onConnect(Session session) throws IOException {
-	    	// player that will be added to game
-	    	 Player p;
-	    	 // check if games are full
-	    	 game = findGame();
-	    	 // create new player for game using session
-	    	 p = game.new Player(session, session.getUpgradeRequest().getUserPrincipal().getName());
-	    	 // add player to game and associate with map
-    		 game.addPlayer(p);
-    		 map.put(session, p);
-    		 
+	    	ServerCommand cmd = new ServerCommand("Connected", "", "You Connected", new Dice(), 0, 0);
+			ObjectMapper mapper = new ObjectMapper();
+			
+
+			session.getRemote().sendString(mapper.writeValueAsString(cmd));
     		 System.out.println("Client Connected");
 	        logger.info("Connected ... " + session.getLocalAddress());
 	    }
@@ -46,21 +41,42 @@ public class GameServer {
 	    	//TODO
 	    	//CHECK FOR SINGLE PLAYER OR MULTIPLAYER
 	    	//THEN CREATE GAME
+	    	System.out.println(message);
+	    	ServerCommand cmd = parseJson(message);
+	    	if(cmd.getCommand().equals("MULTI")){
+	    		createGame(session, Integer.parseInt(cmd.getMessage()));
+	    	}
+	    	
 	    	Player player = null;
 	    	
 	    		// find player with session
 	    			player = map.get(session);
-	    			if (player!= null)
+	    			if (player!= null){
 	    				// check command
-	    				player.test(message);
+	    				player.checkCommand(cmd);
+	    			}
 	    		
-	    	
+	    			
 	    	
 	        
 	        
 	    }
 	 
-	    @OnWebSocketClose
+	    private void createGame(Session session, int mult) throws IOException {
+			
+	    	// player that will be added to game
+	    	 Player p;
+	    	 // check if games are full
+	    	 game = findGame(mult);
+	    	 // create new player for game using session
+	    	 p = game.new Player(session, session.getUpgradeRequest().getUserPrincipal().getName());
+	    	 // add player to game and associate with map
+	    	 game.addPlayer(p);
+	    	 map.put(session, p);
+			
+		}
+
+		@OnWebSocketClose
 	    public void onClose(Session session, int status, String reason) {
 	    	
 	        logger.info(String.format("Session %s closed because of %s", reason));
@@ -73,18 +89,40 @@ public class GameServer {
 	     * a new game
 	     * @return Game
 	     */
-	    private static Game findGame() {		
+	    private static Game findGame(int mult) {		
 			// Find an existing game and return it
+	    	// if mult 0 then no ai
+	    	// if mult 1 then ai
+	    	Game createGame;
+	    	if(mult == 1){
 			for (Game g : games.values()) {
 				if (g.getStatus().equals("WAITING")) {
 					return g;
 				}
 			}
 			// Create new game
-			Game createGame = new Game(gameCount++);
+			createGame = new Game(gameCount++, 4);
 			games.put(createGame.getID(), createGame);
+	    	}else {
+	    		createGame = new Game(gameCount++, 1);
+				games.put(createGame.getID(), createGame);
+	    	}
 			return createGame;
 		}
+	    public ServerCommand parseJson(String command) {
+			ObjectMapper mapper = new ObjectMapper();
+			ServerCommand cmd= null;
+			try {
+				cmd = mapper.readValue(command, ServerCommand.class);
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			 return cmd;
+
+		}
+	   
 
 	    
 	}

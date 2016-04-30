@@ -316,7 +316,20 @@ public class GamePage extends JFrame implements GUICallBack {
 		txtpnHowYouStack.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnHowYouStack);
-
+		
+		//Multiplayer Dialogue
+		int multi = JOptionPane.YES_NO_OPTION;
+		String mp;
+        int mResult = JOptionPane.showConfirmDialog (null, "Multiplayer","Would you like to play with other's", multi);
+        if(mResult == JOptionPane.YES_OPTION){
+        	mp = "1";
+        	gClient.sendJSON("MULTI", name, mp, null, 0, 0);
+        }
+        else{
+        	mp = "0";
+        	gClient.sendJSON("MULTI", name, mp, null, 0, 0);
+        }
+        System.out.println("MP:"+mp);
 		// ROLL DICE BUTTON LISTERNER
 		// __________________________________________________________
 		btnRollDice.addActionListener(new ActionListener() {
@@ -869,21 +882,19 @@ public class GamePage extends JFrame implements GUICallBack {
 			btnRollDice.setEnabled(true);
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Rolling",
 					JOptionPane.INFORMATION_MESSAGE);
+			
 		}
+	
+       
+        		
+        	
+       
+        
+
 		if (command.getCommand().equals("Status Waiting") && command.getMessage().startsWith("YOU ARE")
 				&& command.getName().equals(name)) {
 			
-			//Multiplayer Dialogue
-			int multi = JOptionPane.YES_NO_OPTION;
-			String mp;
-            int mResult = JOptionPane.showConfirmDialog (null, "Multiplayer","Would you like to play with other's", multi);
-            if(mResult == JOptionPane.YES_OPTION)
-            	mp = "1";
-            else
-            	mp = "0";
-            System.out.println("MP:"+mp);
 
-            gClient.sendJSON("MULTI", command.getName(), mp, null, 0, 0);
 
 			if (command.getMessage().charAt(command.getMessage().length() - 1) == '0') {
 				SettingsDialogue sd = new SettingsDialogue();

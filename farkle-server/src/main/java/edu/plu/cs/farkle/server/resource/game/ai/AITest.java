@@ -16,7 +16,7 @@ public class AITest {
 
 	@Before
 	public void setUp() throws Exception {
-		game = new Game(1);
+		game = new Game(1, 1);
 		test = new AIPlayer(5,"AITEST", game);
 		player = new AIPlayer(10,"test", game);
 		player1 = new AIPlayer(5,"test1", game);
