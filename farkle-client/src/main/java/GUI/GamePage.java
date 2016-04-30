@@ -851,6 +851,11 @@ public class GamePage extends JFrame implements GUICallBack {
 	@Override
 	public void updateStatus(ServerCommand command) {
 
+		if(command.getCommand().equals("WIN"))
+		{
+			JOptionPane.showMessageDialog(null, command.getName() + "wins the game!");
+		}
+		
 		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll"))) {
 
 			panel.removeAll();

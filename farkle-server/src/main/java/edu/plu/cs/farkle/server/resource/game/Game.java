@@ -236,7 +236,10 @@ public class Game {
 			player.stored = true;
 			currentPlayer = null;
 			FarkleServerApplication.getDatabase().updateVictories(player.id);
-			
+			for(int i = 0; i < players.size(); i++)
+			{
+				players.get(i).sendMessage("WIN", player.id + "Wins the game!");
+			}
 		}
 	}
 
