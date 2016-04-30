@@ -13,6 +13,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JOptionPane;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -233,7 +235,7 @@ public class Game {
 			player.stored = true;
 			currentPlayer = null;
 			FarkleServerApplication.getDatabase().updateVictories(player.id);
-
+			JOptionPane.showMessageDialog(null, player.id + " wins the game!");
 		}
 	}
 
