@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import edu.plu.cs.farkle.server.resource.game.Dice;
 import edu.plu.cs.farkle.server.resource.game.Game;
 
 public class AIPlayer {
@@ -161,6 +162,9 @@ public class AIPlayer {
 	private void endTurn(){
 		totalScore += score;
 		System.out.println(name + " score is: " + totalScore);
+		for(int i = 0; i < game.getNumberOfPlayers();i++){
+			game.getPlayer(i).sendJSON("SCORE", name, "Success", new Dice(dice), this.totalScore, this.score);
+		}
 		score = 0;
 		dice.removeAll(dice);
 		storedDice.removeAll(storedDice);

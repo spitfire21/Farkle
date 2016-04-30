@@ -63,20 +63,3 @@ public class ServerCommand implements Serializable {
 	}
 
 }
-class Dice implements Serializable{
-	private List<Integer> dice;
-	public Dice(List<Integer> dice){
-		this.dice = dice;
-	}
-	public Dice (){
-		dice = new ArrayList<Integer>();
-	}
-	public List<Integer> getDice(){
-		
-		return dice;
-	}
-	public List<Integer> setDice(){
-		
-		return dice;
-	}
-}

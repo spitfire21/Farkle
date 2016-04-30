@@ -320,6 +320,10 @@ public class Game {
 		return score;
 
 	}
+	public Player getPlayer(int i) {
+		return players.get(i);
+		
+	}
 
 	public int getWinningScore() {
 		return winningScore;
@@ -364,7 +368,7 @@ public class Game {
 	 * @author Cody-Desktop
 	 *
 	 */
-	class Player {
+	public class Player {
 		// opponent list
 		private List<Player> opponents;
 		private String id;
@@ -636,4 +640,6 @@ public class Game {
 			}
 		}
 	}
+
+	
 }

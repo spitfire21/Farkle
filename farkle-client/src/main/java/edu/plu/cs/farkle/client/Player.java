@@ -110,10 +110,12 @@ public class Player {
 		while(iterator.hasNext()){
             Map.Entry<String, Player> entry = (Entry<String, Player>) iterator.next();
             name = entry.getKey();
-            score = entry.getValue().getStoredScore();
+            score = entry.getValue().getTotalScore();
             sb.append(name);
             sb.append(" ");
             sb.append(score);
+            sb.append("\n");
+            System.out.println("works");
         }
 		return sb.toString();
 	}

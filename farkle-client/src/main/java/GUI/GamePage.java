@@ -927,7 +927,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
 			txtpnStatus.setText("Status: " + command.getCommand());
 			if (command.getCommand().equals("SCORE")) {
-				txtpnHowYouStack.setText("Other scores" + command.getName() + command.getScore());
+				txtpnHowYouStack.setText("Other scores " + command.getName() + " " + command.getScore() + "\n"+ gClient.getOppenentScore());
 				txtpnStatus.setText("Status: Waiting");
 				
 
@@ -936,8 +936,6 @@ public class GamePage extends JFrame implements GUICallBack {
 		} catch (NullPointerException e) {
 
 		}
-		if(command.getCommand().equals("SCORE")&& !command.getName().equals(name)){
-			txtpnHowYouStack.setText("Other scores" + gClient.getOppenentScore());
-		}
+		
 	}
 }
