@@ -929,11 +929,15 @@ public class GamePage extends JFrame implements GUICallBack {
 			if (command.getCommand().equals("SCORE")) {
 				txtpnHowYouStack.setText("Other scores" + command.getName() + command.getScore());
 				txtpnStatus.setText("Status: Waiting");
+				
 
 			}
 
 		} catch (NullPointerException e) {
 
+		}
+		if(command.getCommand().equals("SCORE")&& !command.getName().equals(name)){
+			txtpnHowYouStack.setText("Other scores" + gClient.getOppenentScore());
 		}
 	}
 }

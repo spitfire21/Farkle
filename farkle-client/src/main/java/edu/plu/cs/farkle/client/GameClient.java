@@ -157,6 +157,9 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 			return player.getDice();
 			
 		}
+		public String getOppenentScore(){
+			return player.getOppenentScore();
+		}
 	    	
 	    	public void sendJSON(String command, String name, String message, ArrayList<Integer> storeData,
 	    			int score, int storedScore){

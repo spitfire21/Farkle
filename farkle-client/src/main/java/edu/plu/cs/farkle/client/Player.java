@@ -2,8 +2,11 @@ package edu.plu.cs.farkle.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class Player {
 
@@ -94,7 +97,28 @@ public class Player {
 	public String getName() {
 		return name;
 	}
+	
+	
+	
+	
+	public String getOppenentScore(){
+		String name = null;
+		int score;
+		StringBuilder sb = new StringBuilder();
+		Iterator<Entry<String, Player>> iterator = opponents.entrySet().iterator();
+		
+		while(iterator.hasNext()){
+            Map.Entry<String, Player> entry = (Entry<String, Player>) iterator.next();
+            name = entry.getKey();
+            score = entry.getValue().getStoredScore();
+            sb.append(name);
+            sb.append(" ");
+            sb.append(score);
+        }
+		return sb.toString();
+	}
 
+	
 	public void setName(String name) {
 		this.name = name;
 	}
