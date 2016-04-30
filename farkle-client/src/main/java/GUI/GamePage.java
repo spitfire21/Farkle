@@ -853,7 +853,7 @@ public class GamePage extends JFrame implements GUICallBack {
 
 		if(command.getCommand().equals("WIN"))
 		{
-			JOptionPane.showMessageDialog(null, command.getName() + "wins the game!");
+			JOptionPane.showMessageDialog(null, command.getMessage());
 		}
 		
 		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll"))) {

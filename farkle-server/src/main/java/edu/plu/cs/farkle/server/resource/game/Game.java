@@ -86,6 +86,9 @@ public class Game {
 
 			start();
 		}
+		if(players.size()==0){
+			currentPlayer = p;
+		}
 
 	}
 
@@ -238,7 +241,7 @@ public class Game {
 			FarkleServerApplication.getDatabase().updateVictories(player.id);
 			for(int i = 0; i < players.size(); i++)
 			{
-				players.get(i).sendMessage("WIN", player.id + "Wins the game!");
+				players.get(i).sendMessage("WIN", player.id + " Wins the game!");
 			}
 		}
 	}
@@ -333,24 +336,24 @@ public class Game {
 		final Runnable check = new Runnable() {
 			public void run() {
 
-				for (int i = 0; i < players.size(); i++) {
-					Player temp = players.get(i);
-					if (!temp.checkAlive()) {
-						if (currentPlayer.equals(temp)) {
-
-							endTurn(temp);
-						}
-						players.remove(temp);
-						for (int y = 0; y < players.size(); y++) {
-
-							players.get(y).setPlayerNumber(y);
-							players.get(y).opponents = players;
-							players.get(y).opponents.remove(players.get(y).getPlayerNumber());
-						}
-
-					}
-
-				}
+//				for (int i = 0; i < players.size(); i++) {
+//					Player temp = players.get(i);
+//					if (!temp.checkAlive()) {
+//						if (currentPlayer.equals(temp)) {
+//
+//							endTurn(temp);
+//						}
+//						players.remove(temp);
+//						for (int y = 0; y < players.size(); y++) {
+//
+//							players.get(y).setPlayerNumber(y);
+//							players.get(y).opponents = players;
+//							players.get(y).opponents.remove(players.get(y).getPlayerNumber());
+//						}
+//
+//					}
+//
+//				}
 
 			}
 		};
@@ -382,6 +385,7 @@ public class Game {
 		private List<Integer> storedDice;
 		private boolean tFlag;
 		private int farkleCounter;
+		private int settingCounter = 0;
 
 		/**
 		 * Default constructor for player
@@ -589,7 +593,8 @@ public class Game {
 				sendJSON("SCORE", this.id, "Success", new Dice(dice), this.score, this.storedScore);
 				endTurn(this);
 			}
-			if (command.startsWith("SETTINGS") && currentPlayer.id.equals(cmd.getName())) {
+			if (command.startsWith("SETTINGS") && settingCounter == 0) {
+				settingCounter = 1;
 				String[] parts = cmd.getMessage().split(",");
 				winningScore = Integer.parseInt(parts[0]);
 				threshHold = Integer.parseInt(parts[1]);
