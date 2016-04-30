@@ -44,7 +44,7 @@ public class Game {
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	/**
-	 * Constructor for the game, sets default settings (TODO expand settings)
+	 * Constructor for the game, sets default settings
 	 * 
 	 * @param id
 	 */
@@ -245,7 +245,7 @@ public class Game {
 	 */
 	public int checkScore(List<Integer> storedDice) {
 		int score = 0;
-		boolean checked;
+		
 		Map<Integer, Integer> counter = new HashMap<Integer, Integer>();
 		for (int i = 0; i <= 6; i++) {
 			counter.put(i, 0);
@@ -353,7 +353,7 @@ public class Game {
 	}
 
 	/**
-	 * Player class currently nested in game will be broken up
+	 * Player class currently nested in game TODO will be broken up
 	 * 
 	 * @author Cody-Desktop
 	 *
@@ -375,7 +375,7 @@ public class Game {
 
 		/**
 		 * Default constructor for player
-		 * 
+		 * TODO Make a subclass of common player for AI
 		 * @param session
 		 */
 		public Player(Session session, String id) {
@@ -443,7 +443,7 @@ public class Game {
 				ServerCommand cmd = mapper.readValue(command, ServerCommand.class);
 				checkCommand(cmd);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
@@ -451,7 +451,7 @@ public class Game {
 
 		/**
 		 * Check command client sent to server
-		 * 
+		 * TODO break into either more manageable methods
 		 * @param command
 		 */
 		public void checkCommand(ServerCommand cmd) {
@@ -463,7 +463,7 @@ public class Game {
 			if (command.startsWith("ROLL") && canRoll(this)) {
 				stored = false;
 				// fill array with numbers
-				// TODO use DICE class
+				
 
 				for (int i = storedDice.size(); i < 6; i++) {
 					int roll = ThreadLocalRandom.current().nextInt(1, 7);
@@ -613,7 +613,7 @@ public class Game {
 		}
 
 		/**
-		 * Send string to client TODO JSON
+		 * Send string to client 
 		 * 
 		 * @param message
 		 */
@@ -629,13 +629,13 @@ public class Game {
 			try {
 				output.sendString(mapper.writeValueAsString(cmd));
 			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 		}

@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -55,6 +56,7 @@ public class GamePage extends JFrame implements GUICallBack {
 	private JTextPane txtpnHowYouStack;
 
 	ArrayList<Double> storeDemensions;
+	private JButton btnRollDice;
 
 	/**
 	 * Create the frame for the GameMainMenu object. This object allows for
@@ -87,7 +89,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		ArrayList<Integer> storeData = new ArrayList<Integer>();
 
 		// Create Roll Dice Button
-		JButton btnRollDice = new JButton("Roll Dice");
+		 btnRollDice = new JButton("Roll Dice");
 		btnRollDice.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 
 		conversion(332, 419, 150, 54);
@@ -323,6 +325,7 @@ public class GamePage extends JFrame implements GUICallBack {
 				for (int i = 0; i < 6; i++) {
 					storeData.add(0);
 				}
+				btnRollDice.setEnabled(false);
 				gClient.sendJSON("ROLL", name, "ROLLING", gClient.getDice(), 0, 0);
 				try {
 					Thread.sleep(500);
@@ -747,7 +750,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					panel_10.removeAll();
 					if(!panel_11.isVisible())
 					panel_11.removeAll();
-
+					btnRollDice.setEnabled(true);
 					gClient.getStoredScore();
 
 					if (panel_6.isVisible() && panel_7.isVisible() && panel_8.isVisible() && panel_9.isVisible()
@@ -764,6 +767,13 @@ public class GamePage extends JFrame implements GUICallBack {
 						panel_9.setVisible(false);
 						panel_10.setVisible(false);
 						panel_11.setVisible(false);
+						panel_6.removeAll();
+						panel_7.removeAll();
+						panel_8.removeAll();
+						panel_9.removeAll();
+						panel_10.removeAll();
+						panel_11.removeAll();
+						
 
 					}
 				} else {
@@ -856,6 +866,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			panel_9.setVisible(false);
 			panel_10.setVisible(false);
 			panel_11.setVisible(false);
+			btnRollDice.setEnabled(true);
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Rolling",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
