@@ -858,7 +858,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		}
 		
 		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll")) && command.getName().equals(name)) {
-
+			txtpnHowYouStack.setText("Player: " + command.getName() + " " + command.getScore() + "\n" +name +" "+ + gClient.getScore()+"\n"+ gClient.getOppenentScore());
 			panel.removeAll();
 			panel_1.removeAll();
 			panel_2.removeAll();
