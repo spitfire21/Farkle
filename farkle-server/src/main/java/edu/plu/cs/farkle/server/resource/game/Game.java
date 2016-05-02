@@ -595,7 +595,8 @@ public class Game {
 				
 				storedScore = 0;
 				farkleCounter = 0;
-				sendJSON("SCORE", this.id, "Success", new Dice(dice), this.score, this.storedScore);
+				for (int i = 0; i < players.size(); i++)
+					players.get(i).sendJSON("SCORE", this.id, "Success", new Dice(dice), this.score, this.storedScore);
 				endTurn(this);
 			}
 			if (command.startsWith("SETTINGS") && settingCounter == 0) {

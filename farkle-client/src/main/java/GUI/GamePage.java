@@ -225,7 +225,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		JLabel lblFarkle = new JLabel("Farkle Multiplayer");
 		lblFarkle.setForeground(new Color(255, 255, 255));
 		lblFarkle.setFont(new Font("Times New Roman", Font.PLAIN, 50));
-		conversion(22, 18, 422, 61);
+		conversion(22, 18, 480, 61);
 		lblFarkle.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(lblFarkle);
@@ -235,7 +235,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		lblGameStandings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGameStandings.setForeground(new Color(255, 255, 255));
 		lblGameStandings.setFont(new Font("Times New Roman", Font.PLAIN, 27));
-		conversion(1023, 39, 174, 40);
+		conversion(1023, 39, 280, 40);
 		lblGameStandings.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(lblGameStandings);
@@ -250,7 +250,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			}
 		});
 		// Set bounds for home page button
-		conversion(1023, 627, 174, 48);
+		conversion(1023, 627, 225, 48);
 		btnHomePage.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(btnHomePage);
@@ -259,7 +259,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		JLabel lblYourRoll = new JLabel("Your Current Roll (Click to store)");
 		lblYourRoll.setForeground(new Color(255, 255, 255));
 		lblYourRoll.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		conversion(29, 233, 363, 40);
+		conversion(29, 233, 450, 40);
 		lblYourRoll.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(lblYourRoll);

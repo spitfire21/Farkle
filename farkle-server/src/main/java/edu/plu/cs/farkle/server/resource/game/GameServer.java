@@ -38,7 +38,7 @@ public class GameServer {
 	 
 	    @OnWebSocketMessage
 	    public void onText(Session session, String message) throws IOException {
-	    	//TODO
+	    	
 	    	//CHECK FOR SINGLE PLAYER OR MULTIPLAYER
 	    	//THEN CREATE GAME
 	    	System.out.println(message);
@@ -100,8 +100,8 @@ public class GameServer {
 					return g;
 				}
 			}
-			// Create new game
-			createGame = new Game(gameCount++, 4);
+			// Create new game with 4 players
+			createGame = new Game(gameCount++, 3);
 			games.put(createGame.getID(), createGame);
 	    	}else {
 	    		createGame = new Game(gameCount++, 1);
