@@ -58,6 +58,7 @@ public class Game {
 		fourPlusKind = "";
 		threshHold = threePair = straight = fullHouse = farkleDeduction = 0;
 		GAME_SIZE = gameSize;
+		var = new Variation(straight, threePair, fullHouse, fourPlusKind);
 	}
 
 	/**
@@ -106,7 +107,7 @@ public class Game {
 			ai.addPlayer(new AIPlayer(1, "AI1", this));
 
 			ai.addPlayer(new AIPlayer(2, "AI2", this));
-			ai.addPlayer(new AIPlayer(10, "AI3", this));
+			ai.addPlayer(new AIPlayer(4, "AI3", this));
 			for (int i = 0; i < 3; i++) {
 				for (int y = 0; y < players.size(); y++) {
 
@@ -222,9 +223,13 @@ public class Game {
 				if (aiStatus.equals("")) {
 					currentPlayer = players.get(0);
 				} else {
-					for (int i = 0; i < players.size(); i++) {
-						players.get(i).sendMessage("GAME", aiStatus + " WON!");
-					}
+					
+						for(int i = 0; i < players.size(); i++)
+						{
+							players.get(i).sendMessage("WIN", aiStatus + " Wins the game!");
+							currentPlayer = null;
+						}
+					
 				}
 			} else {
 				// move to next player

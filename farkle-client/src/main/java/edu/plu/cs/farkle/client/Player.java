@@ -82,7 +82,7 @@ public class Player {
 	 * @param rolledDice
 	 */
 	public void setTotalScore(int score) {
-		totalScore += score;
+		totalScore = score;
 	}
 	
 	
@@ -106,16 +106,16 @@ public class Player {
 		int score;
 		StringBuilder sb = new StringBuilder();
 		Iterator<Entry<String, Player>> iterator = opponents.entrySet().iterator();
-		
+		Map.Entry<String, Player> entry = (Entry<String, Player>) iterator.next();
 		while(iterator.hasNext()){
-            Map.Entry<String, Player> entry = (Entry<String, Player>) iterator.next();
+            entry = (Entry<String, Player>) iterator.next();
             name = entry.getKey();
             score = entry.getValue().getTotalScore();
             sb.append(name);
             sb.append(" ");
             sb.append(score);
             sb.append("\n");
-            System.out.println("works");
+           
         }
 		return sb.toString();
 	}

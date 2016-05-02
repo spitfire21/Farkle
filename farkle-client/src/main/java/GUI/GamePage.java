@@ -831,17 +831,17 @@ public class GamePage extends JFrame implements GUICallBack {
 		}
 
 		if (randomNum == 1)
-			pictureName = "/1.jpg";
+			pictureName = "/1.png";
 		else if (randomNum == 2)
-			pictureName = "/2.jpg";
+			pictureName = "/2.png";
 		else if (randomNum == 3)
-			pictureName = "/3.jpg";
+			pictureName = "/3.png";
 		else if (randomNum == 4)
-			pictureName = "/4.jpg";
+			pictureName = "/4.png";
 		else if (randomNum == 5)
-			pictureName = "/5.jpg";
+			pictureName = "/5.png";
 		else if (randomNum == 6)
-			pictureName = "/6.jpg";
+			pictureName = "/6.png";
 		else
 			pictureName = "/0.jpg";
 
@@ -850,13 +850,14 @@ public class GamePage extends JFrame implements GUICallBack {
 
 	@Override
 	public void updateStatus(ServerCommand command) {
+		
 
 		if(command.getCommand().equals("WIN"))
 		{
 			JOptionPane.showMessageDialog(null, command.getMessage());
 		}
 		
-		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll"))) {
+		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll")) && command.getName().equals(name)) {
 
 			panel.removeAll();
 			panel_1.removeAll();
@@ -901,7 +902,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			
 
 
-			if (command.getMessage().charAt(command.getMessage().length() - 1) == '0') {
+			if (command.getName().equals(name)&&command.getMessage().charAt(command.getMessage().length() - 1) == '0') {
 				SettingsDialogue sd = new SettingsDialogue();
 				int result = JOptionPane.showConfirmDialog(null, sd, "Game Settings", JOptionPane.OK_CANCEL_OPTION);
 				if (result == JOptionPane.OK_OPTION) {
@@ -921,13 +922,14 @@ public class GamePage extends JFrame implements GUICallBack {
 		if (command.getCommand().equals("Status Waiting") && command.getMessage().contains("connected to the game")) {
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Waiting",
 					JOptionPane.INFORMATION_MESSAGE);
+			
 		}
 		try {
 			txtpnScore.setText("Score: " + command.getScore());
 			txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
 			txtpnStatus.setText("Status: " + command.getCommand());
 			if (command.getCommand().equals("SCORE")) {
-				txtpnHowYouStack.setText("Other scores " + command.getName() + " " + command.getScore() + "\n"+ gClient.getOppenentScore());
+				txtpnHowYouStack.setText("Player: " + command.getName() + " " + command.getScore() + "\n" +name +" "+ + gClient.getScore()+"\n"+ gClient.getOppenentScore());
 				txtpnStatus.setText("Status: Waiting");
 				
 

@@ -64,6 +64,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 	    		opponent.setName(command.getName());
 	    		opponent.parseCommand(command);
 	    		player.addOpponent(command.getName(), opponent);
+	    		callBack.updateStatus(command);
 	    	}
 	    	
 	    	//TODO Callback stuff for the game
