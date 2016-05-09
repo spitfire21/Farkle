@@ -936,7 +936,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			}
 
 		} catch (NullPointerException e) {
-
+			e.printStackTrace();
 		}
 		
 	}
