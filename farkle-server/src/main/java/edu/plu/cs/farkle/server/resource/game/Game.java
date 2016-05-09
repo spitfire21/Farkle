@@ -24,6 +24,12 @@ import org.eclipse.jetty.websocket.api.Session;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 import edu.plu.cs.farkle.server.resource.game.ai.AIPlayer;
 import edu.plu.cs.farkle.server.resource.game.ai.AIRunner;
+import edu.plu.cs.farkle.server.resource.game.scoring.CheckFourPlusStrategy;
+import edu.plu.cs.farkle.server.resource.game.scoring.DefaultScoreStrategy;
+import edu.plu.cs.farkle.server.resource.game.scoring.FullHouseScoreStrategy;
+import edu.plu.cs.farkle.server.resource.game.scoring.Scoring;
+import edu.plu.cs.farkle.server.resource.game.scoring.StraightScoreVariation;
+import edu.plu.cs.farkle.server.resource.game.scoring.ThreePairScoreStrategy;
 
 public class Game {
 	// set size of game
@@ -39,10 +45,10 @@ public class Game {
 	private int id;
 	// AI Runner
 	AIRunner ai;
-	private Variation var;
-	private String fourPlusKind;
-	private int threshHold, threePair, straight, fullHouse, farkleDeduction;
 
+	private String fourPlusKind;
+	private int threshHold, farkleDeduction;
+	private Scoring scoring;
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	/**
@@ -56,9 +62,9 @@ public class Game {
 		players = new ArrayList<Player>();
 		ai = new AIRunner();
 		fourPlusKind = "";
-		threshHold = threePair = straight = fullHouse = farkleDeduction = 0;
+		threshHold = farkleDeduction = 0;
 		GAME_SIZE = gameSize;
-		var = new Variation(straight, threePair, fullHouse, fourPlusKind);
+		scoring = new Scoring();
 	}
 
 	/**
@@ -180,7 +186,7 @@ public class Game {
 			return false;
 		} else if (dice.contains(5)) {
 			return false;
-		} else if (threePair > 0 && checkScore(dice)>0){
+		} else if (checkScore(dice)>0){
 			return false;
 		}
 		return true;
@@ -258,74 +264,8 @@ public class Game {
 	 * @return
 	 */
 	public int checkScore(List<Integer> storedDice) {
-		int score = 0;
 		
-		Map<Integer, Integer> counter = new HashMap<Integer, Integer>();
-		for (int i = 0; i <= 6; i++) {
-			counter.put(i, 0);
-		}
-		for (int i = 0; i < storedDice.size(); i++) {
-
-			int temp = counter.get(storedDice.get(i));
-			temp++;
-			counter.replace(storedDice.get(i), temp);
-			storedDice.set(i, 0);
-			System.out.println("num of dice: " + temp);
-
-		}
-		if (threePair > 0) {
-			if ((score = var.ThreePair(counter)) > 0) {
-				return score;
-			}
-		}
-		if (!fourPlusKind.equals("none"))
-			score = var.checkAll(counter);
-		if (score == 0 && fullHouse > 0) {
-
-			score = var.FullHouse(counter);
-
-		}
-
-		if (score == 0) {
-			for(int i = 1; i <= 6; i++){
-				if(i != 1 && i != 5){
-					if(counter.get(i)!=3 && counter.get(i)!=0){
-						return 0;
-					}
-				}
-				
-			}
-			if (counter.get(1) == 3) {
-				score += 1000;
-			} else if (counter.get(1) >= 3) {
-				score += 1000;
-				score += counter.get(1) * 100 - 300;
-			} else {
-				score += counter.get(1) * 100;
-			}
-			if (counter.get(2) == 3) {
-				score += 200;
-			}
-			if (counter.get(3) == 3) {
-				score += 300;
-			}
-			if (counter.get(4) == 3) {
-				score += 400;
-			}
-			if (counter.get(5) == 3) {
-				score += 500;
-			} else if (counter.get(5) >= 3) {
-				score += 500;
-				score += counter.get(5) * 50 - 150;
-			} else {
-				score += counter.get(5) * 50;
-			}
-			if (counter.get(6) == 3) {
-				score += 600;
-			}
-		}
-		
-		return score;
+		return scoring.checkScore(storedDice);
 
 	}
 	public Player getPlayer(int i) {
@@ -604,13 +544,16 @@ public class Game {
 				String[] parts = cmd.getMessage().split(",");
 				winningScore = Integer.parseInt(parts[0]);
 				threshHold = Integer.parseInt(parts[1]);
-				threePair = Integer.parseInt(parts[2]);
+				int threePair = Integer.parseInt(parts[2]);
 				fourPlusKind = parts[3];
-				straight = Integer.parseInt(parts[4]);
-				fullHouse = Integer.parseInt(parts[5]);
+				int straight = Integer.parseInt(parts[4]);
+				int fullHouse = Integer.parseInt(parts[5]);
 				farkleDeduction = Integer.parseInt(parts[6]);
-				
-				var = new Variation(straight, threePair, fullHouse, fourPlusKind);
+				scoring.addScoreSet(new StraightScoreVariation(straight));
+				scoring.addScoreSet(new ThreePairScoreStrategy(threePair));
+				scoring.addScoreSet(new FullHouseScoreStrategy(fullHouse));
+				scoring.addScoreSet(new CheckFourPlusStrategy(0,fourPlusKind));
+				scoring.addScoreSet(new DefaultScoreStrategy(0));
 			}
 
 		}

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.plu.cs.farkle.server.resource.game.scoring.Variation;
+
 public class DiceTest {
 	Variation var;
 	HashMap<Integer, Integer> map;

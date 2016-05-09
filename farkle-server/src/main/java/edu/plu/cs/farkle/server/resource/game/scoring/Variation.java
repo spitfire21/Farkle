@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.server.resource.game;
+package edu.plu.cs.farkle.server.resource.game.scoring;
 
 import java.util.Map;
 
