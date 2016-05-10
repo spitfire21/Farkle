@@ -24,6 +24,8 @@ import org.eclipse.jetty.websocket.api.Session;
 import edu.plu.cs.farkle.server.core.FarkleServerApplication;
 import edu.plu.cs.farkle.server.resource.game.ai.AIPlayer;
 import edu.plu.cs.farkle.server.resource.game.ai.AIRunner;
+import edu.plu.cs.farkle.server.resource.game.player.HumanPlayer;
+import edu.plu.cs.farkle.server.resource.game.player.Player;
 import edu.plu.cs.farkle.server.resource.game.scoring.CheckFourPlusStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.DefaultScoreStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.FullHouseScoreStrategy;
@@ -35,12 +37,12 @@ public class Game {
 	// set size of game
 	private int GAME_SIZE = 1;
 	// current player rolling
-	private Player currentPlayer;
+	private HumanPlayer currentPlayer;
 	private int winningScore = 10000;
 	// status of game
 	private String status;
 	// list of players
-	private List<Player> players;
+	private List<HumanPlayer> players;
 	// id of the game
 	private int id;
 	// AI Runner
@@ -50,6 +52,7 @@ public class Game {
 	private int threshHold, farkleDeduction;
 	private Scoring scoring;
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private int settingCounter = 0;
 
 	/**
 	 * Constructor for the game, sets default settings
@@ -59,10 +62,10 @@ public class Game {
 	public Game(int id, int gameSize) {
 		setStatus("WAITING");
 		this.id = id;
-		players = new ArrayList<Player>();
+		players = new ArrayList<HumanPlayer>();
 		ai = new AIRunner();
 		fourPlusKind = "";
-		threshHold = farkleDeduction = 0;
+		setThreshHold(setFarkleDeduction(0));
 		GAME_SIZE = gameSize;
 		scoring = new Scoring();
 	}
@@ -73,7 +76,7 @@ public class Game {
 	 * @param p
 	 * @throws IOException
 	 */
-	public void addPlayer(Player p) throws IOException {
+	public void addPlayer(HumanPlayer p) throws IOException {
 
 		// check if game is over full
 		if (players.size() > GAME_SIZE) {
@@ -83,7 +86,7 @@ public class Game {
 		} else if (players.size() < GAME_SIZE) {
 			players.add(p);
 			for (int i = 0; i < players.size() - 1; i++) {
-				players.get(i).sendMessage("Status Waiting", p.id + " connected to the game");
+				players.get(i).sendMessage("Status Waiting", p.getName() + " connected to the game");
 			}
 
 		}
@@ -94,7 +97,7 @@ public class Game {
 			start();
 		}
 		if(players.size()==0){
-			currentPlayer = p;
+			setCurrentPlayer(p);
 		}
 
 	}
@@ -124,10 +127,10 @@ public class Game {
 
 		}
 		// set first player to roll
-		currentPlayer = players.get(0);
+		setCurrentPlayer(players.get(0));
 		for (int i = 0; i < players.size(); i++) {
-			players.get(i).opponents.addAll(players);
-			players.get(i).opponents.remove(players.get(i).getPlayerNumber());
+			players.get(i).getOpponents().addAll(players);
+			players.get(i).getOpponents().remove(players.get(i).getPlayerNumber());
 			players.get(i).start();
 
 		}
@@ -200,9 +203,9 @@ public class Game {
 	 * @param player
 	 * @return
 	 */
-	private boolean canRoll(Player player) {
+	public boolean canRoll(Player player) {
 		// if player has stored dice and is current player
-		if (player.stored && currentPlayer == player)
+		if (player.isStored() && getCurrentPlayer() == player)
 			return true;
 
 		return false;
@@ -210,30 +213,32 @@ public class Game {
 	}
 
 	// end players turn
-	private void endTurn(Player player) {
-		if (player.score < winningScore) {
+	public void endTurn(HumanPlayer player) {
+		if (player.getTotalScore() < winningScore) {
 
 			// set storedScore as 0
-			player.storedScore = 0;
+			player.setScore(0);
 			// remove dice
-			player.dice.removeAll(player.dice);
+			player.getDice().removeAll(player.getDice());
 			// remove storedDice
-			player.storedDice.removeAll(player.storedDice);
+			player.getStoredDice().removeAll(player.getStoredDice());
 			// send message to player
 			// player.sendMessage("Status Waiting", "WAIT YOUR TURN");
 			// set player as stored
-			player.stored = true;
+			player.setStored(true);
+			
 			// if last player in list then rotate to first
-			if (player.opponents.size() == player.getPlayerNumber()) {
+			if (player.getOpponents().size() == player.getPlayerNumber()) {
+				
 				String aiStatus = ai.runAI();
 				if (aiStatus.equals("")) {
-					currentPlayer = players.get(0);
+					setCurrentPlayer(players.get(0));
 				} else {
 					
 						for(int i = 0; i < players.size(); i++)
 						{
 							players.get(i).sendMessage("WIN", aiStatus + " Wins the game!");
-							currentPlayer = null;
+							setCurrentPlayer(null);
 						}
 					
 				}
@@ -242,17 +247,17 @@ public class Game {
 
 				// System.out.println(currentPlayer.getPlayerNumber() + " "
 				// +players.size() + " " +player.opponents.size());
-				currentPlayer = player.opponents.get(player.getPlayerNumber());
+				setCurrentPlayer(player.getOpponents().get(player.getPlayerNumber()));
 			}
 			// send message to player
-			currentPlayer.sendMessage("Status Rolling", "It is now your turn, please roll");
+			getCurrentPlayer().sendMessage("Status Rolling", "It is now your turn, please roll");
 		} else {
-			player.stored = true;
-			currentPlayer = null;
-			FarkleServerApplication.getDatabase().updateVictories(player.id);
+			player.setStored(true);
+			setCurrentPlayer(null);
+			FarkleServerApplication.getDatabase().updateVictories(player.getName());
 			for(int i = 0; i < players.size(); i++)
 			{
-				players.get(i).sendMessage("WIN", player.id + " Wins the game!");
+				players.get(i).sendMessage("WIN", player.getName() + " Wins the game!");
 			}
 		}
 	}
@@ -268,7 +273,7 @@ public class Game {
 		return scoring.checkScore(storedDice);
 
 	}
-	public Player getPlayer(int i) {
+	public HumanPlayer getPlayer(int i) {
 		return players.get(i);
 		
 	}
@@ -309,291 +314,69 @@ public class Game {
 			}
 		}, 60 * 60, SECONDS);
 	}
-
 	/**
-	 * Player class currently nested in game TODO will be broken up
-	 * 
-	 * @author Cody-Desktop
-	 *
+	 * Check command client sent to server
+	 * TODO break into either more manageable methods
+	 * @param command
 	 */
-	public class Player {
-		// opponent list
-		private List<Player> opponents;
-		private String id;
-		private int playerNumber, score, storedScore;
-		private boolean stored;
-		// endpoint for sending message to client
-		private RemoteEndpoint output;
-		private Session session;
-		// dice and stored dice arrays
-		private List<Integer> dice;
-		private List<Integer> storedDice;
-		private boolean tFlag;
-		private int farkleCounter;
-		private int settingCounter = 0;
-
-		/**
-		 * Default constructor for player
-		 * TODO Make a subclass of common player for AI
-		 * @param session
-		 */
-		public Player(Session session, String id) {
-			// increment numOfOnline players
-			playerNumber = getNumberOfPlayers();
-			this.id = id;
-			// set endpoint
-			output = session.getRemote();
-			this.session = session;
-			opponents = new ArrayList<Player>();
-			dice = new ArrayList<Integer>();
-			storedDice = new ArrayList<Integer>();
-			// set player so that they can roll when it is their turn
-			stored = true;
-			tFlag = false;
-			// send start up message
-			sendMessage("Status Waiting", "WELCOME " + id);
-			sendMessage("Status Waiting", "YOU ARE PLAYER #" + playerNumber);
-			sendMessage("Status Waiting", "MESSAGE Waiting for opponent to connect");
-
-		}
-
-		/**
-		 * add opponent
-		 * 
-		 * @param opponent
-		 */
-		private void addOpponent(Player opponent) {
-			opponents.add(opponent);
-		}
-
-		/**
-		 * get player number
-		 * 
-		 * @return playerNumber
-		 */
-		private int getPlayerNumber() {
-			return playerNumber;
-		}
-
-		/**
-		 * set player number
-		 * 
-		 * @return playerNumber
-		 */
-		private void setPlayerNumber(int playerNumber) {
-			this.playerNumber = playerNumber;
-		}
-
-		/**
-		 * Start game for player
-		 */
-		private void start() {
-			// send start message
-			sendMessage("Status Waiting", "MESSAGE All players connected");
-
-			// player is first player to join, they roll first
-			if (getPlayerNumber() == 0)
-				sendMessage("Status Rolling", "It is your turn to roll");
-		}
-
+	public void checkCommand(ServerCommand cmd) {
+		String command = cmd.getCommand();
 		
-
-		/**
-		 * Check command client sent to server
-		 * TODO break into either more manageable methods
-		 * @param command
-		 */
-		public void checkCommand(ServerCommand cmd) {
-			String command = cmd.getCommand();
-			List<Integer> tempDice = new ArrayList<Integer>();
-			tempDice.addAll(dice);
-			System.out.println(command);
-			// if command is ROLL and can roll generate numbers
-			if (command.startsWith("ROLL") && canRoll(this)) {
-				stored = false;
-				// fill array with numbers
-				
-
-				for (int i = storedDice.size(); i < 6; i++) {
-					int roll = ThreadLocalRandom.current().nextInt(1, 7);
-					dice.add(roll);
-
-					// sendMessage(Integer.toString(roll));
-				}
-				while (dice.size() < 6) {
-					dice.add(0);
-				}
-
-				sendJSON("ROLL", this.id, "Success", new Dice(dice), this.score, this.storedScore);
-				// check for farkle
-				
-				if (checkFarkle(dice) == true) {
-					if(farkleCounter == 3){
-						farkleCounter = 0;
-						score -= farkleDeduction;
-					}else{
-						farkleCounter += 1;
-					}
-					sendMessage("Farkle", "Wait you Turn");
-					endTurn(this);
-				}
-			} else {
-				for (int i = 0; i < players.size(); i++) {
-
-					players.get(i).sendJSON("ROLL", this.id, "Success", new Dice(dice), this.score, this.storedScore);
-				}
-
-				// if command is STORE
-			}
-			STORE: if (command.startsWith("STORE") && currentPlayer == this) {
-				int numOfDice = 0;
-				System.out.println(tempDice);
-
-				ArrayList<Integer> sentDice = (ArrayList<Integer>) cmd.getDice().getDice();
-				// check if dice is not 0
-				if (dice.size() > 0) {
-
-					// if nothing was selected to score produce error
-					if (sentDice.size() == 0) {
-						sendMessage("Error", "You must store something");
-					} else {
-						// go through split and check for valid numbers
-						for (int i = 0; i < sentDice.size(); i++) {
-							if (dice.contains(sentDice.get(i)) && sentDice.get(i) != 0) {
-								storedDice.add(sentDice.get(i));
-								System.out.println(sentDice.get(i));
-								dice.remove((Integer) sentDice.get(i));
-								numOfDice += 1;
-
-							} else if (Integer.valueOf(sentDice.get(i)) == 0) {
-
-							} else {
-								// invalid
-								sendMessage("Error", "INVALID STORE WRITE NUMBERS AGAIN");
-								// remove added dice
-								for (int x = 0; x < numOfDice; x++) {
-									storedDice.remove(storedDice.size() - 1);
-								}
-								// break to store label
-								dice = tempDice;
-								break STORE;
-							}
-
-						}
-						ArrayList<Integer> temp = new ArrayList();
-						temp.addAll(storedDice);
-						// check if store hand has non scoring die
-						if (checkScore(temp) == 0) {
-							sendMessage("Error", "You can't store non-scoring die");
-							for (int x = 0; x < numOfDice; x++) {
-								// remove dice
-								storedDice.remove(storedDice.size() - 1);
-							}
-							// break to STORE label
-							dice = tempDice;
-							break STORE;
-						}
-						// remove all dice
-						dice.removeAll(dice);
-						for (int i = 0; i < players.size(); i++) {
-							if (!players.get(i).id.equals(id))
-								players.get(i).sendJSON("STORE", this.id, "Success", cmd.getDice(), this.score,
-										this.storedScore);
-						}
-						// calculate score
-						storedScore += checkScore(storedDice);
-						// send stored dice to players
-
-						// tell all players what score they could get
-						for (int i = 0; i < players.size(); i++) {
-							players.get(i).sendJSON("STORE", this.id, "Success", new Dice(dice), this.score,
-									this.storedScore);
-						}
-						// reset roll
-						stored = true;
-
-						// reset roll if player gets 6 stored dice
-						if (storedDice.size() == 6) {
-							storedDice.removeAll(storedDice);
-							dice.removeAll(dice);
-						}
-					}
-				}
-
-			}
-			// score players hand
-			if (command.startsWith("SCORE") && currentPlayer == this) {
-				score += checkScore(dice);
-				score += storedScore;
-				if(score >= threshHold && tFlag == false){
-					
-				tFlag = true;
-				}
-				else if (tFlag == false){
-				score = 0;	
-				}
-				
-				storedScore = 0;
-				farkleCounter = 0;
-				for (int i = 0; i < players.size(); i++)
-					players.get(i).sendJSON("SCORE", this.id, "Success", new Dice(dice), this.score, this.storedScore);
-				endTurn(this);
-			}
-			if (command.startsWith("SETTINGS") && settingCounter == 0) {
-				settingCounter = 1;
-				String[] parts = cmd.getMessage().split(",");
-				winningScore = Integer.parseInt(parts[0]);
-				threshHold = Integer.parseInt(parts[1]);
-				int threePair = Integer.parseInt(parts[2]);
-				fourPlusKind = parts[3];
-				int straight = Integer.parseInt(parts[4]);
-				int fullHouse = Integer.parseInt(parts[5]);
-				farkleDeduction = Integer.parseInt(parts[6]);
-				scoring.addScoreSet(new StraightScoreVariation(straight));
-				scoring.addScoreSet(new ThreePairScoreStrategy(threePair));
-				scoring.addScoreSet(new FullHouseScoreStrategy(fullHouse));
-				scoring.addScoreSet(new CheckFourPlusStrategy(0,fourPlusKind));
-				scoring.addScoreSet(new DefaultScoreStrategy(0));
-			}
-
+		System.out.println(command);
+		// if command is ROLL and can roll generate numbers
+		if (command.startsWith("ROLL") && currentPlayer.getName().equals(cmd.getName()) && canRoll(currentPlayer)) {
+			currentPlayer.Roll();
+		}
+		if (command.startsWith("STORE") && currentPlayer.getName().equals(cmd.getName())) {
+			currentPlayer.Store(cmd);
+		}
+		if (command.startsWith("SCORE") && currentPlayer.getName().equals(cmd.getName())) {
+			currentPlayer.Score(cmd);
+		}
+		if (command.startsWith("SETTINGS") && settingCounter == 0) {
+			settingCounter = 1;
+			String[] parts = cmd.getMessage().split(",");
+			winningScore = Integer.parseInt(parts[0]);
+			setThreshHold(Integer.parseInt(parts[1]));
+			int threePair = Integer.parseInt(parts[2]);
+			fourPlusKind = parts[3];
+			int straight = Integer.parseInt(parts[4]);
+			int fullHouse = Integer.parseInt(parts[5]);
+			farkleDeduction = Integer.parseInt(parts[6]);
+			scoring.addScoreSet(new StraightScoreVariation(straight));
+			scoring.addScoreSet(new ThreePairScoreStrategy(threePair));
+			scoring.addScoreSet(new FullHouseScoreStrategy(fullHouse));
+			scoring.addScoreSet(new CheckFourPlusStrategy(0,fourPlusKind));
+			scoring.addScoreSet(new DefaultScoreStrategy(0));
 		}
 
-		private boolean checkAlive() {
-			if (session.isOpen())
-				return true;
-			else
-				return false;
-
-		}
-
-		/**
-		 * Send string to client 
-		 * 
-		 * @param message
-		 */
-		private void sendMessage(String command, String message) {
-			sendJSON(command, this.id, message, new Dice(this.dice), this.score, this.storedScore);
-
-		}
-
-		public void sendJSON(String command, String name, String message, Dice dice, int score, int storedScore) {
-			ServerCommand cmd = new ServerCommand(command, name, message, dice, score, storedScore);
-			ObjectMapper mapper = new ObjectMapper();
-
-			try {
-				output.sendString(mapper.writeValueAsString(cmd));
-			} catch (JsonGenerationException e) {
-				
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				
-				e.printStackTrace();
-			} catch (IOException e) {
-			
-				e.printStackTrace();
-			}
-		}
 	}
+	public int getFarkleDeduction() {
+		return farkleDeduction;
+	}
+
+	public int setFarkleDeduction(int farkleDeduction) {
+		this.farkleDeduction = farkleDeduction;
+		return farkleDeduction;
+	}
+
+	public HumanPlayer getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(HumanPlayer currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public int getThreshHold() {
+		return threshHold;
+	}
+
+	public void setThreshHold(int threshHold) {
+		this.threshHold = threshHold;
+	}
+
+	
 
 	
 }

@@ -11,12 +11,13 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
-import edu.plu.cs.farkle.server.resource.game.Game.Player;
+import edu.plu.cs.farkle.server.resource.game.player.HumanPlayer;
+import edu.plu.cs.farkle.server.resource.game.player.Player;
 
 @WebSocket
 public class GameServer {
 	// Maps to hold, bind player with session
-		static HashMap<Session, Player> map = new HashMap<Session, Player>();
+		static HashMap<Session, HumanPlayer> map = new HashMap<Session, HumanPlayer>();
 		static HashMap<Integer, Game> games = new HashMap<Integer, Game>();
 		// Logger to log events 
 	    private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -53,7 +54,7 @@ public class GameServer {
 	    			player = map.get(session);
 	    			if (player!= null){
 	    				// check command
-	    				player.checkCommand(cmd);
+	    				game.checkCommand(cmd);
 	    			}
 	    		
 	    			
@@ -65,11 +66,11 @@ public class GameServer {
 	    private void createGame(Session session, int mult) throws IOException {
 			
 	    	// player that will be added to game
-	    	 Player p;
+	    	 HumanPlayer p;
 	    	 // check if games are full
 	    	 game = findGame(mult);
 	    	 // create new player for game using session
-	    	 p = game.new Player(session, session.getUpgradeRequest().getUserPrincipal().getName());
+	    	 p = new HumanPlayer(session, session.getUpgradeRequest().getUserPrincipal().getName(), game);
 	    	 // add player to game and associate with map
 	    	 game.addPlayer(p);
 	    	 map.put(session, p);

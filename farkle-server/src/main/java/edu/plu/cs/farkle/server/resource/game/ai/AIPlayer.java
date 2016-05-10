@@ -8,27 +8,27 @@ import java.util.concurrent.TimeUnit;
 
 import edu.plu.cs.farkle.server.resource.game.Dice;
 import edu.plu.cs.farkle.server.resource.game.Game;
+import edu.plu.cs.farkle.server.resource.game.player.Player;
 
-public class AIPlayer {
-	private int totalScore;
-	private int score;
+public class AIPlayer extends Player{
+	
 	private int aggression;
-	private String name;
-	private List<Integer> dice;
-	private List<Integer> storedDice;
+
+
 	private Random random;
-	private Game game;
+
 	
 	public AIPlayer(int aggression, String name, Game game){
+		super(name,game);
 		random = new Random();
-		dice = new ArrayList<Integer>();
-		storedDice = new ArrayList<Integer>();
-		score = totalScore = 0;
+		
+		
 		this.aggression = aggression;
-		this.game = game;
-		this.name = name;
+		
+		
 	}
-	private void roll(){
+	@Override
+	public void Roll(){
 		System.out.println(storedDice.size());
 		for(int i = storedDice.size(); i < 6; i++){
 			dice.add(random.nextInt(6)+1);
@@ -149,10 +149,10 @@ public class AIPlayer {
 		}
 		int chance = aggression*(6-dice.size()) - score/50;
 		if(dice.size()==0 && storedDice.size() == 0){
-			roll();
+			Roll();
 		}
 		else if(random.nextInt(60) + 1 <= chance){
-			roll();
+			Roll();
 		} else {
 			endTurn();
 			
