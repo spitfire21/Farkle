@@ -57,7 +57,7 @@ public class GamePage extends JFrame implements GUICallBack {
 
 	ArrayList<Double> storeDemensions;
 	private JButton btnRollDice;
-
+	private JButton btnEndTurn;
 	/**
 	 * Create the frame for the GameMainMenu object. This object allows for
 	 * users to see and play a game of Farkle either locally, or in a
@@ -73,7 +73,7 @@ public class GamePage extends JFrame implements GUICallBack {
 
 		this.name = name;
 		setResizable(false);
-		gClient = new GameClient(token, name, this);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -273,10 +273,12 @@ public class GamePage extends JFrame implements GUICallBack {
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(btnStoreDice);
 
-		JButton btnEndTurn = new JButton("End Turn");
+		btnEndTurn = new JButton("End Turn");
+		btnEndTurn.setEnabled(false);
 		btnEndTurn.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		btnEndTurn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnEndTurn.setEnabled(false);
 				gClient.sendJSON("SCORE", name, "SCORING", gClient.getDice(), 0, 0);
 			}
 		});
@@ -316,7 +318,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		txtpnHowYouStack.setBounds((int) Math.round(storeDemensions.get(0)), (int) Math.round(storeDemensions.get(1)),
 				(int) Math.round(storeDemensions.get(2)), (int) Math.round(storeDemensions.get(3)));
 		contentPane.add(txtpnHowYouStack);
-		
+		gClient = new GameClient(token, name, this);
 		//Multiplayer Dialogue
 		int multi = JOptionPane.YES_NO_OPTION;
 		String mp;
@@ -696,7 +698,7 @@ public class GamePage extends JFrame implements GUICallBack {
 
 				contentPane.revalidate();
 				if (gClient.getError().equals("Farkle") || gClient.getError().equals("Status Waiting")) {
-
+					btnEndTurn.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Farkle", "Please Wait", JOptionPane.ERROR_MESSAGE);
 					txtpnScore.setText("Score: " + 0);
 					txtpnStoredScore.setText("Stored Score: " + 0);
@@ -745,6 +747,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					// panel_3.setVisible(true);
 					// panel_4.setVisible(true);
 					// panel_5.setVisible(true);
+					
 					panel.removeAll();
 					panel_1.removeAll();
 					panel_2.removeAll();
@@ -858,6 +861,7 @@ public class GamePage extends JFrame implements GUICallBack {
 		}
 		
 		if (command.getCommand().equals("Status Rolling") && command.getMessage().contains(("please roll")) && command.getName().equals(name)) {
+			
 			txtpnHowYouStack.setText("Player: " + command.getName() + " " + command.getScore() + "\n" +name +" "+ + gClient.getScore()+"\n"+ gClient.getOppenentScore());
 			panel.removeAll();
 			panel_1.removeAll();
@@ -888,6 +892,7 @@ public class GamePage extends JFrame implements GUICallBack {
 			btnRollDice.setEnabled(true);
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Rolling",
 					JOptionPane.INFORMATION_MESSAGE);
+			btnEndTurn.setEnabled(true);
 			
 		}
 	
@@ -903,6 +908,7 @@ public class GamePage extends JFrame implements GUICallBack {
 
 
 			if (command.getName().equals(name)&&command.getMessage().charAt(command.getMessage().length() - 1) == '0') {
+				btnEndTurn.setEnabled(true);
 				SettingsDialogue sd = new SettingsDialogue();
 				int result = JOptionPane.showConfirmDialog(null, sd, "Game Settings", JOptionPane.OK_CANCEL_OPTION);
 				if (result == JOptionPane.OK_OPTION) {
@@ -924,7 +930,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JOptionPane.INFORMATION_MESSAGE);
 			
 		}
-		try {
+		
 			txtpnScore.setText("Score: " + command.getScore());
 			txtpnStoredScore.setText("Stored Score: " + command.getStoredScore());
 			txtpnStatus.setText("Status: " + command.getCommand());
@@ -934,10 +940,10 @@ public class GamePage extends JFrame implements GUICallBack {
 				
 
 			}
-
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-		
 	}
+	
+
+		
+		
+	
 }

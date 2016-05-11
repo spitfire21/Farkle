@@ -1,11 +1,14 @@
 package edu.plu.cs.farkle.client;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,15 +19,29 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class ClientService {
 	private Client client;
-	private GameClient gameClient;
-	private Response response;
+	private String url;
 	private String token;
 	public ClientService(){
 		client = ClientBuilder.newClient();
 		
+		Properties prop = new Properties();
+		String fileName = "farkle.config";
+		InputStream is;
+		try {
+			is = new FileInputStream(fileName);
+			prop.load(is);
+			url = prop.getProperty("farkle.url");
+		} catch (FileNotFoundException e) {
+			System.out.println("Config File Missing");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Config File Missing");
+			e.printStackTrace();
+		}
+		
 	}
 	public String Register(String username, String password) throws JsonProcessingException, IOException{
-		WebTarget target = client.target("http://localhost:8080/farkle/registration");
+		WebTarget target = client.target("http://"+url+":8080/farkle/registration");
 		//Invocation.Builder builder = target.request();
 
 		

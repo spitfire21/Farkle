@@ -14,6 +14,9 @@ public class FullHouseScoreStrategy extends DefaultScoreStrategy {
 		boolean flag = false;
 		boolean flag2 = false;
 		int score = 0;
+		if(amount==0){
+			return 0;
+		}
 		for(int i =1; i <= 6; i++){
 			if(dice.get(i)==3 && flag2 == false){
 				flag = true;

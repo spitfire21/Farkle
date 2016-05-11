@@ -1,19 +1,20 @@
 package edu.plu.cs.farkle.client;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -26,16 +27,32 @@ public class ClientMainPage{
 	
 	private String vList;
 	private Client client;
-	
+	private String url;
 	public ClientMainPage(){
 		client = ClientBuilder.newClient();
+		Properties prop = new Properties();
+	    String fileName = "farkle.config";
+	    InputStream is;
+		try {
+			is = new FileInputStream(fileName);
+			prop.load(is);
+			url = prop.getProperty("farkle.url");
+		} catch (FileNotFoundException e) {
+			System.out.println("Config File Missing");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Config File Missing");
+			e.printStackTrace();
+		}
+
+	   
 	}
 	
 	public String requestVictors() throws JsonProcessingException, IOException{
 		
 			
 //		WebTarget webTarget = client.target("http://152.117.219.35:8080/farkle/victories");
-		WebTarget webTarget = client.target("http://localhost:8080/farkle/victories");
+		WebTarget webTarget = client.target("http://"+url+":8080/farkle/victories");
 	
 		Invocation.Builder invocBuild =
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -48,7 +65,7 @@ public class ClientMainPage{
 	}
 	
 	public String requestUVictors(String uName) throws JsonProcessingException, IOException {
-		WebTarget webTarget = client.target("http://localhost:8080/farkle/victories/user").queryParam("uName", uName );;
+		WebTarget webTarget = client.target("http://"+url+":8080/farkle/victories/user").queryParam("uName", uName );
 
 		Invocation.Builder invocBuild =
 				webTarget.request(MediaType.APPLICATION_JSON);
