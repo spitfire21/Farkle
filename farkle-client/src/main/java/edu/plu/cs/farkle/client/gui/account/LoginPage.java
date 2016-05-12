@@ -1,10 +1,15 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.account;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import sun.audio.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import edu.plu.cs.farkle.client.account.CallBack;
+import edu.plu.cs.farkle.client.gui.GUI;
+import edu.plu.cs.farkle.client.gui.game.GameMainMenu;
+
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -24,8 +29,6 @@ import java.awt.Font;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import edu.plu.cs.farkle.client.CallBack;
 
 public class LoginPage extends JFrame {
 

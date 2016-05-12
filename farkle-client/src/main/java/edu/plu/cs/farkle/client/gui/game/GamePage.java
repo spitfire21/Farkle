@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,9 +23,10 @@ import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import edu.plu.cs.farkle.client.GUICallBack;
-import edu.plu.cs.farkle.client.GameClient;
-import edu.plu.cs.farkle.client.ServerCommand;
+import edu.plu.cs.farkle.client.game.GUICallBack;
+import edu.plu.cs.farkle.client.game.GameClient;
+import edu.plu.cs.farkle.client.game.ServerCommand;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;

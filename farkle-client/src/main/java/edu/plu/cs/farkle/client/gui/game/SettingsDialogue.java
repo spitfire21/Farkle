@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.game;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;

@@ -1,10 +1,10 @@
-package edu.plu.cs.farkle.client;
+package edu.plu.cs.farkle.client.account;
 
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonProcessingException;
 
-import GUI.GUI;
+import edu.plu.cs.farkle.client.gui.GUI;
 
 public class ClientBase implements CallBack 
 {

@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.client;
+package edu.plu.cs.farkle.client.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.account;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,6 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import edu.plu.cs.farkle.client.account.CallBack;
+import edu.plu.cs.farkle.client.gui.GUI;
+import edu.plu.cs.farkle.client.gui.game.GameMainMenu;
+
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -20,8 +25,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.SwingConstants;
-
-import edu.plu.cs.farkle.client.CallBack;
 
 public class UserCreationPage extends JFrame {
 

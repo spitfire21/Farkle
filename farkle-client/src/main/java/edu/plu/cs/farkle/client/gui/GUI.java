@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -20,8 +20,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import edu.plu.cs.farkle.client.CallBack;
-import edu.plu.cs.farkle.client.ClientBase;
+import edu.plu.cs.farkle.client.account.CallBack;
+import edu.plu.cs.farkle.client.account.ClientBase;
+import edu.plu.cs.farkle.client.gui.account.LoginPage;
+import edu.plu.cs.farkle.client.gui.account.UserCreationPage;
+
 import java.awt.SystemColor;
 
 public class GUI extends JFrame {

@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.client;
+package edu.plu.cs.farkle.client.account;
 
 public interface CallBack {
     String login(String username, String password);

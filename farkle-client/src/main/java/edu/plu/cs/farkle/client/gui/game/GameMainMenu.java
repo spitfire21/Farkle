@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,8 +21,9 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-import edu.plu.cs.farkle.client.CallBack;
-import edu.plu.cs.farkle.client.ClientMainPage;
+import edu.plu.cs.farkle.client.account.CallBack;
+import edu.plu.cs.farkle.client.gui.rules.Rules;
+import edu.plu.cs.farkle.client.mainpage.ClientMainPage;
 
 public class GameMainMenu extends JFrame {
 

@@ -1,4 +1,4 @@
-package GUI;
+package edu.plu.cs.farkle.client.gui.game;
 
 import java.awt.Font;
 import java.awt.GridLayout;

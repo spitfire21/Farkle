@@ -1,4 +1,4 @@
-package edu.plu.cs.farkle.client;
+package edu.plu.cs.farkle.client.mainpage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
