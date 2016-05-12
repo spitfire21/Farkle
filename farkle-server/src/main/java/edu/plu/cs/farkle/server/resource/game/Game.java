@@ -53,6 +53,8 @@ public class Game {
 	private Scoring scoring;
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private int settingCounter = 0;
+	private String gameSettings;
+
 
 	/**
 	 * Constructor for the game, sets default settings
@@ -68,6 +70,7 @@ public class Game {
 		setThreshHold(setFarkleDeduction(0));
 		GAME_SIZE = gameSize;
 		scoring = new Scoring();
+		gameSettings = "";
 	}
 
 	/**
@@ -94,6 +97,12 @@ public class Game {
 		if (players.size() == GAME_SIZE) {
 			setStatus("FULL");
 
+			//send game settings to players
+			for(int i = 0; i < players.size(); i++)
+			{
+				players.get(i).sendMessage("SETTINGS", gameSettings);
+			}
+
 			start();
 		}
 		if(players.size()==0){
@@ -117,6 +126,8 @@ public class Game {
 
 			ai.addPlayer(new AIPlayer(2, "AI2", this));
 			ai.addPlayer(new AIPlayer(4, "AI3", this));
+			
+			
 			for (int i = 0; i < 3; i++) {
 				for (int y = 0; y < players.size(); y++) {
 
@@ -126,6 +137,9 @@ public class Game {
 			}
 
 		}
+		
+		
+		
 		// set first player to roll
 		setCurrentPlayer(players.get(0));
 		for (int i = 0; i < players.size(); i++) {
@@ -336,6 +350,9 @@ public class Game {
 		if (command.startsWith("SETTINGS") && settingCounter == 0) {
 			settingCounter = 1;
 			String[] parts = cmd.getMessage().split(",");
+			
+			gameSettings = cmd.getMessage();
+			
 			winningScore = Integer.parseInt(parts[0]);
 			setThreshHold(Integer.parseInt(parts[1]));
 			int threePair = Integer.parseInt(parts[2]);

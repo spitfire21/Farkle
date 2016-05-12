@@ -58,6 +58,7 @@ public class GamePage extends JFrame implements GUICallBack {
 	ArrayList<Double> storeDemensions;
 	private JButton btnRollDice;
 	private JButton btnEndTurn;
+	private String[] p1Settings;
 	/**
 	 * Create the frame for the GameMainMenu object. This object allows for
 	 * users to see and play a game of Farkle either locally, or in a
@@ -913,6 +914,7 @@ public class GamePage extends JFrame implements GUICallBack {
 				int result = JOptionPane.showConfirmDialog(null, sd, "Game Settings", JOptionPane.OK_CANCEL_OPTION);
 				if (result == JOptionPane.OK_OPTION) {
 					System.out.println("value: " + sd.getSettings());
+					p1Settings = sd.getSettings().split(",");
 					// send settings message order:max points, threshold, 3
 					// pair, 4+, straight, full, farkle deduction
 					gClient.sendJSON("SETTINGS", command.getName(), sd.getSettings(), null, 0, 0);
@@ -929,6 +931,13 @@ public class GamePage extends JFrame implements GUICallBack {
 			JOptionPane.showMessageDialog(null, command.getMessage(), "Status Waiting",
 					JOptionPane.INFORMATION_MESSAGE);
 			
+		}
+		if(command.getCommand().equals("SETTINGS")) {
+			String[] settingList = command.getMessage().split(",");
+			FinalSettings fs = new FinalSettings();
+			JPanel settingPanel = fs.getGameSettings(settingList, p1Settings);
+			
+			JOptionPane.showMessageDialog(null, settingPanel);
 		}
 		
 			txtpnScore.setText("Score: " + command.getScore());

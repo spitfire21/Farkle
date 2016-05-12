@@ -76,6 +76,8 @@ public class GameMainMenu extends JFrame {
 	        			
 	        			for(int i=0;i<vList.size();i++){
 	        				listModel.addElement(vList.get(i));
+	        				if(i==9)
+	        					break;
 	        			}
 	        		} catch (IOException e1) {
 	        			// TODO Auto-generated catch block
@@ -116,7 +118,7 @@ public class GameMainMenu extends JFrame {
 					token = call.getToken();
 					name = call.getName();
 				}
-				timer.stop();
+				//timer.stop();
 				GamePage newGamePage = new GamePage(frame, token, name);
 				newGamePage.setVisible(true);
 				setVisible(false);
