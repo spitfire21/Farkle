@@ -62,7 +62,7 @@ public class ClientService {
 	}
 	public String Login(String username, String password){
 		
-				Response response = client.target("http://localhost:8080/farkle/login")
+				Response response = client.target("http://"+url+":8080/farkle/login")
 
 	            
 	            .request(MediaType.APPLICATION_JSON)
