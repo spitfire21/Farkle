@@ -49,6 +49,7 @@ public class HumanPlayer extends Player {
 					
 					// set player so that they can roll when it is their turn
 					stored = true;
+					// met threshhold
 					tFlag = false;
 					// send start up message
 					sendMessage("Status Waiting", "WELCOME " + name);
@@ -148,9 +149,9 @@ public class HumanPlayer extends Player {
 			// check for farkle
 			
 			if (game.checkFarkle(dice) == true) {
-				if(farkleCounter == 3){
+				if(farkleCounter == 2){
 					farkleCounter = 0;
-					score -= game.getFarkleDeduction();
+					totalScore -= game.getFarkleDeduction();
 				}else{
 					farkleCounter += 1;
 				}
@@ -169,12 +170,12 @@ public class HumanPlayer extends Player {
 public void Score(ServerCommand cmd){
 	totalScore += game.checkScore(dice);
 	totalScore += score;
-	if(score >= game.getThreshHold() && tFlag == false){
+	if(totalScore >= game.getThreshHold() && tFlag == false){
 		
 	tFlag = true;
 	}
 	else if (tFlag == false){
-	score = 0;	
+	totalScore = 0;	
 	}
 	
 	score = 0;

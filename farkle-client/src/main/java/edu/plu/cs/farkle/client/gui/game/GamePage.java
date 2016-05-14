@@ -699,7 +699,7 @@ public class GamePage extends JFrame implements GUICallBack {
 				});
 
 				contentPane.revalidate();
-				if (gClient.getError().equals("Farkle") || gClient.getError().equals("Status Waiting")) {
+				if (gClient.getError().equals("Farkle") && gClient.getPlayerName().equals(name) || gClient.getError().equals("Status Waiting") && gClient.getPlayerName().equals(name)) {
 					btnEndTurn.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Farkle", "Please Wait", JOptionPane.ERROR_MESSAGE);
 					txtpnScore.setText("Score: " + 0);
