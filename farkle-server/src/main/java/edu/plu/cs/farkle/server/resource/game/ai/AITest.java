@@ -38,7 +38,7 @@ public class AITest {
 		System.out.println(test.getDice());
 		assertNotNull(test.getStoredDice());
 		System.out.println(test.getStoredDice());
-		assertTrue(test.AIfarkled());
+		assertTrue(test.isFarkle());
 	    System.out.println(test.getTotalScore());
 		
 		runner.runAI();

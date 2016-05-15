@@ -40,7 +40,7 @@ public class ClientService {
 		}
 		
 	}
-	public String Register(String username, String password) throws JsonProcessingException, IOException{
+	public String register(String username, String password) throws JsonProcessingException, IOException{
 		WebTarget target = client.target("http://"+url+":8080/farkle/registration");
 		//Invocation.Builder builder = target.request();
 
@@ -60,7 +60,7 @@ public class ClientService {
 			JsonNode node = mapper.readTree(value);
 	        return node.get("response").asText();
 	}
-	public String Login(String username, String password){
+	public String login(String username, String password){
 		
 				Response response = client.target("http://"+url+":8080/farkle/login")
 

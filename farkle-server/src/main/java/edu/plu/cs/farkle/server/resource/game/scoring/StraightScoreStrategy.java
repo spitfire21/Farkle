@@ -3,9 +3,9 @@ package edu.plu.cs.farkle.server.resource.game.scoring;
 import java.util.List;
 import java.util.Map;
 
-public class StraightScoreVariation extends DefaultScoreStrategy {
+public class StraightScoreStrategy extends DefaultScoreStrategy {
 
-	public StraightScoreVariation(int amount) {
+	public StraightScoreStrategy(int amount) {
 		super(amount);
 	}
 	@Override

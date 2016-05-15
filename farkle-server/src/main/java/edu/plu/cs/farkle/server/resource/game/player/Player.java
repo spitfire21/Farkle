@@ -20,7 +20,7 @@ abstract public class Player {
 		setStoredDice(new ArrayList<Integer>());
 		this.game = game;
 	}
-	public abstract void Roll();
+	public abstract void roll();
 	public int getScore() {
 		return score;
 	}

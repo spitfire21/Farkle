@@ -23,7 +23,7 @@ public class ClientBase implements CallBack
 		String status = "";
 		try {	
 			
-		status = login.Register(username, password);
+		status = login.register(username, password);
 		} catch (JsonProcessingException e) {
 			
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class ClientBase implements CallBack
 	}
 	public String login(String username, String password){
 		name = username;
-		return token = login.Login(username, password);
+		return token = login.login(username, password);
 	}
 	
 	@Override

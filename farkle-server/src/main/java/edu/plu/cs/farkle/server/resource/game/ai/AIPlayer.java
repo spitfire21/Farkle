@@ -28,16 +28,16 @@ public class AIPlayer extends Player{
 		
 	}
 	@Override
-	public void Roll(){
+	public void roll(){
 		System.out.println(storedDice.size());
 		for(int i = storedDice.size(); i < 6; i++){
 			dice.add(random.nextInt(6)+1);
 		}
 		System.out.println(dice);
 		
-		if(AIfarkled() == false){
+		if(isFarkle() == false){
 		
-		AIPickDice();
+		pickDice();
 		System.out.println(storedDice);
 		score = game.checkScore(storedDice);
 	
@@ -56,7 +56,7 @@ public class AIPlayer extends Player{
 		
 		
 	}
-	private void AIPickDice(){
+	private void pickDice(){
 		List<Integer> temp;
 		temp = checkHand(dice);
 		
@@ -149,10 +149,10 @@ public class AIPlayer extends Player{
 		}
 		int chance = aggression*(6-dice.size()) - score/50;
 		if(dice.size()==0 && storedDice.size() == 0){
-			Roll();
+			roll();
 		}
 		else if(random.nextInt(60) + 1 <= chance){
-			Roll();
+			roll();
 		} else {
 			endTurn();
 			
@@ -170,7 +170,7 @@ public class AIPlayer extends Player{
 		storedDice.removeAll(storedDice);
 		
 	}
-	public boolean AIfarkled(){
+	public boolean isFarkle(){
 		if (game.checkFarkle(dice) == true){
 			
 			score = 0;

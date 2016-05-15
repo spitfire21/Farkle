@@ -128,7 +128,7 @@ public class HumanPlayer extends Player {
 			}
 		}
 		@Override
-		public void Roll(){
+		public void roll(){
 			
 			
 			stored = false;
@@ -167,7 +167,7 @@ public class HumanPlayer extends Player {
 			// if command is STORE
 		}
 	}
-public void Score(ServerCommand cmd){
+public void score(ServerCommand cmd){
 	totalScore += game.checkScore(dice);
 	totalScore += score;
 	if(totalScore >= game.getThreshHold() && tFlag == false){
@@ -184,7 +184,7 @@ public void Score(ServerCommand cmd){
 		game.getPlayer(i).sendJSON("SCORE", this.name, "Success", new Dice(dice), this.totalScore, this.score);
 	game.endTurn(this);
 }
-public void Store(ServerCommand cmd){
+public void store(ServerCommand cmd){
 	List<Integer> tempDice = new ArrayList<Integer>();
 	tempDice.addAll(dice);
 		int numOfDice = 0;

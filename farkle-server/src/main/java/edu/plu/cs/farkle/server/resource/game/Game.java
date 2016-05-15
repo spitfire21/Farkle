@@ -30,7 +30,7 @@ import edu.plu.cs.farkle.server.resource.game.scoring.CheckFourPlusStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.DefaultScoreStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.FullHouseScoreStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.Scoring;
-import edu.plu.cs.farkle.server.resource.game.scoring.StraightScoreVariation;
+import edu.plu.cs.farkle.server.resource.game.scoring.StraightScoreStrategy;
 import edu.plu.cs.farkle.server.resource.game.scoring.ThreePairScoreStrategy;
 
 public class Game {
@@ -339,13 +339,13 @@ public class Game {
 		System.out.println(command);
 		// if command is ROLL and can roll generate numbers
 		if (command.startsWith("ROLL") && currentPlayer.getName().equals(cmd.getName()) && canRoll(currentPlayer)) {
-			currentPlayer.Roll();
+			currentPlayer.roll();
 		}
 		if (command.startsWith("STORE") && currentPlayer.getName().equals(cmd.getName())) {
-			currentPlayer.Store(cmd);
+			currentPlayer.store(cmd);
 		}
 		if (command.startsWith("SCORE") && currentPlayer.getName().equals(cmd.getName())) {
-			currentPlayer.Score(cmd);
+			currentPlayer.score(cmd);
 		}
 		if (command.startsWith("SETTINGS") && settingCounter == 0) {
 			settingCounter = 1;
@@ -360,7 +360,7 @@ public class Game {
 			int straight = Integer.parseInt(parts[4]);
 			int fullHouse = Integer.parseInt(parts[5]);
 			farkleDeduction = Integer.parseInt(parts[6]);
-			scoring.addScoreSet(new StraightScoreVariation(straight));
+			scoring.addScoreSet(new StraightScoreStrategy(straight));
 			scoring.addScoreSet(new ThreePairScoreStrategy(threePair));
 			scoring.addScoreSet(new FullHouseScoreStrategy(fullHouse));
 			scoring.addScoreSet(new CheckFourPlusStrategy(0,fourPlusKind));
