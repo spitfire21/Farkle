@@ -12,12 +12,12 @@ public class CheckFourPlusStrategy extends DefaultScoreStrategy{
 	public int checkScore(Map<Integer, Integer> dice){
 		
 		int temp1, temp2; 
-		temp1 = Check4(dice);
-		temp2 = Check5(dice);
+		temp1 = check4(dice);
+		temp2 = check5(dice);
 		if(temp2 > temp1){
 			temp1 = temp2; 
 		}
-		temp2 = Check6(dice);
+		temp2 = check6(dice);
 		if(temp2 > temp1){
 			
 			temp1 = temp2;
@@ -25,7 +25,7 @@ public class CheckFourPlusStrategy extends DefaultScoreStrategy{
 		
 		return temp1;
 	}
-	public int Check4(Map<Integer, Integer> dice){
+	public int check4(Map<Integer, Integer> dice){
 		int score = 0;
 		
 		for(int i =1; i <= 6; i++){
@@ -57,7 +57,7 @@ public class CheckFourPlusStrategy extends DefaultScoreStrategy{
 		
 	}
 	
-	public int Check5(Map<Integer,Integer> dice){
+	public int check5(Map<Integer,Integer> dice){
 		int score = 0;
 		for(int i =1; i <= 6; i++){
 			if(i == 1){
@@ -86,7 +86,7 @@ public class CheckFourPlusStrategy extends DefaultScoreStrategy{
 		return score;
 		
 	}
-	public int Check6(Map<Integer, Integer> dice){
+	public int check6(Map<Integer, Integer> dice){
 		int score = 0;
 		for(int i =1; i <= 6; i++){
 			if(i == 1){
