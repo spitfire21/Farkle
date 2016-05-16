@@ -97,11 +97,7 @@ public class Game {
 		if (players.size() == GAME_SIZE) {
 			setStatus("FULL");
 
-			//send game settings to players
-			for(int i = 0; i < players.size(); i++)
-			{
-				players.get(i).sendMessage("SETTINGS", gameSettings);
-			}
+			
 
 			start();
 		}
@@ -365,6 +361,11 @@ public class Game {
 			scoring.addScoreSet(new FullHouseScoreStrategy(fullHouse));
 			scoring.addScoreSet(new CheckFourPlusStrategy(0,fourPlusKind));
 			scoring.addScoreSet(new DefaultScoreStrategy(0));
+			//send game settings to players
+			for(int i = 0; i < players.size(); i++)
+			{
+				players.get(i).sendMessage("SETTINGS", gameSettings);
+			}
 		}
 
 	}

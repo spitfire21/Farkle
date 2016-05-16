@@ -933,7 +933,7 @@ public class GamePage extends JFrame implements GUICallBack {
 					JOptionPane.INFORMATION_MESSAGE);
 			
 		}
-		if(command.getCommand().equals("SETTINGS")) {
+		if(command.getCommand().equals("SETTINGS") && !command.getMessage().equals("")) {
 			String[] settingList = command.getMessage().split(",");
 			FinalSettings fs = new FinalSettings();
 			JPanel settingPanel = fs.getGameSettings(settingList, p1Settings);
